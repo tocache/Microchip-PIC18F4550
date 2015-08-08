@@ -32,18 +32,18 @@
 
 confi:	movlw 0x20	;Cargamos a W el valor de 20H
       	movwf STATUS	;Movemos el contenido de W a STATUS
-	      clrf ANSEL	;Deshabilitamos el ADC
-	      movlw 0xFE
-	      movwf TRISB	;Puerto B0 como salida
-	      movlw 0x07
+	    clrf ANSEL	;Deshabilitamos el ADC
+	    movlw 0xFE
+	    movwf TRISB	;Puerto B0 como salida
+	    movlw 0x07
         movwf CMCON	;Desactivamos el comparador analógico
         clrf CVRCON	;Desactivamos el voltaje de referencia
       	clrf STATUS	;Limpiamos el contenido de STATUS
 
 inicio:	btfss PORTB, 7	;Preguntamos el RB7 si esta en 1
-	      goto falso	;Salta aquí si no es cierto
-	      bcf PORTB, 0	;Salta aquí si es cierto, mandamos a 0 el RB0
-	      goto inicio	;Salta a inicio
+	    goto falso	;Salta aquí si no es cierto
+	    bcf PORTB, 0	;Salta aquí si es cierto, mandamos a 0 el RB0
+	    goto inicio	;Salta a inicio
 falso:	bsf PORTB, 0	;Mandamos a 1 el RB0
       	goto inicio	;Salta a inicio
       	end
