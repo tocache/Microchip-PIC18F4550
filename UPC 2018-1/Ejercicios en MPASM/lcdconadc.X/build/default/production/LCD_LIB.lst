@@ -1,0 +1,379 @@
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+  00000000            00002 RS   EQU  0
+  00000001            00003 RW   EQU  1
+  00000002            00004 E    EQU  2
+                      00005 
+                      00006  CBLOCK 0x000
+  00000000            00007     aux
+  00000001            00008     cont
+  00000002            00009     BCD2
+  00000003            00010     BCD1
+  00000004            00011     BCD0
+  00000005            00012     var
+  00000006            00013     dato
+  00000007            00014     rx
+  00000008            00015     aux1
+  00000009            00016     aux2
+  0000000A            00017     aux3
+  0000000B            00018     conta1
+  0000000C            00019     conta2
+  0000000D            00020     dir_CGRAM
+  0000000E            00021     dir_CARACTER
+                      00022     ENDC
+                      00023 
+                      00024     ORG 0x600
+                      00025 
+000600                00026 POS_CUR_FIL2:
+000600 0FC0           00027         addlw 0xC0;
+000602 6E06           00028         movwf dato,0;
+000604 EC?? F???      00029         call ENVIA_LCD_CMD
+000608 0012           00030         return
+                      00031 
+00060A                00032 POS_CUR_FIL1:
+00060A 0F80           00033         addlw 0x80;
+00060C 6E06           00034         movwf dato,0;
+00060E EC?? F???      00035         call ENVIA_LCD_CMD
+000612 0012           00036         return
+                      00037 
+000614                00038 DISPLAY_ON:
+000614 0E0F           00039         movlw b'00001111'
+000616 6E06           00040         movwf dato,0;
+000618 EC?? F???      00041         call ENVIA_LCD_CMD
+00061C 0012           00042         return
+                      00043 
+00061E                00044 DISPLAY_OFF:
+00061E 0E08           00045         movlw b'00001000'
+000620 6E06           00046         movwf dato,0;
+000622 EC?? F???      00047         call ENVIA_LCD_CMD
+000626 0012           00048         return
+                      00049 
+000628                00050 CURSOR_HOME:
+000628 0E02           00051         movlw b'00000010'
+00062A 6E06           00052         movwf dato,0;
+00062C EC?? F???      00053         call ENVIA_LCD_CMD
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000630 0012           00054         return
+                      00055 
+000632                00056 CURSOR_OFF:
+000632 0E0C           00057         movlw b'00001100'
+000634 6E06           00058         movwf dato,0;
+000636 EC?? F???      00059         call ENVIA_LCD_CMD
+00063A 0012           00060         return
+                      00061 
+00063C                00062 CURSOR_ON:
+00063C 0E0F           00063         movlw b'00001111'
+00063E 6E06           00064         movwf dato,0;
+000640 EC?? F???      00065         call ENVIA_LCD_CMD
+000644 0012           00066         return
+                      00067 
+000646                00068 ENVIA_CHAR:
+000646 6E06           00069         movwf dato,0
+000648 EC?? F???      00070         call ENVIA_LCD_DATO
+00064C 0012           00071         return
+                      00072 
+00064E                00073 BORRAR_LCD:
+00064E 0E01           00074         movlw 0x01
+000650 6E06           00075         movwf dato,0
+000652 EC?? F???      00076         call ENVIA_LCD_CMD
+000656 0012           00077         return
+                      00078 
+000658                00079 LCD_CONFIG:
+Error[113]  : Symbol not previously defined (LATD)
+000658 9000           00080         bcf   LATD,RS
+Error[113]  : Symbol not previously defined (LATD)
+00065A 9200           00081         bcf   LATD,RW
+00065C 0E30           00082         movlw 0x30
+00065E EC?? F???      00083         call  ENVIA_NIBBLE
+000662 EC?? F???      00084         call  DELAY2MSEG
+000666 EC?? F???      00085         call  DELAY2MSEG
+00066A EC?? F???      00086         call  DELAY2MSEG
+00066E 0E20           00087         movlw 0x20
+000670 EC?? F???      00088         call ENVIA_NIBBLE
+000674 0E01           00089         movlw 0x01
+000676 EC?? F???      00090         call ENVIA_LCD_CMD;
+00067A 0E28           00091         movlw 0x28              ;Control del display (Activar,mostrar cursor y que parpadee)
+00067C EC?? F???      00092         call ENVIA_LCD_CMD 
+000680 0E0F           00093         movlw 0x0F    ;Conjunto de inicio (Incrementar posición sin desplazamiento)
+000682 EC?? F???      00094         call ENVIA_LCD_CMD  
+000686 0E06           00095         movlw 0x06    
+000688 EC?? F???      00096         call ENVIA_LCD_CMD  
+00068C 0E01           00097         movlw 0x01              ;Limpiar el display;
+00068E EC?? F???      00098         call ENVIA_LCD_CMD      
+000692 0012           00099         return
+                      00100 
+000694                00101 ENVIA_NIBBLE:
+000694 6E07           00102         movwf rx,0
+000696 0E0F           00103         movlw 0x0F
+Error[113]  : Symbol not previously defined (LATD)
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000698 1600           00104         andwf LATD,f,0
+00069A 0EF0           00105         movlw 0xF0
+00069C 1407           00106         andwf rx,W
+00069E 5007           00107         movf  rx,W,0
+Error[113]  : Symbol not previously defined (LATD)
+0006A0 1200           00108         iorwf LATD,f,0
+Error[113]  : Symbol not previously defined (LATD)
+0006A2 8400           00109         bsf   LATD,E,0
+Error[113]  : Symbol not previously defined (LATD)
+0006A4 9400           00110         bcf   LATD,E,0
+0006A6 0000           00111         nop
+0006A8 0012           00112         return
+                      00113 
+0006AA                00114 ENVIA_LCD_CMD:
+Error[113]  : Symbol not previously defined (LATD)
+0006AA 9000           00115         bcf LATD,RS,0
+0006AC 6E06           00116         movwf dato
+0006AE EC?? F???      00117         call DELAY2MSEG
+0006B2 EC?? F???      00118         call DELAY2MSEG
+0006B6 EC?? F???      00119         call DELAY2MSEG
+0006BA 0E08           00120         movlw b'00001000'
+Error[113]  : Symbol not previously defined (TRISD)
+0006BC 6E00           00121         movwf TRISD,0
+0006BE EC?? F???      00122         call DELAY100uS
+Error[113]  : Symbol not previously defined (LATD)
+0006C2 9200           00123         bcf  LATD,RW
+Error[113]  : Symbol not previously defined (LATD)
+0006C4 9400           00124         bcf  LATD,E
+Error[113]  : Symbol not previously defined (LATD)
+0006C6 9000           00125         bcf  LATD,RS
+0006C8 5006           00126         movf dato,W,0
+0006CA 0BF0           00127         andlw 0xF0;
+0006CC EC?? F???      00128         call ENVIA_NIBBLE
+0006D0 3A06           00129         swapf dato,f,0
+0006D2 5006           00130         movf dato,W,0
+0006D4 0BF0           00131         andlw 0xF0
+0006D6 EC?? F???      00132         call ENVIA_NIBBLE
+0006DA 0012           00133         return
+                      00134 
+0006DC                00135 ENVIA_LCD_DATO:
+Error[113]  : Symbol not previously defined (LATD)
+0006DC 8000           00136         bsf  LATD,RS
+0006DE 6E06           00137         movwf dato
+0006E0 EC?? F???      00138         call DELAY2MSEG
+0006E4 EC?? F???      00139         call DELAY2MSEG
+0006E8 EC?? F???      00140         call DELAY2MSEG
+0006EC 0E08           00141         movlw b'00001000'
+Error[113]  : Symbol not previously defined (TRISD)
+0006EE 6E00           00142         movwf TRISD,0
+0006F0 EC?? F???      00143         call DELAY100uS
+Error[113]  : Symbol not previously defined (LATD)
+0006F4 9200           00144         bcf  LATD,RW
+Error[113]  : Symbol not previously defined (LATD)
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0006F6 9400           00145         bcf  LATD,E
+Error[113]  : Symbol not previously defined (LATD)
+0006F8 8000           00146         bsf  LATD,RS
+0006FA 5006           00147         movf dato,0,0
+0006FC 0BF0           00148         andlw 0xF0;
+0006FE EC?? F???      00149         call ENVIA_NIBBLE
+000702 3A06           00150         swapf dato,f,0
+000704 5006           00151         movf  dato,0,0
+000706 0BF0           00152         andlw 0xF0
+000708 EC?? F???      00153         call ENVIA_NIBBLE
+00070C 0012           00154         return
+                      00155 
+00070E                00156 GENERA_CHAR_CGRAM:
+00070E 0E40           00157         movlw 0x40
+000710 240D           00158         addwf dir_CGRAM,W
+000712 6E06           00159         movwf dato
+000714 EC?? F???      00160         call ENVIA_LCD_CMD
+000718                00161 REPITE:
+000718 0009           00162         TBLRD*+;;
+Error[113]  : Symbol not previously defined (TABLAT)
+00071A 5000           00163         movf  TABLAT,W
+00071C 6E05           00164         movwf var
+00071E 0EFF           00165         movlw 0xFF
+000720 5C05           00166         subwf var,W
+Error[113]  : Symbol not previously defined (Z)
+Error[113]  : Symbol not previously defined (STATUS)
+000722 B000           00167         btfsc STATUS,Z
+000724 EF?? F???      00168         goto  SALIR
+000728 C005 F006      00169         movff var,dato
+00072C EC?? F???      00170         call ENVIA_LCD_DATO
+000730 EF?? F???      00171         goto  REPITE
+000734                00172 SALIR:
+000734 0E80           00173         movlw 0x80
+000736 6E06           00174         movwf dato
+000738 EC?? F???      00175         call ENVIA_LCD_CMD
+00073C 0012           00176         return  
+                      00177 
+00073E                00178 DELAY2MSEG:
+00073E 0E07           00179         movlw .7
+000740 6E0B           00180         movwf conta1,0
+000742                00181 RETAR1:
+000742 0E64           00182         movlw .100          ;1 useg
+000744 6E0C           00183         movwf conta2,0      ;1 useg
+000746                00184 RETAR2:
+000746 2E0C           00185         decfsz conta2,f,0       ;1 useg
+000748 EF?? F???      00186         goto   RETAR2           ;2 useg
+00074C 2E0B           00187         decfsz conta1,f,0       ;1 useg
+00074E EF?? F???      00188         goto   RETAR1
+000752 0012           00189         return
+                      00190 
+000754                00191 DELAY15MSEG:
+000754 0E32           00192         movlw .50
+000756 6E0B           00193         movwf conta1,0
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000758                00194 RETAR3:
+000758 0E64           00195         movlw .100
+00075A 6E0C           00196         movwf conta2,0
+00075C                00197 RETAR4:
+00075C 2E0C           00198         decfsz conta2,f,0
+00075E EF?? F???      00199         goto   RETAR4
+000762 2E0B           00200         decfsz conta1,f,0
+000764 EF?? F???      00201         goto   RETAR3
+000768 0012           00202         return
+                      00203 
+00076A                00204 DELAY100uS:
+00076A 0E03           00205         movlw .3
+00076C 6E0B           00206         movwf  conta1,0
+00076E                00207 RETAR7:
+00076E 0E09           00208         movlw .9
+000770 6E0C           00209         movwf conta2,0
+000772                00210 RETAR8:
+000772 2E0C           00211         decfsz conta2,f,0
+000774 EF?? F???      00212         goto  RETAR8
+000778 2E0B           00213         decfsz conta1,f,0
+00077A EF?? F???      00214         goto  RETAR7
+00077E 0012           00215         return
+                      00216 
+000780                00217 BIN_BCD:
+000780 6E00           00218         movwf aux,0             ;Se guarda el valor a convertir en aux
+000782 6A01           00219         clrf  cont,0    ;cont=0x00
+000784 6A04           00220         clrf  BCD0,0    ;BCD0=0x00
+000786 6A03           00221         clrf  BCD1,0    ;BCD1=0x00
+000788 6A02           00222         clrf  BCD2,0    ;BCD2=0x00
+00078A                00223 CONV:
+00078A 3600           00224         rlcf  aux,f         ;Rotar a la izquierda cont (cifra original)
+00078C 3604           00225         rlcf  BCD0,f    ;Rotar a la izquierda BCD0 (carga el carry de cont en el bit LSB)
+00078E 3602           00226         rlcf  BCD2,f    ;Rotar a la izquierda BCD2 (carga el carry de BCD0 en el bit LSB)
+                      00227 ;Cargar el nibble alto de BCD0 a BCD2 y analizar        
+000790 5004           00228         movf  BCD0,W    ;W = BCD0
+000792 6E03           00229         movwf BCD1,0    ;BCD1 = BCD0
+000794 3A03           00230         swapf BCD1,f    ;Inversión de nibbles en BCD1
+000796 0E0F           00231         movlw 0x0F              ;W = 0x0F
+000798 1603           00232         andwf BCD1,f    ;BCD1 = BCD1 AND 0x0F
+00079A 1604           00233         andwf BCD0,f    ;BCD0 = BCD0 AND 0x0F
+                      00234 ;Se pregunta si ya se llegaron a rotar a la izquierda los 8 bits
+00079C 0E07           00235         movlw .7                ;W = .7
+00079E 6001           00236         cpfslt cont,0   ;Salta si cont es menor a .7
+0007A0 0012           00237         return                  ;Si cont = .7 retorna (FIN de la rutina)
+                      00238 ;Averiguar si los nibbles de BCD0 y BCD1 son mayores que .4
+0007A2 0E05           00239         movlw .5                ;W = .5
+0007A4 5C04           00240         subwf BCD0,W    ;W = BCD0 - .5
+Error[113]  : Symbol not previously defined (C)
+Error[113]  : Symbol not previously defined (STATUS)
+0007A6 B000           00241         btfsc STATUS,C  ;Si BCD0>4 => Carry = 1
+0007A8 EC?? F???      00242         call  SUMA3_BCD0;BCD0>4, hay que sumar 3
+0007AC 0E05           00243         movlw .5                ;BCD0 <5, se comprueba BCD1
+0007AE 5C03           00244         subwf BCD1,W    ;W = BCD1 - .5
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Error[113]  : Symbol not previously defined (C)
+Error[113]  : Symbol not previously defined (STATUS)
+0007B0 B000           00245         btfsc STATUS,C  ;Si BCD1>4 => Carry = 1
+0007B2 EC?? F???      00246         call  SUMA3_BCD1;BCD1>4, hay que sumar 3 
+0007B6 3A03           00247         swapf BCD1,f    ;Inversión de nibbles en BCD1
+0007B8 5003           00248         movf  BCD1,W    ;W = BCD1
+0007BA 1204           00249         iorwf BCD0              ;BCD0 = BCD1 OR BCD0
+0007BC 2A01           00250         incf  cont,f,0  ;cont = cont + 1
+0007BE EF?? F???      00251         goto  CONV              ;Se repite el proceso
+0007C2                00252 SUMA3_BCD0:
+0007C2 0E03           00253         movlw .3                ;W = .3
+0007C4 2604           00254         addwf BCD0,f,0  ;BCD0 = BCD0 + .3
+0007C6 0012           00255         return                  ;retorno del call
+0007C8                00256 SUMA3_BCD1:
+0007C8 0E03           00257         movlw .3                ;W = .3
+0007CA 2603           00258         addwf BCD1,f,0  ;BCD1 = BCD1 + .3
+0007CC 0012           00259         return                  ;retorno del call
+                      00260  END
+MPASM 5.77                       LCD_LIB.ASM   5-3-2018  19:52:19         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BCD0                              00000004
+BCD1                              00000003
+BCD2                              00000002
+BIN_BCD                           00000780
+BORRAR_LCD                        0000064E
+CONV                              0000078A
+CURSOR_HOME                       00000628
+CURSOR_OFF                        00000632
+CURSOR_ON                         0000063C
+DELAY100uS                        0000076A
+DELAY15MSEG                       00000754
+DELAY2MSEG                        0000073E
+DISPLAY_OFF                       0000061E
+DISPLAY_ON                        00000614
+E                                 00000002
+ENVIA_CHAR                        00000646
+ENVIA_LCD_CMD                     000006AA
+ENVIA_LCD_DATO                    000006DC
+ENVIA_NIBBLE                      00000694
+GENERA_CHAR_CGRAM                 0000070E
+LCD_CONFIG                        00000658
+POS_CUR_FIL1                      0000060A
+POS_CUR_FIL2                      00000600
+REPITE                            00000718
+RETAR1                            00000742
+RETAR2                            00000746
+RETAR3                            00000758
+RETAR4                            0000075C
+RETAR7                            0000076E
+RETAR8                            00000772
+RS                                00000000
+RW                                00000001
+SALIR                             00000734
+SUMA3_BCD0                        000007C2
+SUMA3_BCD1                        000007C8
+__18F4550                         00000001
+aux                               00000000
+aux1                              00000008
+aux2                              00000009
+aux3                              0000000A
+cont                              00000001
+conta1                            0000000B
+conta2                            0000000C
+dato                              00000006
+dir_CARACTER                      0000000E
+dir_CGRAM                         0000000D
+rx                                00000007
+var                               00000005
+
+Errors   :    23
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

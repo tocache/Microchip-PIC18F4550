@@ -1,0 +1,503 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.45 build -152302408 
+                                                                                               Tue May 22 11:42:17 2018
+
+Microchip Technology Omniscient Code Generator v1.45 (Free mode) build 201711160504
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     8                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     9                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    12                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    13  0000                     
+    14                           ; Version 1.45
+    15                           ; Generated 16/11/2017 GMT
+    16                           ; 
+    17                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    18                           ; All rights reserved.
+    19                           ; 
+    20                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    21                           ; 
+    22                           ; Redistribution and use in source and binary forms, with or without modification, are
+    23                           ; permitted provided that the following conditions are met:
+    24                           ; 
+    25                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    26                           ;        conditions and the following disclaimer.
+    27                           ; 
+    28                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    29                           ;        of conditions and the following disclaimer in the documentation and/or other
+    30                           ;        materials provided with the distribution.
+    31                           ; 
+    32                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    33                           ;        software without specific prior written permission.
+    34                           ; 
+    35                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    36                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    37                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    38                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    39                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    40                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    41                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    42                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    43                           ; 
+    44                           ; 
+    45                           ; Code-generator required, PIC18F4550 Definitions
+    46                           ; 
+    47                           ; SFR Addresses
+    48  0000                     
+    49                           	psect	idataCOMRAM
+    50  007F64                     __pidataCOMRAM:
+    51                           	opt stack 0
+    52                           
+    53                           ;initializer for _tblinf
+    54  007F64  11                 	db	17
+    55  007F65  01                 	db	1
+    56  007F66  18                 	db	24
+    57  007F67  00                 	db	0
+    58  007F68  00                 	db	0
+    59                           
+    60                           ;initializer for _tblsup
+    61  007F69  E3                 	db	227
+    62  007F6A  CF                 	db	207
+    63  007F6B  E3                 	db	227
+    64  007F6C  3F                 	db	63
+    65  007F6D  00                 	db	0
+    66  0000                     _LATD	set	3980
+    67  0000                     _LATB	set	3978
+    68  0000                     _LATCbits	set	3979
+    69  0000                     _TRISC	set	3988
+    70  0000                     _TRISB	set	3987
+    71  0000                     _TRISD	set	3989
+    72                           
+    73                           ; #config settings
+    74  0000                     
+    75                           	psect	cinit
+    76  007F84                     __pcinit:
+    77                           	opt stack 0
+    78  007F84                     start_initialization:
+    79                           	opt stack 0
+    80  007F84                     __initialization:
+    81                           	opt stack 0
+    82                           
+    83                           ; Initialize objects allocated to COMRAM (10 bytes)
+    84                           ; load TBLPTR registers with __pidataCOMRAM
+    85  007F84  0E64               	movlw	low __pidataCOMRAM
+    86  007F86  6EF6               	movwf	tblptrl,c
+    87  007F88  0E7F               	movlw	high __pidataCOMRAM
+    88  007F8A  6EF7               	movwf	tblptrh,c
+    89  007F8C  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+    90  007F8E  6EF8               	movwf	tblptru,c
+    91  007F90  EE00  F001         	lfsr	0,__pdataCOMRAM
+    92  007F94  EE10 F00A          	lfsr	1,10
+    93  007F98                     copy_data0:
+    94  007F98  0009               	tblrd		*+
+    95  007F9A  CFF5 FFEE          	movff	tablat,postinc0
+    96  007F9E  50E5               	movf	postdec1,w,c
+    97  007FA0  50E1               	movf	fsr1l,w,c
+    98  007FA2  E1FA               	bnz	copy_data0
+    99  007FA4                     end_of_initialization:
+   100                           	opt stack 0
+   101  007FA4                     __end_of__initialization:
+   102                           	opt stack 0
+   103  007FA4  0100               	movlb	0
+   104  007FA6  EFB7  F03F         	goto	_main	;jump to C main() function
+   105                           tblptru	equ	0xFF8
+   106                           tblptrh	equ	0xFF7
+   107                           tblptrl	equ	0xFF6
+   108                           tablat	equ	0xFF5
+   109                           postinc0	equ	0xFEE
+   110                           postdec1	equ	0xFE5
+   111                           fsr1l	equ	0xFE1
+   112                           
+   113                           	psect	dataCOMRAM
+   114  000001                     __pdataCOMRAM:
+   115                           	opt stack 0
+   116  000001                     _tblinf:
+   117                           	opt stack 0
+   118  000001                     	ds	5
+   119  000006                     _tblsup:
+   120                           	opt stack 0
+   121  000006                     	ds	5
+   122                           tblptru	equ	0xFF8
+   123                           tblptrh	equ	0xFF7
+   124                           tblptrl	equ	0xFF6
+   125                           tablat	equ	0xFF5
+   126                           postinc0	equ	0xFEE
+   127                           postdec1	equ	0xFE5
+   128                           fsr1l	equ	0xFE1
+   129                           
+   130                           	psect	cstackCOMRAM
+   131  00000B                     __pcstackCOMRAM:
+   132                           	opt stack 0
+   133  00000B                     ??_paolo:
+   134  00000B                     
+   135                           ; 2 bytes @ 0x0
+   136  00000B                     	ds	2
+   137  00000D                     paolo@i:
+   138                           	opt stack 0
+   139                           
+   140                           ; 2 bytes @ 0x2
+   141  00000D                     	ds	2
+   142  00000F                     tblptru	equ	0xFF8
+   143                           tblptrh	equ	0xFF7
+   144                           tblptrl	equ	0xFF6
+   145                           tablat	equ	0xFF5
+   146                           postinc0	equ	0xFEE
+   147                           postdec1	equ	0xFE5
+   148                           fsr1l	equ	0xFE1
+   149                           
+   150                           ; 1 bytes @ 0x4
+   151 ;;
+   152 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   153 ;;
+   154 ;; *************** function _main *****************
+   155 ;; Defined at:
+   156 ;;		line 21 in file "newmain.c"
+   157 ;; Parameters:    Size  Location     Type
+   158 ;;		None
+   159 ;; Auto vars:     Size  Location     Type
+   160 ;;		None
+   161 ;; Return value:  Size  Location     Type
+   162 ;;                  1    wreg      void 
+   163 ;; Registers used:
+   164 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   165 ;; Tracked objects:
+   166 ;;		On entry : 0/0
+   167 ;;		On exit  : 0/0
+   168 ;;		Unchanged: 0/0
+   169 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   170 ;;      Params:         0       0       0       0       0       0       0       0       0
+   171 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   172 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   173 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   174 ;;Total ram usage:        0 bytes
+   175 ;; Hardware stack levels required when called:    1
+   176 ;; This function calls:
+   177 ;;		_paolo
+   178 ;; This function is called by:
+   179 ;;		Startup code after reset
+   180 ;; This function uses a non-reentrant model
+   181 ;;
+   182                           
+   183                           	psect	text0
+   184  007F6E                     __ptext0:
+   185                           	opt stack 0
+   186  007F6E                     _main:
+   187                           	opt stack 30
+   188                           
+   189                           ;newmain.c: 22: TRISD = 0x00;
+   190                           
+   191                           ;incstack = 0
+   192  007F6E  0E00               	movlw	0
+   193  007F70  6E95               	movwf	3989,c	;volatile
+   194                           
+   195                           ;newmain.c: 23: TRISB = 0x00;
+   196  007F72  0E00               	movlw	0
+   197  007F74  6E93               	movwf	3987,c	;volatile
+   198                           
+   199                           ;newmain.c: 24: TRISC = 0xFC;
+   200  007F76  0EFC               	movlw	252
+   201  007F78  6E94               	movwf	3988,c	;volatile
+   202  007F7A                     
+   203                           ;newmain.c: 26: LATCbits.LC0 = 0;
+   204  007F7A  908B               	bcf	3979,0,c	;volatile
+   205                           
+   206                           ;newmain.c: 27: LATCbits.LC1 = 0;
+   207  007F7C  928B               	bcf	3979,1,c	;volatile
+   208                           
+   209                           ;newmain.c: 28: paolo();
+   210  007F7E  ECD5  F03F         	call	_paolo	;wreg free
+   211  007F82  D7FB               	goto	l25
+   212  007F84                     __end_of_main:
+   213                           	opt stack 0
+   214                           tblptru	equ	0xFF8
+   215                           tblptrh	equ	0xFF7
+   216                           tblptrl	equ	0xFF6
+   217                           tablat	equ	0xFF5
+   218                           postinc0	equ	0xFEE
+   219                           postdec1	equ	0xFE5
+   220                           fsr1l	equ	0xFE1
+   221                           
+   222 ;; *************** function _paolo *****************
+   223 ;; Defined at:
+   224 ;;		line 32 in file "newmain.c"
+   225 ;; Parameters:    Size  Location     Type
+   226 ;;		None
+   227 ;; Auto vars:     Size  Location     Type
+   228 ;;  i               2    2[COMRAM] int 
+   229 ;; Return value:  Size  Location     Type
+   230 ;;                  2   10[None  ] int 
+   231 ;; Registers used:
+   232 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+   233 ;; Tracked objects:
+   234 ;;		On entry : 0/0
+   235 ;;		On exit  : 0/0
+   236 ;;		Unchanged: 0/0
+   237 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   238 ;;      Params:         0       0       0       0       0       0       0       0       0
+   239 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   240 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   241 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   242 ;;Total ram usage:        4 bytes
+   243 ;; Hardware stack levels used:    1
+   244 ;; This function calls:
+   245 ;;		Nothing
+   246 ;; This function is called by:
+   247 ;;		_main
+   248 ;; This function uses a non-reentrant model
+   249 ;;
+   250                           
+   251                           	psect	text1
+   252  007FAA                     __ptext1:
+   253                           	opt stack 0
+   254  007FAA                     _paolo:
+   255                           	opt stack 30
+   256                           
+   257                           ;newmain.c: 33: for (int i=0;i<5;i++){
+   258                           
+   259                           ;incstack = 0
+   260  007FAA  0E00               	movlw	0
+   261  007FAC  6E0E               	movwf	paolo@i+1,c
+   262  007FAE  0E00               	movlw	0
+   263  007FB0  6E0D               	movwf	paolo@i,c
+   264  007FB2                     l679:
+   265  007FB2  BE0E               	btfsc	paolo@i+1,7,c
+   266  007FB4  D006               	goto	l31
+   267  007FB6  500E               	movf	paolo@i+1,w,c
+   268  007FB8  E122               	bnz	l33
+   269  007FBA  0E05               	movlw	5
+   270  007FBC  5C0D               	subwf	paolo@i,w,c
+   271  007FBE  B0D8               	btfsc	status,0,c
+   272  007FC0  0012               	return	
+   273  007FC2                     l31:
+   274                           
+   275                           ;newmain.c: 34: LATB = tblsup[i];
+   276  007FC2  0E06               	movlw	low _tblsup
+   277  007FC4  240D               	addwf	paolo@i,w,c
+   278  007FC6  6ED9               	movwf	fsr2l,c
+   279  007FC8  0E00               	movlw	high _tblsup
+   280  007FCA  200E               	addwfc	paolo@i+1,w,c
+   281  007FCC  6EDA               	movwf	fsr2h,c
+   282  007FCE  50DF               	movf	indf2,w,c
+   283  007FD0  6E8A               	movwf	3978,c	;volatile
+   284                           
+   285                           ;newmain.c: 35: LATD = tblinf[i];
+   286  007FD2  0E01               	movlw	low _tblinf
+   287  007FD4  240D               	addwf	paolo@i,w,c
+   288  007FD6  6ED9               	movwf	fsr2l,c
+   289  007FD8  0E00               	movlw	high _tblinf
+   290  007FDA  200E               	addwfc	paolo@i+1,w,c
+   291  007FDC  6EDA               	movwf	fsr2h,c
+   292  007FDE  50DF               	movf	indf2,w,c
+   293  007FE0  6E8C               	movwf	3980,c	;volatile
+   294                           
+   295                           ;newmain.c: 36: _delay((unsigned long)((1000)*(48000000UL/4000.0)));
+   296  007FE2  0E3D               	movlw	61
+   297  007FE4  6E0C               	movwf	(??_paolo+1)& (0+255),c
+   298  007FE6  0EE1               	movlw	225
+   299  007FE8  6E0B               	movwf	??_paolo& (0+255),c
+   300  007FEA  0E40               	movlw	64
+   301  007FEC                     u57:
+   302  007FEC  2EE8               	decfsz	wreg,f,c
+   303  007FEE  D7FE               	bra	u57
+   304  007FF0  2E0B               	decfsz	??_paolo& (0+255),f,c
+   305  007FF2  D7FC               	bra	u57
+   306  007FF4  2E0C               	decfsz	(??_paolo+1)& (0+255),f,c
+   307  007FF6  D7FA               	bra	u57
+   308  007FF8  4A0D               	infsnz	paolo@i,f,c
+   309  007FFA  2A0E               	incf	paolo@i+1,f,c
+   310  007FFC  D7DA               	goto	l679
+   311  007FFE                     l33:
+   312  007FFE  0012               	return		;funcret
+   313  008000                     __end_of_paolo:
+   314                           	opt stack 0
+   315  0000                     tblptru	equ	0xFF8
+   316                           tblptrh	equ	0xFF7
+   317                           tblptrl	equ	0xFF6
+   318                           tablat	equ	0xFF5
+   319                           postinc0	equ	0xFEE
+   320                           wreg	equ	0xFE8
+   321                           postdec1	equ	0xFE5
+   322                           fsr1l	equ	0xFE1
+   323                           indf2	equ	0xFDF
+   324                           fsr2h	equ	0xFDA
+   325                           fsr2l	equ	0xFD9
+   326                           status	equ	0xFD8
+   327                           tblptru	equ	0xFF8
+   328                           tblptrh	equ	0xFF7
+   329                           tblptrl	equ	0xFF6
+   330                           tablat	equ	0xFF5
+   331                           postinc0	equ	0xFEE
+   332                           wreg	equ	0xFE8
+   333                           postdec1	equ	0xFE5
+   334                           fsr1l	equ	0xFE1
+   335                           indf2	equ	0xFDF
+   336                           fsr2h	equ	0xFDA
+   337                           fsr2l	equ	0xFD9
+   338                           status	equ	0xFD8
+   339                           
+   340                           	psect	rparam
+   341  0000                     tblptru	equ	0xFF8
+   342                           tblptrh	equ	0xFF7
+   343                           tblptrl	equ	0xFF6
+   344                           tablat	equ	0xFF5
+   345                           postinc0	equ	0xFEE
+   346                           wreg	equ	0xFE8
+   347                           postdec1	equ	0xFE5
+   348                           fsr1l	equ	0xFE1
+   349                           indf2	equ	0xFDF
+   350                           fsr2h	equ	0xFDA
+   351                           fsr2l	equ	0xFD9
+   352                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        10
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95      4      14
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_paolo
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0      90
+                              _paolo
+ ---------------------------------------------------------------------------------
+ (1) _paolo                                                4     4      0      90
+                                              0 COMRAM     4     4      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _paolo
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0       0      21        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F      4       E       1       14.7%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0       E      20        0.0%
+DATA                 0      0       E       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.45 build -152302408 
+Symbol Table                                                                                   Tue May 22 11:42:17 2018
+
+                     l31 7FC2                       l33 7FFE                       l25 7F7A  
+                     u57 7FEC       __CFG_FOSC$XTPLL_XT 000000                      l679 7FB2  
+           __CFG_BOR$OFF 000000                      wreg 000FE8             __CFG_LVP$OFF 000000  
+           __CFG_WDT$OFF 000000                     _LATB 000F8A                     _LATD 000F8C  
+           __CFG_PWRT$ON 000000                     _main 7F6E                     indf2 000FDF  
+                   fsr1l 000FE1                     fsr2l 000FD9                     start 0000  
+          __CFG_MCLRE$ON 000000             ___param_bank 000000            __CFG_PLLDIV$1 000000  
+         __CFG_CCP2MX$ON 000000                    ?_main 000B                    _TRISB 000F93  
+                  _TRISC 000F94                    _TRISD 000F95                    _paolo 7FAA  
+                  tablat 000FF5                    status 000FD8           __CFG_PBADEN$ON 000000  
+        __initialization 7F84             __end_of_main 7F84                   ??_main 000F  
+          __activetblptr 000000                   ?_paolo 000B                   _tblinf 0001  
+                 _tblsup 0006                   paolo@i 000D             __pdataCOMRAM 0001  
+                 tblptrh 000FF7                   tblptrl 000FF6                   tblptru 000FF8  
+             __accesstop 0060  __end_of__initialization 7FA4            ___rparam_used 000001  
+         __pcstackCOMRAM 000B            __end_of_paolo 8000                  ??_paolo 000B  
+                __Hparam 0000                  __Lparam 0000                  __pcinit 7F84  
+                __ramtop 0800                  __ptext0 7F6E                  __ptext1 7FAA  
+   end_of_initialization 7FA4                  postdec1 000FE5                  postinc0 000FEE  
+          __pidataCOMRAM 7F64      start_initialization 7F84           __size_of_paolo 0056  
+               _LATCbits 000F8B                copy_data0 7F98                 __Hrparam 0000  
+               __Lrparam 0000            __size_of_main 0016    __CFG_CPUDIV$OSC1_PLL2 000000  
