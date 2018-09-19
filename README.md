@@ -1,7 +1,7 @@
 # Microchip-PIC18F4550
 Repositorio de aplicaciones con los microcontroladores PIC
-<img ref="PIC18F4550_1.gif">
 
+<img src="PIC18F4550_1.gif">
 
 <b> Changelog:</b>
 
