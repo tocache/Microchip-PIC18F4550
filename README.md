@@ -3,7 +3,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 
 <img src="PIC18F4550_1.gif">
 
-Repositorio de enlaces:
+<b>Repositorio de enlaces:</b><br>
 USB HID Bootloader for PIC178F4550: https://openlabpro.com/guide/bootloader-for-pic18f4550/
 
 <b> Changelog:</b>
