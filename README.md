@@ -4,7 +4,8 @@ Repositorio de aplicaciones con los microcontroladores PIC
 <img src="PIC18F4550_1.gif">
 
 <b>Repositorio de enlaces:</b><br>
-USB HID Bootloader for PIC18F4550: https://openlabpro.com/guide/bootloader-for-pic18f4550/
+USB HID Bootloader for PIC18F4550: https://openlabpro.com/guide/bootloader-for-pic18f4550/ <br>
+Tiny Bootloader: http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm <br>
 
 <b> Changelog:</b>
 
