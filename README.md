@@ -8,6 +8,7 @@ USB HID Bootloader for PIC18F4550: https://openlabpro.com/guide/bootloader-for-p
 USB HID Bootloader Implementation for PIC18F4450 (thai): https://sites.google.com/site/wirasakwattu/wicha-khxmphiwtexr-krafik <br>
 Tiny Bootloader: http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm <br>
 ASCII table: http://www.asciitable.com/ <br>
+Mikroe Assembly repository: https://www.mikroe.com/ebooks/pic-microcontrollers-programming-in-assembly/appendix-b-examples <br>
 
 <b> Changelog:</b>
 
