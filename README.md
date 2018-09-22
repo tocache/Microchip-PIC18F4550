@@ -9,6 +9,7 @@ USB HID Bootloader Implementation for PIC18F4450 (thai): https://sites.google.co
 Tiny Bootloader: http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm <br>
 ASCII table: http://www.asciitable.com/ <br>
 Mikroe Assembly repository: https://www.mikroe.com/ebooks/pic-microcontrollers-programming-in-assembly/appendix-b-examples <br>
+The University of Sydney - MTRX3700 Mechatronics 3 Course lectures: http://web.aeromech.usyd.edu.au/MTRX3700/Course_Material/lectures/PDF/ <br>
 
 <b> Changelog:</b>
 
