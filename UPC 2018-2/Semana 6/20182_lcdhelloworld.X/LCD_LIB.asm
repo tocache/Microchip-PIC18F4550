@@ -28,6 +28,12 @@ POS_CUR_FIL2:
 	call ENVIA_LCD_CMD
 	return
 
+MOV_CUR_FIL2:
+	movlw 0xC0;
+	movwf dato,0;
+	call ENVIA_LCD_CMD
+	return
+	
 POS_CUR_FIL1:
 	addlw 0x80;
 	movwf dato,0;
@@ -256,4 +262,3 @@ SUMA3_BCD1:
 	movlw .3		;W = .3
 	addwf BCD1,f,0  ;BCD1 = BCD1 + .3
 	return			;retorno del call
- 
