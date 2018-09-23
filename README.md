@@ -13,5 +13,7 @@ The University of Sydney - MTRX3700 Mechatronics 3 Course lectures: http://web.a
 
 <b> Changelog:</b>
 
+<b>2018-09-23:</b> Reclasificación de proyectos puestos en carpetas equivocadas y reordenamiento de documentos técnicos a carpeta Datasheet <br>
+<b>2018-09-19:</b> Añadiendo repositorio de enlaces en el readme.md<br>
 <b>2018-08-17:</b> Actualizando la organización de los contenidos del 2018-2, ahora por estará clasificado por semanas <br>
 <b>2018-08-10:</b> Subiendo los ejemplos de aplicación del curso de Microcontroladores dictado en UPC ciclo 2018-01
