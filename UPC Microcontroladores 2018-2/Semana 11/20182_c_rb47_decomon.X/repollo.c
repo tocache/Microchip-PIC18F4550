@@ -28,4 +28,5 @@ void __interrupt(high_priority) RbISR(void){
     ingreso = ingreso >> 4;
     ingreso = ingreso & 0x0F;
     LATD = tablota[ingreso];
+    INTCONbits.RBIF = 0;
 }
