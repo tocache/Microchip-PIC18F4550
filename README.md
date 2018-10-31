@@ -10,6 +10,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 - ASCII table: http://www.asciitable.com/ <br>
 - Mikroe Assembly repository: https://www.mikroe.com/ebooks/pic-microcontrollers-programming-in-assembly/appendix-b-examples <br>
 - The University of Sydney - MTRX3700 Mechatronics 3 Course lectures: http://web.aeromech.usyd.edu.au/MTRX3700/Course_Material/lectures/PDF/ <br>
+- HC-SR04 Ultrasonic range meter using XC8: https://electrosome.com/hc-sr04-ultrasonic-sensor-pic/ <br>
 
 <b> Changelog:</b>
 
