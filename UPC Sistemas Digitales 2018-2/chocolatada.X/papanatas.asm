@@ -79,6 +79,7 @@ nan1:
 nan2:
     btfss INTCON, TMR0IF
     goto nan2
+    bcf INTCON, TMR0IF
     goto finalon
     
 sel_30:
@@ -97,6 +98,7 @@ nan3:
 nan4:
     btfss INTCON, TMR0IF
     goto nan4
+    bcf INTCON, TMR0IF
     goto finalon
 
 sel_70:
@@ -115,6 +117,7 @@ nan5:
 nan6:
     btfss INTCON, TMR0IF
     goto nan6
+    bcf INTCON, TMR0IF
     goto finalon
     
 sel_100:
