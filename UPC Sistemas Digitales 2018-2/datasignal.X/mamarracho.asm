@@ -28,7 +28,7 @@ inicio:
     movwf T0CON
     btfss PORTB, 0
     goto cerrojo
-    movlw 0x7E
+    movlw 0x0C
     movwf LATB
     bcf LATD, 0
     bsf LATD, 1
@@ -37,6 +37,7 @@ inicio:
 mani:    
     btfss INTCON, TMR0IF
     goto mani
+    bcf INTCON, TMR0IF
     bsf LATD, 0
     bcf LATD, 1
     movlw .106
@@ -44,6 +45,7 @@ mani:
 mani2:    
     btfss INTCON, TMR0IF
     goto mani2
+    bcf INTCON, TMR0IF
     bcf LATD, 0
     bsf LATD, 1
     movlw .106
@@ -51,18 +53,21 @@ mani2:
 mani3:    
     btfss INTCON, TMR0IF
     goto mani3
+    bcf INTCON, TMR0IF
     bsf LATD, 0
     bcf LATD, 1
-    movlw 0x04
+    movlw 0xC4
     movwf T0CON
     movlw .106
     movwf TMR0L
 mani4:    
     btfss INTCON, TMR0IF
     goto mani4
+    bcf INTCON, TMR0IF
     goto inicio
+    
 cerrojo:
-    movlw 0x0C
+    movlw 0x7E
     movwf LATB
     bsf LATD, 0
     bcf LATD, 1
@@ -71,6 +76,7 @@ cerrojo:
 almendra:    
     btfss INTCON, TMR0IF
     goto almendra
+    bcf INTCON, TMR0IF
     bcf LATD, 0
     bsf LATD, 1
     movlw .106
@@ -78,6 +84,7 @@ almendra:
 almendra2:    
     btfss INTCON, TMR0IF
     goto almendra2
+    bcf INTCON, TMR0IF
     bsf LATD, 0
     bcf LATD, 1
     movlw .106
@@ -85,15 +92,17 @@ almendra2:
 almendra3:    
     btfss INTCON, TMR0IF
     goto almendra3
+    bcf INTCON, TMR0IF
     bcf LATD, 0
     bsf LATD, 1
-    movlw 0x04
+    movlw 0xC4
     movwf T0CON
     movlw .106
     movwf TMR0L
 almendra4:    
     btfss INTCON, TMR0IF
     goto almendra4
+    bcf INTCON, TMR0IF
     goto inicio
     end
     
