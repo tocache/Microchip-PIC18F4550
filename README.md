@@ -4,6 +4,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 <img src="PIC18F4550_1.gif">
 
 <b>Repositorio de enlaces:</b><br>
+- Interface con DHT11: https://www.geekfactory.mx/tutoriales/tutoriales-pic/dht11-con-pic/ <br>
 - USB HID Bootloader for PIC18F4550: https://openlabpro.com/guide/bootloader-for-pic18f4550/ <br>
 - USB HID Bootloader Implementation for PIC18F4450 (thai): https://sites.google.com/site/wirasakwattu/wicha-khxmphiwtexr-krafik <br>
 - Tiny Bootloader: http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm <br>
