@@ -1,3 +1,3 @@
 Ejercicio: Compuerta NOT
 
-<img src="Capture.PNG">
+<img src="negadeitor.PNG">
