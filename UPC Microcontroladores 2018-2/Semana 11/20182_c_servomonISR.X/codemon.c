@@ -14,7 +14,7 @@
 #include "LCD.h"
 #define _XTAL_FREQ 48000000UL
 
-//Declaración de variables globales:
+//DeclaraciÃ³n de variables globales:
 int contador = 0;
 int digcen = 0;
 int digdec = 0;
@@ -34,7 +34,7 @@ void main(void) {
     ADCON1 = 0x0F;      //Puertos RA y RD como digitales
     TRISEbits.RE0 = 0;   //Puerto RE0 como salida (para el servo)
     T0CON = 0x81;       //Timer0 en FOsc/4, PSC 1:4, 16bits
-    INTCON = 0xA0;      //Interrupción: GIE = 1, TMR0IE = 1
+    INTCON = 0xA0;      //InterrupciÃ³n: GIE = 1, TMR0IE = 1
     TRISD = 0x00;       //Para el LCD
     LCD_CONFIG();       //Configuracion inicial para usar el LCD
     __delay_ms(10);
@@ -75,7 +75,7 @@ void main(void) {
         }
     }
 }
-
+//posible bug!!!
 void __interrupt(high_priority) Tmr0ISR(void){
     if (PORTEbits.RE0 == 1){
         LATEbits.LE0 = 0;

@@ -1,3 +1,4 @@
-Interrupciones y manejo de periféricos en XC8
+Comunicación Serial en XC8
 
-<img src="circuito%20servo.PNG">
+Referencias para uso del HC-SR04:
+- https://electrosome.com/hc-sr04-ultrasonic-sensor-pic/
