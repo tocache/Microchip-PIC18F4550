@@ -1,0 +1,78 @@
+    list p=18f4550
+    #include <p18f4550.inc>
+
+    ;A continuación las directivas de configuración del microcontrolador
+    CONFIG  FOSC = XT_XT	  ; Oscillator Selection bits (Internal oscillator, port function on RA6, EC used by USB (INTIO))
+    CONFIG  PWRT = ON             ; Power-up Timer Enable bit (PWRT enabled)
+    CONFIG  BOR = OFF             ; Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
+    CONFIG  WDT = OFF             ; Watchdog Timer Enable bit (WDT disabled (control is placed on the SWDTEN bit))
+    CONFIG  CCP2MX = ON           ; CCP2 MUX bit (CCP2 input/output is multiplexed with RC1)
+    CONFIG  PBADEN = OFF          ; PORTB A/D Enable bit (PORTB<4:0> pins are configured as digital I/O on Reset)
+    CONFIG  MCLRE = ON            ; MCLR Pin Enable bit (MCLR pin enabled; RE3 input pin disabled)
+    CONFIG  LVP = OFF             ; Single-Supply ICSP Enable bit (Single-Supply ICSP disabled)    
+
+    cblock 0x020
+    tick
+    rcuenta
+    endc
+    
+;Tabla del display de siete segmentos anodo comun    
+    org 0x100
+table_7s db 0x40, 0x79, 0x24, 0x30, 0x19, 0x12, 0x02, 0x78, 0x00, 0x18, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+
+    org 0x0000
+    goto configuramon
+    
+    org 0x0008
+    goto interruptomon
+    
+    org 0x0020
+configuramon:
+    clrf rcuenta
+    clrf tick
+    clrf TRISD			;Port RD as outputs
+    movlw UPPER table_7s
+    movwf TBLPTRU
+    movlw HIGH table_7s
+    movwf TBLPTRH
+    movlw LOW table_7s
+    movwf TBLPTRL
+    ;Configuramos el Timer1 (fuente de reloj el FOSC/4 y PSC 1:8)
+    movlw 0xB1
+    movwf T1CON
+    ;Configuramos el módulo CCP en comparador evento especial de disparo
+    movlw 0x0B
+    movwf CCP1CON
+    movlw 0xF4
+    movwf CCPR1H
+    movlw 0x24
+    movwf CCPR1L	;Numero del CCP a comparar con Timer1 (62500)
+    ;Configuramos las interrupciones, para que funcione al MATCH del CCP1 con Timer1
+    bsf PIE1, CCP1IE    ;Habilitamos las interrupciones del CCP1
+    bsf INTCON, PEIE	;Habilitamos las interrupciones de los perifericos
+    bsf INTCON, GIE	;Habilitamos el interruptor global
+    
+inicio:
+    movf rcuenta, W
+    movwf TBLPTRL
+    TBLRD*
+    movff TABLAT, LATD
+    goto inicio
+    
+interruptomon:
+    bcf PIR1, TMR1IF	;Bajamos la bandera
+    btfss tick,	1
+    goto sumale
+    clrf tick
+    movlw .9
+    cpfseq rcuenta
+    goto falsaso
+    clrf rcuenta
+    retfie
+falsaso:
+    incf rcuenta, 1
+    retfie
+sumale:
+    bsf tick, 0
+    retfie
+    end
