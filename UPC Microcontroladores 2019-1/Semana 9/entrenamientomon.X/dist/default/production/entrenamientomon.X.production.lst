@@ -1,0 +1,482 @@
+
+
+Microchip MPLAB XC8 Assembler V2.05 build -831301201 
+                                                                                               Thu May 16 21:11:57 2019
+
+Microchip MPLAB XC8 C Compiler v2.05 (Free license) build 20181220022703 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	flic
+     5                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     6                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     7                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     8                           	psect	text1,global,reloc=2,class=CODE,delta=1
+     9                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    10                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    11  0000                     
+    12                           ; Version 2.05
+    13                           ; Generated 20/12/2018 GMT
+    14                           ; 
+    15                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    16                           ; All rights reserved.
+    17                           ; 
+    18                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    19                           ; 
+    20                           ; Redistribution and use in source and binary forms, with or without modification, are
+    21                           ; permitted provided that the following conditions are met:
+    22                           ; 
+    23                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    24                           ;        conditions and the following disclaimer.
+    25                           ; 
+    26                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    27                           ;        of conditions and the following disclaimer in the documentation and/or other
+    28                           ;        materials provided with the distribution.
+    29                           ; 
+    30                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    31                           ;        software without specific prior written permission.
+    32                           ; 
+    33                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    34                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    35                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    36                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    37                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    38                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    39                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    40                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    41                           ; 
+    42                           ; 
+    43                           ; Code-generator required, PIC18F4550 Definitions
+    44                           ; 
+    45                           ; SFR Addresses
+    46  0000                     _LATDbits	set	3980
+    47  0000                     _TRISD	set	3989
+    48                           
+    49                           ; #config settings
+    50  0000                     
+    51                           	psect	cinit
+    52  007F46                     __pcinit:
+    53                           	opt callstack 0
+    54  007F46                     start_initialization:
+    55                           	opt callstack 0
+    56  007F46                     __initialization:
+    57                           	opt callstack 0
+    58  007F46                     end_of_initialization:
+    59                           	opt callstack 0
+    60  007F46                     __end_of__initialization:
+    61                           	opt callstack 0
+    62  007F46  0100               	movlb	0
+    63  007F48  EFBC  F03F         	goto	_main	;jump to C main() function
+    64                           
+    65                           	psect	cstackCOMRAM
+    66  000001                     __pcstackCOMRAM:
+    67                           	opt callstack 0
+    68  000001                     delaymon@tiempo:
+    69                           	opt callstack 0
+    70                           
+    71                           ; 2 bytes @ 0x0
+    72  000001                     	ds	2
+    73  000003                     ??_delaymon:
+    74                           
+    75                           ; 1 bytes @ 0x2
+    76  000003                     	ds	1
+    77  000004                     delaymon@i:
+    78                           	opt callstack 0
+    79                           
+    80                           ; 2 bytes @ 0x3
+    81  000004                     	ds	2
+    82  000006                     main@papa:
+    83                           	opt callstack 0
+    84                           
+    85                           ; 2 bytes @ 0x5
+    86  000006                     	ds	2
+    87  000008                     main@papa_89:
+    88                           	opt callstack 0
+    89                           
+    90                           ; 2 bytes @ 0x7
+    91  000008                     	ds	2
+    92                           
+    93 ;;
+    94 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+    95 ;;
+    96 ;; *************** function _main *****************
+    97 ;; Defined at:
+    98 ;;		line 25 in file "bicamon.c"
+    99 ;; Parameters:    Size  Location     Type
+   100 ;;		None
+   101 ;; Auto vars:     Size  Location     Type
+   102 ;;  papa            2    7[COMRAM] int 
+   103 ;;  papa            2    5[COMRAM] int 
+   104 ;; Return value:  Size  Location     Type
+   105 ;;                  1    wreg      void 
+   106 ;; Registers used:
+   107 ;;		wreg, status,2, status,0, cstack
+   108 ;; Tracked objects:
+   109 ;;		On entry : 0/0
+   110 ;;		On exit  : 0/0
+   111 ;;		Unchanged: 0/0
+   112 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   113 ;;      Params:         0       0       0       0       0       0       0       0       0
+   114 ;;      Locals:         4       0       0       0       0       0       0       0       0
+   115 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   116 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   117 ;;Total ram usage:        4 bytes
+   118 ;; Hardware stack levels required when called:    1
+   119 ;; This function calls:
+   120 ;;		_delaymon
+   121 ;; This function is called by:
+   122 ;;		Startup code after reset
+   123 ;; This function uses a non-reentrant model
+   124 ;;
+   125                           
+   126                           	psect	text0
+   127  007F78                     __ptext0:
+   128                           	opt callstack 0
+   129  007F78                     _main:
+   130                           	opt callstack 30
+   131                           
+   132                           ;bicamon.c: 26:     TRISD = 0xFC;
+   133                           
+   134                           ;incstack = 0
+   135  007F78  0EFC               	movlw	252
+   136  007F7A  6E95               	movwf	3989,c	;volatile
+   137                           
+   138                           ;bicamon.c: 27:     LATDbits.LD0 = 1;
+   139  007F7C  808C               	bsf	3980,0,c	;volatile
+   140  007F7E                     l17:
+   141                           
+   142                           ;bicamon.c: 29:         for(int papa=0;papa<100;papa++){
+   143  007F7E  0E00               	movlw	0
+   144  007F80  6E07               	movwf	main@papa+1,c
+   145  007F82  0E00               	movlw	0
+   146  007F84  6E06               	movwf	main@papa,c
+   147  007F86                     l18:
+   148                           
+   149                           ;bicamon.c: 30:             LATDbits.LD1 = 1;
+   150  007F86  828C               	bsf	3980,1,c	;volatile
+   151                           
+   152                           ;bicamon.c: 31:             delaymon(papa);
+   153  007F88  C006  F001         	movff	main@papa,delaymon@tiempo
+   154  007F8C  C007  F002         	movff	main@papa+1,delaymon@tiempo+1
+   155  007F90  ECA6  F03F         	call	_delaymon	;wreg free
+   156                           
+   157                           ;bicamon.c: 32:             LATDbits.LD1 = 0;
+   158  007F94  928C               	bcf	3980,1,c	;volatile
+   159                           
+   160                           ;bicamon.c: 33:             delaymon(100-papa);
+   161  007F96  5006               	movf	main@papa,w,c
+   162  007F98  0864               	sublw	100
+   163  007F9A  6E01               	movwf	delaymon@tiempo,c
+   164  007F9C  5007               	movf	main@papa+1,w,c
+   165  007F9E  A0D8               	btfss	status,0,c
+   166  007FA0  2AE8               	incf	wreg,f,c
+   167  007FA2  0800               	sublw	0
+   168  007FA4  6E02               	movwf	delaymon@tiempo+1,c
+   169  007FA6  ECA6  F03F         	call	_delaymon	;wreg free
+   170                           
+   171                           ;bicamon.c: 34:         }
+   172  007FAA  4A06               	infsnz	main@papa,f,c
+   173  007FAC  2A07               	incf	main@papa+1,f,c
+   174  007FAE  BE07               	btfsc	main@papa+1,7,c
+   175  007FB0  D7EA               	goto	l18
+   176  007FB2  5007               	movf	main@papa+1,w,c
+   177  007FB4  E104               	bnz	u50
+   178  007FB6  0E64               	movlw	100
+   179  007FB8  5C06               	subwf	main@papa,w,c
+   180  007FBA  A0D8               	btfss	status,0,c
+   181  007FBC  D7E4               	goto	l18
+   182  007FBE                     u50:
+   183                           
+   184                           ;bicamon.c: 35:         for(int papa=0;papa<100;papa++){
+   185  007FBE  0E00               	movlw	0
+   186  007FC0  6E09               	movwf	main@papa_89+1,c
+   187  007FC2  0E00               	movlw	0
+   188  007FC4  6E08               	movwf	main@papa_89,c
+   189  007FC6                     l20:
+   190                           
+   191                           ;bicamon.c: 36:             LATDbits.LD1 = 1;
+   192  007FC6  828C               	bsf	3980,1,c	;volatile
+   193                           
+   194                           ;bicamon.c: 37:             delaymon(100-papa);
+   195  007FC8  5008               	movf	main@papa_89,w,c
+   196  007FCA  0864               	sublw	100
+   197  007FCC  6E01               	movwf	delaymon@tiempo,c
+   198  007FCE  5009               	movf	main@papa_89+1,w,c
+   199  007FD0  A0D8               	btfss	status,0,c
+   200  007FD2  2AE8               	incf	wreg,f,c
+   201  007FD4  0800               	sublw	0
+   202  007FD6  6E02               	movwf	delaymon@tiempo+1,c
+   203  007FD8  ECA6  F03F         	call	_delaymon	;wreg free
+   204                           
+   205                           ;bicamon.c: 38:             LATDbits.LD1 = 0;
+   206  007FDC  928C               	bcf	3980,1,c	;volatile
+   207                           
+   208                           ;bicamon.c: 39:             delaymon(papa);
+   209  007FDE  C008  F001         	movff	main@papa_89,delaymon@tiempo
+   210  007FE2  C009  F002         	movff	main@papa_89+1,delaymon@tiempo+1
+   211  007FE6  ECA6  F03F         	call	_delaymon	;wreg free
+   212                           
+   213                           ;bicamon.c: 40:         }
+   214  007FEA  4A08               	infsnz	main@papa_89,f,c
+   215  007FEC  2A09               	incf	main@papa_89+1,f,c
+   216  007FEE  BE09               	btfsc	main@papa_89+1,7,c
+   217  007FF0  D7EA               	goto	l20
+   218  007FF2  5009               	movf	main@papa_89+1,w,c
+   219  007FF4  E1C4               	bnz	l17
+   220  007FF6  0E64               	movlw	100
+   221  007FF8  5C08               	subwf	main@papa_89,w,c
+   222  007FFA  B0D8               	btfsc	status,0,c
+   223  007FFC  D7C0               	goto	l17
+   224  007FFE  D7E3               	goto	l20
+   225  008000                     __end_of_main:
+   226                           	opt callstack 0
+   227                           
+   228 ;; *************** function _delaymon *****************
+   229 ;; Defined at:
+   230 ;;		line 18 in file "bicamon.c"
+   231 ;; Parameters:    Size  Location     Type
+   232 ;;  tiempo          2    0[COMRAM] int 
+   233 ;; Auto vars:     Size  Location     Type
+   234 ;;  i               2    3[COMRAM] int 
+   235 ;; Return value:  Size  Location     Type
+   236 ;;                  1    wreg      void 
+   237 ;; Registers used:
+   238 ;;		wreg, status,2, status,0
+   239 ;; Tracked objects:
+   240 ;;		On entry : 0/0
+   241 ;;		On exit  : 0/0
+   242 ;;		Unchanged: 0/0
+   243 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   244 ;;      Params:         2       0       0       0       0       0       0       0       0
+   245 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   246 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   247 ;;      Totals:         5       0       0       0       0       0       0       0       0
+   248 ;;Total ram usage:        5 bytes
+   249 ;; Hardware stack levels used:    1
+   250 ;; This function calls:
+   251 ;;		Nothing
+   252 ;; This function is called by:
+   253 ;;		_main
+   254 ;; This function uses a non-reentrant model
+   255 ;;
+   256                           
+   257                           	psect	text1
+   258  007F4C                     __ptext1:
+   259                           	opt callstack 0
+   260  007F4C                     _delaymon:
+   261                           	opt callstack 30
+   262                           
+   263                           ;bicamon.c: 19:     for(int i=0;i<tiempo;i++){
+   264                           
+   265                           ;incstack = 0
+   266  007F4C  0E00               	movlw	0
+   267  007F4E  6E05               	movwf	delaymon@i+1,c
+   268  007F50  0E00               	movlw	0
+   269  007F52  6E04               	movwf	delaymon@i,c
+   270  007F54  D006               	goto	l9
+   271  007F56                     l738:
+   272                           
+   273                           ;bicamon.c: 20:         _delay((unsigned long)((100)*(4000000UL/4000000.0)));
+   274  007F56  0E21               	movlw	33
+   275  007F58                     u77:
+   276  007F58  2EE8               	decfsz	wreg,f,c
+   277  007F5A  D7FE               	bra	u77
+   278  007F5C  F000               	nop	
+   279                           
+   280                           ;bicamon.c: 21:     }
+   281  007F5E  4A04               	infsnz	delaymon@i,f,c
+   282  007F60  2A05               	incf	delaymon@i+1,f,c
+   283  007F62                     l9:
+   284  007F62  5001               	movf	delaymon@tiempo,w,c
+   285  007F64  5C04               	subwf	delaymon@i,w,c
+   286  007F66  5005               	movf	delaymon@i+1,w,c
+   287  007F68  0A80               	xorlw	128
+   288  007F6A  6E03               	movwf	??_delaymon& (0+255),c
+   289  007F6C  5002               	movf	delaymon@tiempo+1,w,c
+   290  007F6E  0A80               	xorlw	128
+   291  007F70  5803               	subwfb	??_delaymon& (0+255),w,c
+   292  007F72  B0D8               	btfsc	status,0,c
+   293  007F74  0012               	return	
+   294  007F76  D7EF               	goto	l738
+   295  007F78                     __end_of_delaymon:
+   296                           	opt callstack 0
+   297  0000                     
+   298                           	psect	rparam
+   299  0000                     tosu	equ	0xFFF
+   300                           tosh	equ	0xFFE
+   301                           tosl	equ	0xFFD
+   302                           stkptr	equ	0xFFC
+   303                           pclatu	equ	0xFFB
+   304                           pclath	equ	0xFFA
+   305                           pcl	equ	0xFF9
+   306                           tblptru	equ	0xFF8
+   307                           tblptrh	equ	0xFF7
+   308                           tblptrl	equ	0xFF6
+   309                           tablat	equ	0xFF5
+   310                           prodh	equ	0xFF4
+   311                           prodl	equ	0xFF3
+   312                           indf0	equ	0xFEF
+   313                           postinc0	equ	0xFEE
+   314                           postdec0	equ	0xFED
+   315                           preinc0	equ	0xFEC
+   316                           plusw0	equ	0xFEB
+   317                           fsr0h	equ	0xFEA
+   318                           fsr0l	equ	0xFE9
+   319                           wreg	equ	0xFE8
+   320                           indf1	equ	0xFE7
+   321                           postinc1	equ	0xFE6
+   322                           postdec1	equ	0xFE5
+   323                           preinc1	equ	0xFE4
+   324                           plusw1	equ	0xFE3
+   325                           fsr1h	equ	0xFE2
+   326                           fsr1l	equ	0xFE1
+   327                           bsr	equ	0xFE0
+   328                           indf2	equ	0xFDF
+   329                           postinc2	equ	0xFDE
+   330                           postdec2	equ	0xFDD
+   331                           preinc2	equ	0xFDC
+   332                           plusw2	equ	0xFDB
+   333                           fsr2h	equ	0xFDA
+   334                           fsr2l	equ	0xFD9
+   335                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95      9       9
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_delaymon
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 4     4      0     530
+                                              5 COMRAM     4     4      0
+                           _delaymon
+ ---------------------------------------------------------------------------------
+ (1) _delaymon                                             5     3      2     350
+                                              0 COMRAM     5     3      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _delaymon
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMRAM           5F      0       0       0        0.0%
+EEDATA             100      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+COMRAM              5F      9       9       1        9.5%
+STACK                0      0       0       2        0.0%
+DATA                 0      0       0       3        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+ABS                  0      0       0      20        0.0%
+BIGRAM             7FF      0       0      21        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.05 build -831301201 
+Symbol Table                                                                                   Thu May 16 21:11:57 2019
+
+                      l9 7F62                       l20 7FC6                       l17 7F7E  
+                     l18 7F86                       u50 7FBE                       u77 7F58  
+                    l738 7F56             __CFG_BOR$OFF 000000                      wreg 000FE8  
+           __CFG_LVP$OFF 000000             __CFG_WDT$OFF 000000              main@papa_89 0008  
+           __CFG_PWRT$ON 000000                     _main 7F78                     start 0000  
+           ___param_bank 000000                    ?_main 0001                    _TRISD 000F95  
+                  status 000FD8          __initialization 7F46             __end_of_main 8000  
+                 ??_main 0006            __activetblptr 000000         __end_of_delaymon 7F78  
+         delaymon@tiempo 0001               __accesstop 0060  __end_of__initialization 7F46  
+        __CFG_PBADEN$OFF 000000          __CFG_FOSC$XT_XT 000000            ___rparam_used 000001  
+         __pcstackCOMRAM 0001                ?_delaymon 0001                  __Hparam 0000  
+                __Lparam 0000                  __pcinit 7F46                  __ramtop 0800  
+                __ptext0 7F78                  __ptext1 7F4C               ??_delaymon 0003  
+   end_of_initialization 7F46      start_initialization 7F46        __size_of_delaymon 002C  
+               _LATDbits 000F8C                delaymon@i 0004                 __Hrparam 0000  
+               __Lrparam 0000                 _delaymon 7F4C            __size_of_main 0088  
+               main@papa 0006  
