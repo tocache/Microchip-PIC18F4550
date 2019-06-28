@@ -4,6 +4,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 <img src="PIC18F4550_1.gif">
 
 <b>Repositorio de enlaces:</b><br>
+- DHT11 con XC8: https://www.electronicwings.com/pic/dht11-sensor-interfacing-with-pic18f4550 <br>
 - Foro en Microchip sobre DHT11: https://www.microchip.com/forums/m1064506.aspx <br>
 - Interface con DHT11: https://www.geekfactory.mx/tutoriales/tutoriales-pic/dht11-con-pic/ <br>
 - USB HID Bootloader for PIC18F4550: https://openlabpro.com/guide/bootloader-for-pic18f4550/ <br>
