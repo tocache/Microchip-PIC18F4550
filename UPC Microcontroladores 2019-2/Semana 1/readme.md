@@ -1,6 +1,7 @@
 <b>Introducción al laboratorio de microcontroladores</b><br>
 <img src="semana1.PNG"><br><br>
 1.Manejo de las herramientas de software (MPLABX y Proteus VSM)<br>
+-Versiones de software: MPLABX v5.25, Proteus v8.9SP1
 2.Circuito base<br>
 <img src="circuitobase.png"><br>
 3.Desarrollo de un primer ejemplo con el microcontrolador PIC18F4550 y MPASM<br>
