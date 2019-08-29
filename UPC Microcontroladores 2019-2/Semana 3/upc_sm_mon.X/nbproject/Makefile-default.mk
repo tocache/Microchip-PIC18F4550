@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=maincodemon.asm
+SOURCEFILES_QUOTED_IF_SPACED=desplazadormon.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/maincodemon.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/maincodemon.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/desplazadormon.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/desplazadormon.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/maincodemon.o
+OBJECTFILES=${OBJECTDIR}/desplazadormon.o
 
 # Source Files
-SOURCEFILES=maincodemon.asm
+SOURCEFILES=desplazadormon.asm
 
 
 
@@ -95,22 +95,22 @@ MP_LINKER_DEBUG_OPTION=
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/maincodemon.o: maincodemon.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/desplazadormon.o: desplazadormon.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/maincodemon.o.d 
-	@${RM} ${OBJECTDIR}/maincodemon.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/maincodemon.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/maincodemon.lst\" -e\"${OBJECTDIR}/maincodemon.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/maincodemon.o\" \"maincodemon.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/maincodemon.o"
-	@${FIXDEPS} "${OBJECTDIR}/maincodemon.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/desplazadormon.o.d 
+	@${RM} ${OBJECTDIR}/desplazadormon.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/desplazadormon.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_SIMULATOR=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/desplazadormon.lst\" -e\"${OBJECTDIR}/desplazadormon.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/desplazadormon.o\" \"desplazadormon.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/desplazadormon.o"
+	@${FIXDEPS} "${OBJECTDIR}/desplazadormon.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 else
-${OBJECTDIR}/maincodemon.o: maincodemon.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/desplazadormon.o: desplazadormon.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/maincodemon.o.d 
-	@${RM} ${OBJECTDIR}/maincodemon.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/maincodemon.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/maincodemon.lst\" -e\"${OBJECTDIR}/maincodemon.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/maincodemon.o\" \"maincodemon.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/maincodemon.o"
-	@${FIXDEPS} "${OBJECTDIR}/maincodemon.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/desplazadormon.o.d 
+	@${RM} ${OBJECTDIR}/desplazadormon.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/desplazadormon.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/desplazadormon.lst\" -e\"${OBJECTDIR}/desplazadormon.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/desplazadormon.o\" \"desplazadormon.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/desplazadormon.o"
+	@${FIXDEPS} "${OBJECTDIR}/desplazadormon.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 
