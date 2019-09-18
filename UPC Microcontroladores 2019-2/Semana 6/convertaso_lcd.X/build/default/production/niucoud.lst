@@ -1,0 +1,1389 @@
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001     list p=18f4550
+                      00002     #include <p18f4550.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Sep 19 2018
+                      00005 ;  MPASM PIC18F4550 processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2018 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      01765         LIST
+                      00003     #include "LCD_LIB.asm"
+  00000000            00001 RS   EQU  0
+  00000001            00002 RW   EQU  1
+  00000002            00003 E    EQU  2
+                      00004 
+                      00005  CBLOCK 0x000
+  00000000            00006     aux
+  00000001            00007     cont
+  00000002            00008     BCD2
+  00000003            00009     BCD1
+  00000004            00010     BCD0
+  00000005            00011     var
+  00000006            00012     dato
+  00000007            00013     rx
+  00000008            00014     aux1
+  00000009            00015     aux2
+  0000000A            00016     aux3
+  0000000B            00017     conta1
+  0000000C            00018     conta2
+  0000000D            00019     dir_CGRAM
+  0000000E            00020     dir_CARACTER
+                      00021     ENDC
+                      00022 
+                      00023     ORG 0x600
+                      00024 
+000600                00025 POS_CUR_FIL2:
+000600 0FC0           00026         addlw 0xC0;
+000602 6E06           00027         movwf dato,0;
+000604 EC?? F???      00028         call ENVIA_LCD_CMD
+000608 0012           00029         return
+                      00030 
+00060A                00031 POS_CUR_FIL1:
+00060A 0F80           00032         addlw 0x80;
+00060C 6E06           00033         movwf dato,0;
+00060E EC?? F???      00034         call ENVIA_LCD_CMD
+000612 0012           00035         return
+                      00036 
+000614                00037 DISPLAY_ON:
+000614 0E0F           00038         movlw b'00001111'
+000616 6E06           00039         movwf dato,0;
+000618 EC?? F???      00040         call ENVIA_LCD_CMD
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00061C 0012           00041         return
+                      00042 
+00061E                00043 DISPLAY_OFF:
+00061E 0E08           00044         movlw b'00001000'
+000620 6E06           00045         movwf dato,0;
+000622 EC?? F???      00046         call ENVIA_LCD_CMD
+000626 0012           00047         return
+                      00048 
+000628                00049 CURSOR_HOME:
+000628 0E02           00050         movlw b'00000010'
+00062A 6E06           00051         movwf dato,0;
+00062C EC?? F???      00052         call ENVIA_LCD_CMD
+000630 0012           00053         return
+                      00054 
+000632                00055 CURSOR_OFF:
+000632 0E0C           00056         movlw b'00001100'
+000634 6E06           00057         movwf dato,0;
+000636 EC?? F???      00058         call ENVIA_LCD_CMD
+00063A 0012           00059         return
+                      00060 
+00063C                00061 CURSOR_ON:
+00063C 0E0F           00062         movlw b'00001111'
+00063E 6E06           00063         movwf dato,0;
+000640 EC?? F???      00064         call ENVIA_LCD_CMD
+000644 0012           00065         return
+                      00066 
+000646                00067 ENVIA_CHAR:
+000646 6E06           00068         movwf dato,0
+000648 EC?? F???      00069         call ENVIA_LCD_DATO
+00064C 0012           00070         return
+                      00071 
+00064E                00072 BORRAR_LCD:
+00064E 0E01           00073         movlw 0x01
+000650 6E06           00074         movwf dato,0
+000652 EC?? F???      00075         call ENVIA_LCD_CMD
+000656 0012           00076         return
+                      00077 
+000658                00078 LCD_CONFIG:
+000658 908C           00079         bcf   LATD,RS
+00065A 928C           00080         bcf   LATD,RW
+00065C 0E30           00081         movlw 0x30
+00065E EC?? F???      00082         call  ENVIA_NIBBLE
+000662 EC?? F???      00083         call  DELAY2MSEG
+000666 EC?? F???      00084         call  DELAY2MSEG
+00066A EC?? F???      00085         call  DELAY2MSEG
+00066E 0E20           00086         movlw 0x20
+000670 EC?? F???      00087         call ENVIA_NIBBLE
+000674 0E01           00088         movlw 0x01
+000676 EC?? F???      00089         call ENVIA_LCD_CMD;
+00067A 0E28           00090         movlw 0x28              ;Control del display (Activar,mostrar cursor y que parpadee)
+00067C EC?? F???      00091         call ENVIA_LCD_CMD 
+000680 0E0F           00092         movlw 0x0F    ;Conjunto de inicio (Incrementar posici?n sin desplazamiento)
+000682 EC?? F???      00093         call ENVIA_LCD_CMD  
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000686 0E06           00094         movlw 0x06    
+000688 EC?? F???      00095         call ENVIA_LCD_CMD  
+00068C 0E01           00096         movlw 0x01              ;Limpiar el display;
+00068E EC?? F???      00097         call ENVIA_LCD_CMD      
+000692 0012           00098         return
+                      00099 
+000694                00100 ENVIA_NIBBLE:
+000694 6E07           00101         movwf rx,0
+000696 0E0F           00102         movlw 0x0F
+000698 168C           00103         andwf LATD,f,0
+00069A 0EF0           00104         movlw 0xF0
+00069C 1407           00105         andwf rx,W
+00069E 5007           00106         movf  rx,W,0
+0006A0 128C           00107         iorwf LATD,f,0
+0006A2 848C           00108         bsf   LATD,E,0
+0006A4 948C           00109         bcf   LATD,E,0
+0006A6 0000           00110         nop
+0006A8 0012           00111         return
+                      00112 
+0006AA                00113 ENVIA_LCD_CMD:
+0006AA 908C           00114         bcf LATD,RS,0
+0006AC 6E06           00115         movwf dato
+0006AE EC?? F???      00116         call DELAY2MSEG
+0006B2 EC?? F???      00117         call DELAY2MSEG
+0006B6 EC?? F???      00118         call DELAY2MSEG
+0006BA 0E08           00119         movlw b'00001000'
+0006BC 6E95           00120         movwf TRISD,0
+0006BE EC?? F???      00121         call DELAY100uS
+0006C2 928C           00122         bcf  LATD,RW
+0006C4 948C           00123         bcf  LATD,E
+0006C6 908C           00124         bcf  LATD,RS
+0006C8 5006           00125         movf dato,W,0
+0006CA 0BF0           00126         andlw 0xF0;
+0006CC EC?? F???      00127         call ENVIA_NIBBLE
+0006D0 3A06           00128         swapf dato,f,0
+0006D2 5006           00129         movf dato,W,0
+0006D4 0BF0           00130         andlw 0xF0
+0006D6 EC?? F???      00131         call ENVIA_NIBBLE
+0006DA 0012           00132         return
+                      00133 
+0006DC                00134 ENVIA_LCD_DATO:
+0006DC 808C           00135         bsf  LATD,RS
+0006DE 6E06           00136         movwf dato
+0006E0 EC?? F???      00137         call DELAY2MSEG
+0006E4 EC?? F???      00138         call DELAY2MSEG
+0006E8 EC?? F???      00139         call DELAY2MSEG
+0006EC 0E08           00140         movlw b'00001000'
+0006EE 6E95           00141         movwf TRISD,0
+0006F0 EC?? F???      00142         call DELAY100uS
+0006F4 928C           00143         bcf  LATD,RW
+0006F6 948C           00144         bcf  LATD,E
+0006F8 808C           00145         bsf  LATD,RS
+0006FA 5006           00146         movf dato,0,0
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0006FC 0BF0           00147         andlw 0xF0;
+0006FE EC?? F???      00148         call ENVIA_NIBBLE
+000702 3A06           00149         swapf dato,f,0
+000704 5006           00150         movf  dato,0,0
+000706 0BF0           00151         andlw 0xF0
+000708 EC?? F???      00152         call ENVIA_NIBBLE
+00070C 0012           00153         return
+                      00154 
+00070E                00155 GENERA_CHAR_CGRAM:
+00070E 0E40           00156         movlw 0x40
+000710 240D           00157         addwf dir_CGRAM,W
+000712 6E06           00158         movwf dato
+000714 EC?? F???      00159         call ENVIA_LCD_CMD
+000718                00160 REPITE:
+000718 0009           00161         TBLRD*+;;
+00071A 50F5           00162         movf  TABLAT,W
+00071C 6E05           00163         movwf var
+00071E 0EFF           00164         movlw 0xFF
+000720 5C05           00165         subwf var,W
+000722 B4D8           00166         btfsc STATUS,Z
+000724 EF?? F???      00167         goto  SALIR
+000728 C005 F006      00168         movff var,dato
+00072C EC?? F???      00169         call ENVIA_LCD_DATO
+000730 EF?? F???      00170         goto  REPITE
+000734                00171 SALIR:
+000734 0E80           00172         movlw 0x80
+000736 6E06           00173         movwf dato
+000738 EC?? F???      00174         call ENVIA_LCD_CMD
+00073C 0012           00175         return  
+                      00176 
+00073E                00177 DELAY2MSEG:
+00073E 0E07           00178         movlw .7
+000740 6E0B           00179         movwf conta1,0
+000742                00180 RETAR1:
+000742 0E64           00181         movlw .100          ;1 useg
+000744 6E0C           00182         movwf conta2,0      ;1 useg
+000746                00183 RETAR2:
+000746 2E0C           00184         decfsz conta2,f,0       ;1 useg
+000748 EF?? F???      00185         goto   RETAR2           ;2 useg
+00074C 2E0B           00186         decfsz conta1,f,0       ;1 useg
+00074E EF?? F???      00187         goto   RETAR1
+000752 0012           00188         return
+                      00189 
+000754                00190 DELAY15MSEG:
+000754 0E32           00191         movlw .50
+000756 6E0B           00192         movwf conta1,0
+000758                00193 RETAR3:
+000758 0E64           00194         movlw .100
+00075A 6E0C           00195         movwf conta2,0
+00075C                00196 RETAR4:
+00075C 2E0C           00197         decfsz conta2,f,0
+00075E EF?? F???      00198         goto   RETAR4
+000762 2E0B           00199         decfsz conta1,f,0
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000764 EF?? F???      00200         goto   RETAR3
+000768 0012           00201         return
+                      00202 
+00076A                00203 DELAY100uS:
+00076A 0E03           00204         movlw .3
+00076C 6E0B           00205         movwf  conta1,0
+00076E                00206 RETAR7:
+00076E 0E09           00207         movlw .9
+000770 6E0C           00208         movwf conta2,0
+000772                00209 RETAR8:
+000772 2E0C           00210         decfsz conta2,f,0
+000774 EF?? F???      00211         goto  RETAR8
+000778 2E0B           00212         decfsz conta1,f,0
+00077A EF?? F???      00213         goto  RETAR7
+00077E 0012           00214         return
+                      00215 
+000780                00216 BIN_BCD:
+000780 6E00           00217         movwf aux,0             ;Se guarda el valor a convertir en aux
+000782 6A01           00218         clrf  cont,0    ;cont=0x00
+000784 6A04           00219         clrf  BCD0,0    ;BCD0=0x00
+000786 6A03           00220         clrf  BCD1,0    ;BCD1=0x00
+000788 6A02           00221         clrf  BCD2,0    ;BCD2=0x00
+00078A                00222 CONV:
+00078A 3600           00223         rlcf  aux,f         ;Rotar a la izquierda cont (cifra original)
+00078C 3604           00224         rlcf  BCD0,f    ;Rotar a la izquierda BCD0 (carga el carry de cont en el bit LSB)
+00078E 3602           00225         rlcf  BCD2,f    ;Rotar a la izquierda BCD2 (carga el carry de BCD0 en el bit LSB)
+                      00226 ;Cargar el nibble alto de BCD0 a BCD2 y analizar        
+000790 5004           00227         movf  BCD0,W    ;W = BCD0
+000792 6E03           00228         movwf BCD1,0    ;BCD1 = BCD0
+000794 3A03           00229         swapf BCD1,f    ;Inversi?n de nibbles en BCD1
+000796 0E0F           00230         movlw 0x0F              ;W = 0x0F
+000798 1603           00231         andwf BCD1,f    ;BCD1 = BCD1 AND 0x0F
+00079A 1604           00232         andwf BCD0,f    ;BCD0 = BCD0 AND 0x0F
+                      00233 ;Se pregunta si ya se llegaron a rotar a la izquierda los 8 bits
+00079C 0E07           00234         movlw .7                ;W = .7
+00079E 6001           00235         cpfslt cont,0   ;Salta si cont es menor a .7
+0007A0 0012           00236         return                  ;Si cont = .7 retorna (FIN de la rutina)
+                      00237 ;Averiguar si los nibbles de BCD0 y BCD1 son mayores que .4
+0007A2 0E05           00238         movlw .5                ;W = .5
+0007A4 5C04           00239         subwf BCD0,W    ;W = BCD0 - .5
+0007A6 B0D8           00240         btfsc STATUS,C  ;Si BCD0>4 => Carry = 1
+0007A8 EC?? F???      00241         call  SUMA3_BCD0;BCD0>4, hay que sumar 3
+0007AC 0E05           00242         movlw .5                ;BCD0 <5, se comprueba BCD1
+0007AE 5C03           00243         subwf BCD1,W    ;W = BCD1 - .5
+0007B0 B0D8           00244         btfsc STATUS,C  ;Si BCD1>4 => Carry = 1
+0007B2 EC?? F???      00245         call  SUMA3_BCD1;BCD1>4, hay que sumar 3 
+0007B6 3A03           00246         swapf BCD1,f    ;Inversi?n de nibbles en BCD1
+0007B8 5003           00247         movf  BCD1,W    ;W = BCD1
+0007BA 1204           00248         iorwf BCD0              ;BCD0 = BCD1 OR BCD0
+0007BC 2A01           00249         incf  cont,f,0  ;cont = cont + 1
+0007BE EF?? F???      00250         goto  CONV              ;Se repite el proceso
+0007C2                00251 SUMA3_BCD0:
+0007C2 0E03           00252         movlw .3                ;W = .3
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0007C4 2604           00253         addwf BCD0,f,0  ;BCD0 = BCD0 + .3
+0007C6 0012           00254         return                  ;retorno del call
+0007C8                00255 SUMA3_BCD1:
+0007C8 0E03           00256         movlw .3                ;W = .3
+0007CA 2603           00257         addwf BCD1,f,0  ;BCD1 = BCD1 + .3
+0007CC 0012           00258         return                  ;retorno del call
+                      00259  
+                      00260 ;END    ;comentado para que la librería se coloque al inicio del programa
+                      00004     
+                      00005     CONFIG  FOSC = XT_XT          ; Oscillator Selection bits (XT oscillator (XT))
+                      00006     CONFIG  PWRT = ON             ; Power-up Timer Enable bit (PWRT enabled)
+                      00007     CONFIG  BOR = OFF             ; Brown-out Reset Enable bits (Brown-out Reset disabled in hardware an
+                            d software)
+                      00008     CONFIG  WDT = OFF             ; Watchdog Timer Enable bit (WDT disabled (control is placed on the SW
+                            DTEN bit))
+                      00009     CONFIG  PBADEN = OFF          ; PORTB A/D Enable bit (PORTB<4:0> pins are configured as digital I/O 
+                            on Reset)
+                      00010     CONFIG  MCLRE = ON           ; MCLR Pin Enable bit (RE3 input pin enabled; MCLR pin disabled)
+                      00011     CONFIG  LVP = OFF             ; Single-Supply ICSP Enable bit (Single-Supply ICSP disabled)
+                      00012     
+                      00013     cblock 0x020
+  00000020            00014         cuenta
+                      00015     endc
+                      00016     
+                      00017     org 0x0000                  ;Vector de RESET
+000000 EF?? F???      00018     goto inicion
+                      00019 
+                      00020     org 0x0200
+000200 654C 7463 7275 00021 cadena da "Lectura ADC"    
+       2061 4441 0043 
+                      00022     
+00020C                00023 inicion:
+00020C 6A95           00024     clrf TRISD                  ;Puerto donde se conectara el LCD
+                      00025     ;Primero ADCON2, luego ADCON1 y finalmente ADCON0
+                      00026     ;ADCON2: Tiempo de conversion y justificacion del resultado
+                      00027     ;ADCON1: Seleccionar quienes son analogicos y quienes digitales
+                      00028     ;ADCON0: Control del ADC
+00020E 0E24           00029     movlw 0x24          ;8TAD, FOsc/4 y just izq
+000210 6EC0           00030     movwf ADCON2
+000212 0E0E           00031     movlw 0x0E          ;AN0 habilitado solamente
+000214 6EC1           00032     movwf ADCON1        
+000216 0E01           00033     movlw 0x01          ;Encendemos el ADC
+000218 6EC2           00034     movwf ADCON0
+                      00035 
+00021A                00036 lecturon:
+00021A EC?? F???      00037     call DELAY15MSEG            ;Rutina de la librería para configurar el LCD
+00021E EC?? F???      00038     call LCD_CONFIG    
+000222 EC?? F???      00039     call CURSOR_OFF
+000226 0E??           00040     movlw HIGH cadena
+000228 6EF7           00041     movwf TBLPTRH
+00022A 0E??           00042     movlw LOW cadena
+00022C 6EF6           00043     movwf TBLPTRL               ;Apuntando el TBLPTR a cadena
+00022E EC?? F???      00044     call CURSOR_HOME            ;Cursor del LCD al inicio
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000232                00045 visual:
+000232 0009           00046     TBLRD*+
+000234 50F5           00047     movf TABLAT, W
+000236 EC?? F???      00048     call ENVIA_CHAR
+00023A 0E0B           00049     movlw .11
+00023C 62F6           00050     cpfseq TBLPTRL
+00023E EF?? F???      00051     goto visual
+000242                00052 otro:
+000242 EF?? F???      00053     goto otro
+                      00054     
+                      00055 ;    bsf ADCON0, 1
+                      00056 ;buclon:
+                      00057 ;    btfsc ADCON0, 1
+                      00058 ;    goto buclon
+                      00059 ;    movff ADRESH, LATD
+                      00060 ;    goto lecturon
+                      00061     end
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+A                                 00000000
+ABDEN                             00000000
+ABDOVF                            00000007
+ACCESS                            00000000
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ACQT0                             00000003
+ACQT1                             00000004
+ACQT2                             00000005
+ACTVIE                            00000002
+ACTVIF                            00000002
+ADCON0                            00000FC2
+ADCON1                            00000FC1
+ADCON2                            00000FC0
+ADCS0                             00000000
+ADCS1                             00000001
+ADCS2                             00000002
+ADDEN                             00000003
+ADDR0                             00000000
+ADDR1                             00000001
+ADDR2                             00000002
+ADDR3                             00000003
+ADDR4                             00000004
+ADDR5                             00000005
+ADDR6                             00000006
+ADEN                              00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADIP                              00000006
+ADON                              00000000
+ADRES                             00000FC3
+ADRESH                            00000FC4
+ADRESL                            00000FC3
+AN0                               00000000
+AN1                               00000001
+AN2                               00000002
+AN3                               00000003
+AN4                               00000005
+BANKED                            00000001
+BAUDCON                           00000FB8
+BAUDCTL                           00000FB8
+BCD0                              00000004
+BCD1                              00000003
+BCD2                              00000002
+BCLIE                             00000003
+BCLIF                             00000003
+BCLIP                             00000003
+BF                                00000000
+BGST                              00000005
+BIN_BCD                           00000780
+BOR                               00000000
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BORRAR_LCD                        0000064E
+BRG16                             00000003
+BRGH                              00000002
+BSR                               00000FE0
+BTOEE                             00000004
+BTOEF                             00000004
+BTSEE                             00000007
+BTSEF                             00000007
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1                              00000002
+CCP1AS                            00000FB6
+CCP1CON                           00000FBD
+CCP1DEL                           00000FB7
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1IP                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP2CON                           00000FBA
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2IP                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCPR1                             00000FBE
+CCPR1H                            00000FBF
+CCPR1L                            00000FBE
+CCPR2                             00000FBB
+CCPR2H                            00000FBC
+CCPR2L                            00000FBB
+CFGS                              00000006
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CIS                               00000003
+CK                                00000006
+CK1SPP                            00000000
+CK2SPP                            00000001
+CKE                               00000006
+CKP                               00000004
+CLK1EN                            00000004
+CLKCFG0                           00000006
+CLKCFG1                           00000007
+CM0                               00000000
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CM1                               00000001
+CM2                               00000002
+CMCON                             00000FB4
+CMIE                              00000006
+CMIF                              00000006
+CMIP                              00000006
+CONV                              0000078A
+CRC16EE                           00000002
+CRC16EF                           00000002
+CRC5EE                            00000001
+CRC5EF                            00000001
+CREN                              00000004
+CSEN                              00000005
+CSRC                              00000007
+CURSOR_HOME                       00000628
+CURSOR_OFF                        00000632
+CURSOR_ON                         0000063C
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            00000FB5
+CVREF                             00000004
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+CVRSS                             00000004
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DDRA                              TRISA
+DDRB                              TRISB
+DDRC                              TRISC
+DDRD                              TRISD
+DDRE                              TRISE
+DELAY100uS                        0000076A
+DELAY15MSEG                       00000754
+DELAY2MSEG                        0000073E
+DFN8EE                            00000003
+DFN8EF                            00000003
+DIR                               00000002
+DISPLAY_OFF                       0000061E
+DISPLAY_ON                        00000614
+DONE                              00000001
+D_A                               00000005
+D_NOT_A                           00000005
+E                                 00000002
+ECCP1AS                           00000FB6
+ECCP1CON                          00000FBD
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ECCP1DEL                          00000FB7
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             00000FA9
+EECON1                            00000FA6
+EECON2                            00000FA7
+EEDATA                            00000FA8
+EEIE                              00000004
+EEIF                              00000004
+EEIP                              00000004
+EEPGD                             00000007
+ENDP0                             00000003
+ENDP1                             00000004
+ENDP2                             00000005
+ENDP3                             00000006
+ENVIA_CHAR                        00000646
+ENVIA_LCD_CMD                     000006AA
+ENVIA_LCD_DATO                    000006DC
+ENVIA_NIBBLE                      00000694
+EPCONDIS                          00000003
+EPHSHK                            00000004
+EPINEN                            00000001
+EPOUTEN                           00000002
+EPSTALL                           00000000
+FAST                              00000001
+FERR                              00000002
+FLTS                              00000002
+FREE                              00000004
+FRM0                              00000000
+FRM1                              00000001
+FRM10                             00000002
+FRM2                              00000002
+FRM3                              00000003
+FRM4                              00000004
+FRM5                              00000005
+FRM6                              00000006
+FRM7                              00000007
+FRM8                              00000000
+FRM9                              00000001
+FSEN                              00000002
+FSR0                              00000000
+FSR0H                             00000FEA
+FSR0L                             00000FE9
+FSR1                              00000001
+FSR1H                             00000FE2
+FSR1L                             00000FE1
+FSR2                              00000002
+FSR2H                             00000FDA
+FSR2L                             00000FD9
+GCEN                              00000007
+GENERA_CHAR_CGRAM                 0000070E
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+GIE                               00000007
+GIEH                              00000007
+GIEL                              00000006
+GIE_GIEH                          00000007
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+HLVDCON                           00000FD2
+HLVDEN                            00000004
+HLVDIE                            00000002
+HLVDIF                            00000002
+HLVDIN                            00000005
+HLVDIP                            00000002
+HLVDL0                            00000000
+HLVDL1                            00000001
+HLVDL2                            00000002
+HLVDL3                            00000003
+I2C_DAT                           00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IDLEIE                            00000004
+IDLEIF                            00000004
+IDLEN                             00000007
+INDF0                             00000FEF
+INDF1                             00000FE7
+INDF2                             00000FDF
+INT0                              00000000
+INT0E                             00000004
+INT0F                             00000001
+INT0IE                            00000004
+INT0IF                            00000001
+INT1                              00000001
+INT1E                             00000003
+INT1F                             00000000
+INT1IE                            00000003
+INT1IF                            00000000
+INT1IP                            00000006
+INT1P                             00000006
+INT2                              00000002
+INT2E                             00000004
+INT2F                             00000001
+INT2IE                            00000004
+INT2IF                            00000001
+INT2IP                            00000007
+INT2P                             00000007
+INTCON                            00000FF2
+INTCON2                           00000FF1
+INTCON3                           00000FF0
+INTEDG0                           00000006
+INTEDG1                           00000005
+INTEDG2                           00000004
+INTSRC                            00000007
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+IOFS                              00000002
+IPEN                              00000007
+IPR1                              00000F9F
+IPR2                              00000FA2
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRVST                             00000005
+IVRST                             00000005
+LATA                              00000F89
+LATA0                             00000000
+LATA1                             00000001
+LATA2                             00000002
+LATA3                             00000003
+LATA4                             00000004
+LATA5                             00000005
+LATA6                             00000006
+LATB                              00000F8A
+LATB0                             00000000
+LATB1                             00000001
+LATB2                             00000002
+LATB3                             00000003
+LATB4                             00000004
+LATB5                             00000005
+LATB6                             00000006
+LATB7                             00000007
+LATC                              00000F8B
+LATC0                             00000000
+LATC1                             00000001
+LATC2                             00000002
+LATC6                             00000006
+LATC7                             00000007
+LATD                              00000F8C
+LATD0                             00000000
+LATD1                             00000001
+LATD2                             00000002
+LATD3                             00000003
+LATD4                             00000004
+LATD5                             00000005
+LATD6                             00000006
+LATD7                             00000007
+LATE                              00000F8D
+LATE0                             00000000
+LATE1                             00000001
+LATE2                             00000002
+LCD_CONFIG                        00000658
+LVDCON                            00000FD2
+LVDEN                             00000004
+LVDIE                             00000002
+LVDIF                             00000002
+LVDIN                             00000005
+LVDIP                             00000002
+LVDL0                             00000000
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+LVDL1                             00000001
+LVDL2                             00000002
+LVDL3                             00000003
+LVV0                              00000000
+LVV1                              00000001
+LVV2                              00000002
+LVV3                              00000003
+N                                 00000004
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_IPEN                          00000007
+NOT_PD                            00000002
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RI                            00000004
+NOT_T1SYNC                        00000002
+NOT_T3SYNC                        00000002
+NOT_TO                            00000003
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+OESPP                             00000002
+OSC2                              00000006
+OSCCON                            00000FD3
+OSCFIE                            00000007
+OSCFIF                            00000007
+OSCFIP                            00000007
+OSCTUNE                           00000F9B
+OSTS                              00000003
+OV                                00000003
+P                                 00000004
+P1A                               00000002
+P1M0                              00000006
+P1M1                              00000007
+PC                                00000FF9
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000FF9
+PCLATH                            00000FFA
+PCLATU                            00000FFB
+PD                                00000002
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PEIE                              00000006
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PEIE_GIEL                         00000006
+PEN                               00000002
+PGC                               00000006
+PGD                               00000007
+PGM                               00000005
+PIDEE                             00000000
+PIDEF                             00000000
+PIE1                              00000F9D
+PIE2                              00000FA0
+PIR1                              00000F9E
+PIR2                              00000FA1
+PKTDIS                            00000004
+PLUSW0                            00000FEB
+PLUSW1                            00000FE3
+PLUSW2                            00000FDB
+POR                               00000001
+PORTA                             00000F80
+PORTB                             00000F81
+PORTC                             00000F82
+PORTD                             00000F83
+PORTE                             00000F84
+POSTDEC0                          00000FED
+POSTDEC1                          00000FE5
+POSTDEC2                          00000FDD
+POSTINC0                          00000FEE
+POSTINC1                          00000FE6
+POSTINC2                          00000FDE
+POS_CUR_FIL1                      0000060A
+POS_CUR_FIL2                      00000600
+PPB0                              00000000
+PPB1                              00000001
+PPBI                              00000001
+PPBRST                            00000006
+PR2                               00000FCB
+PREINC0                           00000FEC
+PREINC1                           00000FE4
+PREINC2                           00000FDC
+PROD                              00000FF3
+PRODH                             00000FF4
+PRODL                             00000FF3
+PRSEN                             00000007
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA6                               00000006
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RBIP                              00000000
+RBPU                              00000007
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCIP                              00000005
+RCMT                              00000006
+RCON                              00000FD0
+RCREG                             00000FAE
+RCSTA                             00000FAB
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD16                              00000007
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RDPU                              00000007
+RDSPP                             00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+RE3                               00000003
+READ_WRITE                        00000002
+REPITE                            00000718
+RESUME                            00000002
+RETAR1                            00000742
+RETAR2                            00000746
+RETAR3                            00000758
+RETAR4                            0000075C
+RETAR7                            0000076E
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RETAR8                            00000772
+RI                                00000004
+RS                                00000000
+RSEN                              00000001
+RW                                00000001
+RX                                00000007
+RX9                               00000006
+RX9D                              00000000
+RXDTP                             00000005
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SALIR                             00000734
+SBOREN                            00000006
+SCKP                              00000004
+SCS0                              00000000
+SCS1                              00000001
+SE0                               00000005
+SEN                               00000000
+SENDB                             00000003
+SMP                               00000007
+SOFIE                             00000006
+SOFIF                             00000006
+SPBRG                             00000FAF
+SPBRGH                            00000FB0
+SPEN                              00000007
+SPP0                              00000000
+SPP1                              00000001
+SPP2                              00000002
+SPP3                              00000003
+SPP4                              00000004
+SPP5                              00000005
+SPP6                              00000006
+SPP7                              00000007
+SPPBUSY                           00000004
+SPPCFG                            00000F63
+SPPCON                            00000F65
+SPPDATA                           00000F62
+SPPEN                             00000000
+SPPEPS                            00000F64
+SPPIE                             00000007
+SPPIF                             00000007
+SPPIP                             00000007
+SPPOWN                            00000001
+SREN                              00000005
+SSPADD                            00000FC8
+SSPBUF                            00000FC9
+SSPCON1                           00000FC6
+SSPCON2                           00000FC5
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPIP                             00000003
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000FC7
+STALLIE                           00000005
+STALLIF                           00000005
+STATUS                            00000FD8
+STKFUL                            00000007
+STKOVF                            00000007
+STKPTR                            00000FFC
+STKPTR0                           00000000
+STKPTR1                           00000001
+STKPTR2                           00000002
+STKPTR3                           00000003
+STKPTR4                           00000004
+STKUNF                            00000006
+SUMA3_BCD0                        000007C2
+SUMA3_BCD1                        000007C8
+SUSPND                            00000001
+SWDTE                             00000000
+SWDTEN                            00000000
+SYNC                              00000004
+T08BIT                            00000006
+T0CKI                             00000004
+T0CON                             00000FD5
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0IP                              00000002
+T0PS0                             00000000
+T0PS1                             00000001
+T0PS2                             00000002
+T0SE                              00000004
+T13CKI                            00000000
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000FCD
+T1OSCEN                           00000003
+T1OSI                             00000001
+T1OSO                             00000000
+T1RUN                             00000006
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000FCA
+T2OUTPS0                          00000003
+T2OUTPS1                          00000004
+T2OUTPS2                          00000005
+T2OUTPS3                          00000006
+T3CCP1                            00000003
+T3CCP2                            00000006
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T3CKPS0                           00000004
+T3CKPS1                           00000005
+T3CON                             00000FB1
+T3NSYNC                           00000002
+T3SYNC                            00000002
+TABLAT                            00000FF5
+TBLPTR                            00000FF6
+TBLPTRH                           00000FF7
+TBLPTRL                           00000FF6
+TBLPTRU                           00000FF8
+TMR0                              00000FD6
+TMR0H                             00000FD7
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR0IP                            00000002
+TMR0L                             00000FD6
+TMR0ON                            00000007
+TMR1                              00000FCE
+TMR1CS                            00000001
+TMR1H                             00000FCF
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1IP                            00000000
+TMR1L                             00000FCE
+TMR1ON                            00000000
+TMR2                              00000FCC
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2IP                            00000001
+TMR2ON                            00000002
+TMR3                              00000FB2
+TMR3CS                            00000001
+TMR3H                             00000FB3
+TMR3IE                            00000001
+TMR3IF                            00000001
+TMR3IP                            00000001
+TMR3L                             00000FB2
+TMR3ON                            00000000
+TO                                00000003
+TOS                               00000FFD
+TOSH                              00000FFE
+TOSL                              00000FFD
+TOSU                              00000FFF
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000F92
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA5                            00000005
+TRISA6                            00000006
+TRISB                             00000F93
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000F94
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000F95
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000F96
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TRNIE                             00000003
+TRNIF                             00000003
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX                                00000006
+TX9                               00000006
+TX9D                              00000000
+TXCKP                             00000004
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXIP                              00000004
+TXREG                             00000FAD
+TXSTA                             00000FAC
+UA                                00000001
+UADDR                             00000F6E
+UCFG                              00000F6F
+UCON                              00000F6D
+UEIE                              00000F6B
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+UEIR                              00000F6A
+UEP0                              00000F70
+UEP1                              00000F71
+UEP10                             00000F7A
+UEP11                             00000F7B
+UEP12                             00000F7C
+UEP13                             00000F7D
+UEP14                             00000F7E
+UEP15                             00000F7F
+UEP2                              00000F72
+UEP3                              00000F73
+UEP4                              00000F74
+UEP5                              00000F75
+UEP6                              00000F76
+UEP7                              00000F77
+UEP8                              00000F78
+UEP9                              00000F79
+UERRIE                            00000001
+UERRIF                            00000001
+UFRM                              00000F66
+UFRMH                             00000F67
+UFRML                             00000F66
+UIE                               00000F69
+UIR                               00000F68
+UOEMON                            00000006
+UPUEN                             00000004
+URSTIE                            00000000
+URSTIF                            00000000
+USBEN                             00000003
+USBIE                             00000005
+USBIF                             00000005
+USBIP                             00000005
+USTAT                             00000F6C
+UTEYE                             00000007
+UTRDIS                            00000003
+VCFG0                             00000004
+VCFG1                             00000005
+VDIRMAG                           00000007
+VREFM                             00000002
+VREFP                             00000003
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000FD1
+WR                                00000001
+WREG                              00000FE8
+WREN                              00000002
+WRERR                             00000003
+WRSPP                             00000006
+WS0                               00000000
+WS1                               00000001
+WS2                               00000002
+WS3                               00000003
+WUE                               00000001
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+Z                                 00000002
+_BORV_0_2L                        000000E7
+_BORV_1_2L                        000000EF
+_BORV_2_2L                        000000F7
+_BORV_3_2L                        000000FF
+_BOR_OFF_2L                       000000F9
+_BOR_ON_2L                        000000FF
+_BOR_ON_ACTIVE_2L                 000000FD
+_BOR_SOFT_2L                      000000FB
+_CCP2MX_OFF_3H                    000000FE
+_CCP2MX_ON_3H                     000000FF
+_CONFIG1H                         00300001
+_CONFIG1L                         00300000
+_CONFIG2H                         00300003
+_CONFIG2L                         00300002
+_CONFIG3H                         00300005
+_CONFIG4L                         00300006
+_CONFIG5H                         00300009
+_CONFIG5L                         00300008
+_CONFIG6H                         0030000B
+_CONFIG6L                         0030000A
+_CONFIG7H                         0030000D
+_CONFIG7L                         0030000C
+_CP0_OFF_5L                       000000FF
+_CP0_ON_5L                        000000FE
+_CP1_OFF_5L                       000000FF
+_CP1_ON_5L                        000000FD
+_CP2_OFF_5L                       000000FF
+_CP2_ON_5L                        000000FB
+_CP3_OFF_5L                       000000FF
+_CP3_ON_5L                        000000F7
+_CPB_OFF_5H                       000000FF
+_CPB_ON_5H                        000000BF
+_CPD_OFF_5H                       000000FF
+_CPD_ON_5H                        0000007F
+_CPUDIV_OSC1_PLL2_1L              000000E7
+_CPUDIV_OSC2_PLL3_1L              000000EF
+_CPUDIV_OSC3_PLL4_1L              000000F7
+_CPUDIV_OSC4_PLL6_1L              000000FF
+_DEBUG_OFF_4L                     000000FF
+_DEBUG_ON_4L                      0000007F
+_DEVID1                           003FFFFE
+_DEVID2                           003FFFFF
+_EBTR0_OFF_7L                     000000FF
+_EBTR0_ON_7L                      000000FE
+_EBTR1_OFF_7L                     000000FF
+_EBTR1_ON_7L                      000000FD
+_EBTR2_OFF_7L                     000000FF
+_EBTR2_ON_7L                      000000FB
+_EBTR3_OFF_7L                     000000FF
+_EBTR3_ON_7L                      000000F7
+_EBTRB_OFF_7H                     000000FF
+_EBTRB_ON_7H                      000000BF
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FCMEN_OFF_1H                     000000BF
+_FCMEN_ON_1H                      000000FF
+_FOSC_ECIO_EC_1H                  000000F4
+_FOSC_ECPLLIO_EC_1H               000000F6
+_FOSC_ECPLL_EC_1H                 000000F7
+_FOSC_EC_EC_1H                    000000F5
+_FOSC_HSPLL_HS_1H                 000000FE
+_FOSC_HS_1H                       000000FC
+_FOSC_INTOSCIO_EC_1H              000000F8
+_FOSC_INTOSC_EC_1H                000000F9
+_FOSC_INTOSC_HS_1H                000000FB
+_FOSC_INTOSC_XT_1H                000000FA
+_FOSC_XTPLL_XT_1H                 000000F2
+_FOSC_XT_XT_1H                    000000F0
+_ICPRT_OFF_4L                     000000DF
+_ICPRT_ON_4L                      000000FF
+_IDLOC0                           00200000
+_IDLOC1                           00200001
+_IDLOC2                           00200002
+_IDLOC3                           00200003
+_IDLOC4                           00200004
+_IDLOC5                           00200005
+_IDLOC6                           00200006
+_IDLOC7                           00200007
+_IESO_OFF_1H                      0000007F
+_IESO_ON_1H                       000000FF
+_LPT1OSC_OFF_3H                   000000FB
+_LPT1OSC_ON_3H                    000000FF
+_LVP_OFF_4L                       000000FB
+_LVP_ON_4L                        000000FF
+_MCLRE_OFF_3H                     0000007F
+_MCLRE_ON_3H                      000000FF
+_PBADEN_OFF_3H                    000000FD
+_PBADEN_ON_3H                     000000FF
+_PLLDIV_10_1L                     000000FE
+_PLLDIV_12_1L                     000000FF
+_PLLDIV_1_1L                      000000F8
+_PLLDIV_2_1L                      000000F9
+_PLLDIV_3_1L                      000000FA
+_PLLDIV_4_1L                      000000FB
+_PLLDIV_5_1L                      000000FC
+_PLLDIV_6_1L                      000000FD
+_PWRT_OFF_2L                      000000FF
+_PWRT_ON_2L                       000000FE
+_STVREN_OFF_4L                    000000FE
+_STVREN_ON_4L                     000000FF
+_USBDIV_1_1L                      000000DF
+_USBDIV_2_1L                      000000FF
+_VREGEN_OFF_2L                    000000DF
+_VREGEN_ON_2L                     000000FF
+_WDTPS_1024_2H                    000000F5
+_WDTPS_128_2H                     000000EF
+_WDTPS_16384_2H                   000000FD
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_WDTPS_16_2H                      000000E9
+_WDTPS_1_2H                       000000E1
+_WDTPS_2048_2H                    000000F7
+_WDTPS_256_2H                     000000F1
+_WDTPS_2_2H                       000000E3
+_WDTPS_32768_2H                   000000FF
+_WDTPS_32_2H                      000000EB
+_WDTPS_4096_2H                    000000F9
+_WDTPS_4_2H                       000000E5
+_WDTPS_512_2H                     000000F3
+_WDTPS_64_2H                      000000ED
+_WDTPS_8192_2H                    000000FB
+_WDTPS_8_2H                       000000E7
+_WDT_OFF_2H                       000000FE
+_WDT_ON_2H                        000000FF
+_WRT0_OFF_6L                      000000FF
+_WRT0_ON_6L                       000000FE
+_WRT1_OFF_6L                      000000FF
+_WRT1_ON_6L                       000000FD
+_WRT2_OFF_6L                      000000FF
+_WRT2_ON_6L                       000000FB
+_WRT3_OFF_6L                      000000FF
+_WRT3_ON_6L                       000000F7
+_WRTB_OFF_6H                      000000FF
+_WRTB_ON_6H                       000000BF
+_WRTC_OFF_6H                      000000FF
+_WRTC_ON_6H                       000000DF
+_WRTD_OFF_6H                      000000FF
+_WRTD_ON_6H                       0000007F
+_XINST_OFF_4L                     000000BF
+_XINST_ON_4L                      000000FF
+__18F4550                         00000001
+aux                               00000000
+aux1                              00000008
+aux2                              00000009
+aux3                              0000000A
+cadena                            00000200
+cont                              00000001
+conta1                            0000000B
+conta2                            0000000C
+cuenta                            00000020
+dato                              00000006
+dir_CARACTER                      0000000E
+dir_CGRAM                         0000000D
+inicion                           0000020C
+lecturon                          0000021A
+otro                              00000242
+rx                                00000007
+var                               00000005
+visual                            00000232
+
+MPASM 5.82                       NIUCOUD.ASM   9-17-2019  21:14:17         PAGE 25
+
+
+
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
