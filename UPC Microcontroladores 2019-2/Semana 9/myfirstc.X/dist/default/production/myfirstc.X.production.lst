@@ -1,0 +1,699 @@
+
+
+Microchip MPLAB XC8 Assembler V2.05 build -831301201 
+                                                                                               Wed Oct 09 09:30:19 2019
+
+Microchip MPLAB XC8 C Compiler v2.05 (Free license) build 20181220022703 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	flic
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    14                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    15  0000                     
+    16                           ; Version 2.05
+    17                           ; Generated 20/12/2018 GMT
+    18                           ; 
+    19                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    20                           ; All rights reserved.
+    21                           ; 
+    22                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    23                           ; 
+    24                           ; Redistribution and use in source and binary forms, with or without modification, are
+    25                           ; permitted provided that the following conditions are met:
+    26                           ; 
+    27                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    28                           ;        conditions and the following disclaimer.
+    29                           ; 
+    30                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    31                           ;        of conditions and the following disclaimer in the documentation and/or other
+    32                           ;        materials provided with the distribution.
+    33                           ; 
+    34                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    35                           ;        software without specific prior written permission.
+    36                           ; 
+    37                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    38                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    39                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    40                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    41                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    42                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    43                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    44                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    45                           ; 
+    46                           ; 
+    47                           ; Code-generator required, PIC18F4550 Definitions
+    48                           ; 
+    49                           ; SFR Addresses
+    50  0000                     
+    51                           	psect	idataCOMRAM
+    52  007EB0                     __pidataCOMRAM:
+    53                           	opt callstack 0
+    54                           
+    55                           ;initializer for _ajicon
+    56  007EB0  01                 	db	1
+    57  007EB1  02                 	db	2
+    58  007EB2  04                 	db	4
+    59  007EB3  08                 	db	8
+    60  007EB4  10                 	db	16
+    61  007EB5  20                 	db	32
+    62  007EB6  40                 	db	64
+    63  007EB7  80                 	db	128
+    64  007EB8  40                 	db	64
+    65  007EB9  20                 	db	32
+    66  007EBA  10                 	db	16
+    67  007EBB  08                 	db	8
+    68  007EBC  04                 	db	4
+    69  007EBD  02                 	db	2
+    70                           
+    71                           ;initializer for _rocotocon
+    72  007EBE  81                 	db	129
+    73  007EBF  42                 	db	66
+    74  007EC0  24                 	db	36
+    75  007EC1  18                 	db	24
+    76  007EC2  24                 	db	36
+    77  007EC3  42                 	db	66
+    78  0000                     _PORTB	set	3969
+    79  0000                     _ADCON1	set	4033
+    80  0000                     _TRISD	set	3989
+    81  0000                     _LATD	set	3980
+    82  0000                     _PORTEbits	set	3972
+    83                           
+    84                           ; #config settings
+    85  0000                     
+    86                           	psect	cinit
+    87  007EC4                     __pcinit:
+    88                           	opt callstack 0
+    89  007EC4                     start_initialization:
+    90                           	opt callstack 0
+    91  007EC4                     __initialization:
+    92                           	opt callstack 0
+    93                           
+    94                           ; Initialize objects allocated to COMRAM (20 bytes)
+    95                           ; load TBLPTR registers with __pidataCOMRAM
+    96  007EC4  0EB0               	movlw	low __pidataCOMRAM
+    97  007EC6  6EF6               	movwf	tblptrl,c
+    98  007EC8  0E7E               	movlw	high __pidataCOMRAM
+    99  007ECA  6EF7               	movwf	tblptrh,c
+   100  007ECC  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+   101  007ECE  6EF8               	movwf	tblptru,c
+   102  007ED0  EE00  F001         	lfsr	0,__pdataCOMRAM
+   103  007ED4  EE10 F014          	lfsr	1,20
+   104  007ED8                     copy_data0:
+   105  007ED8  0009               	tblrd		*+
+   106  007EDA  CFF5 FFEE          	movff	tablat,postinc0
+   107  007EDE  50E5               	movf	postdec1,w,c
+   108  007EE0  50E1               	movf	fsr1l,w,c
+   109  007EE2  E1FA               	bnz	copy_data0
+   110                           
+   111                           ; Clear objects allocated to COMRAM (4 bytes)
+   112  007EE4  6A23               	clrf	(__pbssCOMRAM+3)& (0+255),c
+   113  007EE6  6A22               	clrf	(__pbssCOMRAM+2)& (0+255),c
+   114  007EE8  6A21               	clrf	(__pbssCOMRAM+1)& (0+255),c
+   115  007EEA  6A20               	clrf	__pbssCOMRAM& (0+255),c
+   116  007EEC                     end_of_initialization:
+   117                           	opt callstack 0
+   118  007EEC                     __end_of__initialization:
+   119                           	opt callstack 0
+   120  007EEC  0E00               	movlw	low (__Lmediumconst shr (0+16))
+   121  007EEE  6EF8               	movwf	tblptru,c
+   122  007EF0  0100               	movlb	0
+   123  007EF2  EF95  F03F         	goto	_main	;jump to C main() function
+   124                           
+   125                           	psect	bssCOMRAM
+   126  000020                     __pbssCOMRAM:
+   127                           	opt callstack 0
+   128  000020                     _camote:
+   129                           	opt callstack 0
+   130  000020                     	ds	2
+   131  000022                     _tiempo:
+   132                           	opt callstack 0
+   133  000022                     	ds	2
+   134                           
+   135                           	psect	dataCOMRAM
+   136  000001                     __pdataCOMRAM:
+   137                           	opt callstack 0
+   138  000001                     _ajicon:
+   139                           	opt callstack 0
+   140  000001                     	ds	14
+   141  00000F                     _rocotocon:
+   142                           	opt callstack 0
+   143  00000F                     	ds	6
+   144                           
+   145                           	psect	cstackCOMRAM
+   146  000015                     __pcstackCOMRAM:
+   147                           	opt callstack 0
+   148  000015                     retardon@tiempo:
+   149                           	opt callstack 0
+   150                           
+   151                           ; 2 bytes @ 0x0
+   152  000015                     	ds	2
+   153  000017                     ??_retardon:
+   154                           
+   155                           ; 1 bytes @ 0x2
+   156  000017                     	ds	1
+   157  000018                     retardon@i:
+   158                           	opt callstack 0
+   159                           
+   160                           ; 2 bytes @ 0x3
+   161  000018                     	ds	2
+   162  00001A                     visual@papa:
+   163                           	opt callstack 0
+   164                           
+   165                           ; 2 bytes @ 0x5
+   166  00001A                     	ds	2
+   167  00001C                     visual@papa_117:
+   168                           	opt callstack 0
+   169                           
+   170                           ; 2 bytes @ 0x7
+   171  00001C                     	ds	2
+   172  00001E                     ??_main:
+   173                           
+   174                           ; 1 bytes @ 0x9
+   175  00001E                     	ds	2
+   176                           
+   177 ;;
+   178 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   179 ;;
+   180 ;; *************** function _main *****************
+   181 ;; Defined at:
+   182 ;;		line 51 in file "niucode5.c"
+   183 ;; Parameters:    Size  Location     Type
+   184 ;;		None
+   185 ;; Auto vars:     Size  Location     Type
+   186 ;;		None
+   187 ;; Return value:  Size  Location     Type
+   188 ;;                  1    wreg      void 
+   189 ;; Registers used:
+   190 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   191 ;; Tracked objects:
+   192 ;;		On entry : 0/0
+   193 ;;		On exit  : 0/0
+   194 ;;		Unchanged: 0/0
+   195 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   196 ;;      Params:         0       0       0       0       0       0       0       0       0
+   197 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   198 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   199 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   200 ;;Total ram usage:        2 bytes
+   201 ;; Hardware stack levels required when called:    2
+   202 ;; This function calls:
+   203 ;;		_visual
+   204 ;; This function is called by:
+   205 ;;		Startup code after reset
+   206 ;; This function uses a non-reentrant model
+   207 ;;
+   208                           
+   209                           	psect	text0
+   210  007F2A                     __ptext0:
+   211                           	opt callstack 0
+   212  007F2A                     _main:
+   213                           	opt callstack 29
+   214                           
+   215                           ;niucode5.c: 52:     TRISD = 0x00;
+   216                           
+   217                           ;incstack = 0
+   218  007F2A  0E00               	movlw	0
+   219  007F2C  6E95               	movwf	3989,c	;volatile
+   220                           
+   221                           ;niucode5.c: 53:     ADCON1 = 0x0F;
+   222  007F2E  0E0F               	movlw	15
+   223  007F30  6EC1               	movwf	4033,c	;volatile
+   224  007F32  D011               	goto	l833
+   225  007F34                     l823:
+   226                           
+   227                           ;niucode5.c: 57:                 camote = 50;
+   228  007F34  0E00               	movlw	0
+   229  007F36  6E21               	movwf	_camote+1,c
+   230  007F38  0E32               	movlw	50
+   231  007F3A  D00B               	goto	L3
+   232  007F3C                     l825:
+   233                           
+   234                           ;niucode5.c: 60:                 camote = 100;
+   235  007F3C  0E00               	movlw	0
+   236  007F3E  6E21               	movwf	_camote+1,c
+   237  007F40  0E64               	movlw	100
+   238  007F42  D007               	goto	L3
+   239  007F44                     l827:
+   240                           
+   241                           ;niucode5.c: 63:                 camote = 150;
+   242  007F44  0E00               	movlw	0
+   243  007F46  6E21               	movwf	_camote+1,c
+   244  007F48  0E96               	movlw	150
+   245  007F4A  D003               	goto	L3
+   246  007F4C                     l829:
+   247                           
+   248                           ;niucode5.c: 66:                 camote = 200;
+   249  007F4C  0E00               	movlw	0
+   250  007F4E  6E21               	movwf	_camote+1,c
+   251  007F50  0EC8               	movlw	200
+   252  007F52                     L3:
+   253  007F52  6E20               	movwf	_camote,c
+   254                           
+   255                           ;niucode5.c: 67:                 break;
+   256  007F54  D015               	goto	l835
+   257  007F56                     l833:
+   258  007F56  5081               	movf	3969,w,c	;volatile
+   259  007F58  0B03               	andlw	3
+   260  007F5A  6E1E               	movwf	??_main& (0+255),c
+   261  007F5C  6A1F               	clrf	(??_main+1)& (0+255),c
+   262                           
+   263                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
+      +                          itches
+   264                           ; Switch size 1, requested type "simple"
+   265                           ; Number of cases is 1, Range of values is 0 to 0
+   266                           ; switch strategies available:
+   267                           ; Name         Instructions Cycles
+   268                           ; simple_byte            4     3 (average)
+   269                           ;	Chosen strategy is simple_byte
+   270  007F5E  501F               	movf	??_main+1,w,c
+   271  007F60  0A00               	xorlw	0	; case 0
+   272  007F62  A4D8               	btfss	status,2,c
+   273  007F64  D00D               	goto	l835
+   274                           
+   275                           ; Switch size 1, requested type "simple"
+   276                           ; Number of cases is 4, Range of values is 0 to 3
+   277                           ; switch strategies available:
+   278                           ; Name         Instructions Cycles
+   279                           ; simple_byte           13     7 (average)
+   280                           ;	Chosen strategy is simple_byte
+   281  007F66  501E               	movf	??_main,w,c
+   282  007F68  0A00               	xorlw	0	; case 0
+   283  007F6A  B4D8               	btfsc	status,2,c
+   284  007F6C  D7E3               	goto	l823
+   285  007F6E  0A01               	xorlw	1	; case 1
+   286  007F70  B4D8               	btfsc	status,2,c
+   287  007F72  D7E4               	goto	l825
+   288  007F74  0A03               	xorlw	3	; case 2
+   289  007F76  B4D8               	btfsc	status,2,c
+   290  007F78  D7E5               	goto	l827
+   291  007F7A  0A01               	xorlw	1	; case 3
+   292  007F7C  B4D8               	btfsc	status,2,c
+   293  007F7E  D7E6               	goto	l829
+   294  007F80                     l835:
+   295                           
+   296                           ;niucode5.c: 69:         visual();
+   297  007F80  ECC3  F03F         	call	_visual	;wreg free
+   298  007F84  D7E8               	goto	l833
+   299  007F86                     __end_of_main:
+   300                           	opt callstack 0
+   301                           
+   302 ;; *************** function _visual *****************
+   303 ;; Defined at:
+   304 ;;		line 34 in file "niucode5.c"
+   305 ;; Parameters:    Size  Location     Type
+   306 ;;		None
+   307 ;; Auto vars:     Size  Location     Type
+   308 ;;  papa            2    7[COMRAM] int 
+   309 ;;  papa            2    5[COMRAM] int 
+   310 ;; Return value:  Size  Location     Type
+   311 ;;                  2   28[None  ] int 
+   312 ;; Registers used:
+   313 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   314 ;; Tracked objects:
+   315 ;;		On entry : 0/0
+   316 ;;		On exit  : 0/0
+   317 ;;		Unchanged: 0/0
+   318 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   319 ;;      Params:         0       0       0       0       0       0       0       0       0
+   320 ;;      Locals:         4       0       0       0       0       0       0       0       0
+   321 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   322 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   323 ;;Total ram usage:        4 bytes
+   324 ;; Hardware stack levels used:    1
+   325 ;; Hardware stack levels required when called:    1
+   326 ;; This function calls:
+   327 ;;		_retardon
+   328 ;; This function is called by:
+   329 ;;		_main
+   330 ;; This function uses a non-reentrant model
+   331 ;;
+   332                           
+   333                           	psect	text1
+   334  007F86                     __ptext1:
+   335                           	opt callstack 0
+   336  007F86                     _visual:
+   337                           	opt callstack 29
+   338                           
+   339                           ;niucode5.c: 35:         if(PORTEbits.RE0 == 1){
+   340                           
+   341                           ;incstack = 0
+   342  007F86  A084               	btfss	3972,0,c	;volatile
+   343  007F88  D01D               	goto	l807
+   344                           
+   345                           ;niucode5.c: 36:         for (int papa=0; papa<14; papa++){
+   346  007F8A  0E00               	movlw	0
+   347  007F8C  6E1B               	movwf	visual@papa+1,c
+   348  007F8E  0E00               	movlw	0
+   349  007F90  6E1A               	movwf	visual@papa,c
+   350  007F92                     l799:
+   351                           
+   352                           ;niucode5.c: 37:             LATD = ajicon[papa];
+   353  007F92  0E01               	movlw	low _ajicon
+   354  007F94  241A               	addwf	visual@papa,w,c
+   355  007F96  6ED9               	movwf	fsr2l,c
+   356  007F98  0E00               	movlw	high _ajicon
+   357  007F9A  201B               	addwfc	visual@papa+1,w,c
+   358  007F9C  6EDA               	movwf	fsr2h,c
+   359  007F9E  50DF               	movf	indf2,w,c
+   360  007FA0  6E8C               	movwf	3980,c	;volatile
+   361                           
+   362                           ;niucode5.c: 39:             retardon(camote);
+   363  007FA2  C020  F015         	movff	_camote,retardon@tiempo
+   364  007FA6  C021  F016         	movff	_camote+1,retardon@tiempo+1
+   365  007FAA  EC7B  F03F         	call	_retardon	;wreg free
+   366                           
+   367                           ;niucode5.c: 40:         }
+   368  007FAE  4A1A               	infsnz	visual@papa,f,c
+   369  007FB0  2A1B               	incf	visual@papa+1,f,c
+   370  007FB2  BE1B               	btfsc	visual@papa+1,7,c
+   371  007FB4  D7EE               	goto	l799
+   372  007FB6  501B               	movf	visual@papa+1,w,c
+   373  007FB8  E122               	bnz	l35
+   374  007FBA  0E0E               	movlw	14
+   375  007FBC  5C1A               	subwf	visual@papa,w,c
+   376  007FBE  B0D8               	btfsc	status,0,c
+   377  007FC0  0012               	return	
+   378  007FC2  D7E7               	goto	l799
+   379  007FC4                     l807:
+   380                           
+   381                           ;niucode5.c: 43:         for (int papa=0; papa<5; papa++){
+   382  007FC4  0E00               	movlw	0
+   383  007FC6  6E1D               	movwf	visual@papa_117+1,c
+   384  007FC8  0E00               	movlw	0
+   385  007FCA  6E1C               	movwf	visual@papa_117,c
+   386  007FCC                     l813:
+   387                           
+   388                           ;niucode5.c: 44:             LATD = rocotocon[papa];
+   389  007FCC  0E0F               	movlw	low _rocotocon
+   390  007FCE  241C               	addwf	visual@papa_117,w,c
+   391  007FD0  6ED9               	movwf	fsr2l,c
+   392  007FD2  0E00               	movlw	high _rocotocon
+   393  007FD4  201D               	addwfc	visual@papa_117+1,w,c
+   394  007FD6  6EDA               	movwf	fsr2h,c
+   395  007FD8  50DF               	movf	indf2,w,c
+   396  007FDA  6E8C               	movwf	3980,c	;volatile
+   397                           
+   398                           ;niucode5.c: 46:             retardon(camote);
+   399  007FDC  C020  F015         	movff	_camote,retardon@tiempo
+   400  007FE0  C021  F016         	movff	_camote+1,retardon@tiempo+1
+   401  007FE4  EC7B  F03F         	call	_retardon	;wreg free
+   402                           
+   403                           ;niucode5.c: 47:         }
+   404  007FE8  4A1C               	infsnz	visual@papa_117,f,c
+   405  007FEA  2A1D               	incf	visual@papa_117+1,f,c
+   406  007FEC  BE1D               	btfsc	visual@papa_117+1,7,c
+   407  007FEE  D7EE               	goto	l813
+   408  007FF0  501D               	movf	visual@papa_117+1,w,c
+   409  007FF2  E105               	bnz	u80
+   410  007FF4  0E05               	movlw	5
+   411  007FF6  5C1C               	subwf	visual@papa_117,w,c
+   412  007FF8  B0D8               	btfsc	status,0,c
+   413  007FFA  0012               	return	
+   414  007FFC  D7E7               	goto	l813
+   415  007FFE                     u80:
+   416  007FFE                     l35:
+   417  007FFE  0012               	return		;funcret
+   418  008000                     __end_of_visual:
+   419                           	opt callstack 0
+   420                           
+   421 ;; *************** function _retardon *****************
+   422 ;; Defined at:
+   423 ;;		line 28 in file "niucode5.c"
+   424 ;; Parameters:    Size  Location     Type
+   425 ;;  tiempo          2    0[COMRAM] int 
+   426 ;; Auto vars:     Size  Location     Type
+   427 ;;  i               2    3[COMRAM] int 
+   428 ;; Return value:  Size  Location     Type
+   429 ;;                  2    0[COMRAM] int 
+   430 ;; Registers used:
+   431 ;;		wreg, status,2, status,0
+   432 ;; Tracked objects:
+   433 ;;		On entry : 0/0
+   434 ;;		On exit  : 0/0
+   435 ;;		Unchanged: 0/0
+   436 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   437 ;;      Params:         2       0       0       0       0       0       0       0       0
+   438 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   439 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   440 ;;      Totals:         5       0       0       0       0       0       0       0       0
+   441 ;;Total ram usage:        5 bytes
+   442 ;; Hardware stack levels used:    1
+   443 ;; This function calls:
+   444 ;;		Nothing
+   445 ;; This function is called by:
+   446 ;;		_visual
+   447 ;; This function uses a non-reentrant model
+   448 ;;
+   449                           
+   450                           	psect	text2
+   451  007EF6                     __ptext2:
+   452                           	opt callstack 0
+   453  007EF6                     _retardon:
+   454                           	opt callstack 29
+   455                           
+   456                           ;niucode5.c: 29:     for (int i=0; i<tiempo; i++){
+   457                           
+   458                           ;incstack = 0
+   459  007EF6  0E00               	movlw	0
+   460  007EF8  6E19               	movwf	retardon@i+1,c
+   461  007EFA  0E00               	movlw	0
+   462  007EFC  6E18               	movwf	retardon@i,c
+   463  007EFE  D00A               	goto	l23
+   464  007F00                     l787:
+   465                           
+   466                           ;niucode5.c: 30:         _delay((unsigned long)((1)*(48000000/4000.0)));
+   467  007F00  0E10               	movlw	16
+   468  007F02  6E17               	movwf	??_retardon& (0+255),c
+   469  007F04  0E94               	movlw	148
+   470  007F06                     u97:
+   471  007F06  2EE8               	decfsz	wreg,f,c
+   472  007F08  D7FE               	bra	u97
+   473  007F0A  2E17               	decfsz	??_retardon& (0+255),f,c
+   474  007F0C  D7FC               	bra	u97
+   475  007F0E  D000               	nop2	
+   476                           
+   477                           ;niucode5.c: 31:     }
+   478  007F10  4A18               	infsnz	retardon@i,f,c
+   479  007F12  2A19               	incf	retardon@i+1,f,c
+   480  007F14                     l23:
+   481  007F14  5015               	movf	retardon@tiempo,w,c
+   482  007F16  5C18               	subwf	retardon@i,w,c
+   483  007F18  5019               	movf	retardon@i+1,w,c
+   484  007F1A  0A80               	xorlw	128
+   485  007F1C  6E17               	movwf	??_retardon& (0+255),c
+   486  007F1E  5016               	movf	retardon@tiempo+1,w,c
+   487  007F20  0A80               	xorlw	128
+   488  007F22  5817               	subwfb	??_retardon& (0+255),w,c
+   489  007F24  B0D8               	btfsc	status,0,c
+   490  007F26  0012               	return	
+   491  007F28  D7EB               	goto	l787
+   492  007F2A                     __end_of_retardon:
+   493                           	opt callstack 0
+   494  0000                     
+   495                           	psect	rparam
+   496  0000                     tosu	equ	0xFFF
+   497                           tosh	equ	0xFFE
+   498                           tosl	equ	0xFFD
+   499                           stkptr	equ	0xFFC
+   500                           pclatu	equ	0xFFB
+   501                           pclath	equ	0xFFA
+   502                           pcl	equ	0xFF9
+   503                           tblptru	equ	0xFF8
+   504                           tblptrh	equ	0xFF7
+   505                           tblptrl	equ	0xFF6
+   506                           tablat	equ	0xFF5
+   507                           prodh	equ	0xFF4
+   508                           prodl	equ	0xFF3
+   509                           indf0	equ	0xFEF
+   510                           postinc0	equ	0xFEE
+   511                           postdec0	equ	0xFED
+   512                           preinc0	equ	0xFEC
+   513                           plusw0	equ	0xFEB
+   514                           fsr0h	equ	0xFEA
+   515                           fsr0l	equ	0xFE9
+   516                           wreg	equ	0xFE8
+   517                           indf1	equ	0xFE7
+   518                           postinc1	equ	0xFE6
+   519                           postdec1	equ	0xFE5
+   520                           preinc1	equ	0xFE4
+   521                           plusw1	equ	0xFE3
+   522                           fsr1h	equ	0xFE2
+   523                           fsr1l	equ	0xFE1
+   524                           bsr	equ	0xFE0
+   525                           indf2	equ	0xFDF
+   526                           postinc2	equ	0xFDE
+   527                           postdec2	equ	0xFDD
+   528                           preinc2	equ	0xFDC
+   529                           plusw2	equ	0xFDB
+   530                           fsr2h	equ	0xFDA
+   531                           fsr2l	equ	0xFD9
+   532                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        20
+    BSS         4
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     11      35
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_visual
+    _visual->_retardon
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 2     2      0     334
+                                              9 COMRAM     2     2      0
+                             _visual
+ ---------------------------------------------------------------------------------
+ (1) _visual                                               4     4      0     334
+                                              5 COMRAM     4     4      0
+                           _retardon
+ ---------------------------------------------------------------------------------
+ (2) _retardon                                             5     3      2     198
+                                              0 COMRAM     5     3      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _visual
+     _retardon
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0       0      21        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F      B      23       1       36.8%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      23      20        0.0%
+DATA                 0      0      23       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.05 build -831301201 
+Symbol Table                                                                                   Wed Oct 09 09:30:19 2019
+
+                     l23 7F14                       l35 7FFE                       u80 7FFE  
+                     u97 7F06              __CFG_BORV$3 000000       __CFG_FOSC$XTPLL_XT 000000  
+                    l813 7FCC                      l807 7FC4                      l823 7F34  
+                    l825 7F3C                      l833 7F56                      l827 7F44  
+                    l835 7F80                      l829 7F4C                      l787 7F00  
+                    l799 7F92             __CFG_BOR$OFF 000000                      wreg 000FE8  
+           __CFG_LVP$OFF 000000             __CFG_WDT$OFF 000000                     _LATD 000F8C  
+           __CFG_PWRT$ON 000000                     _main 7F2A                     indf2 000FDF  
+                   fsr1l 000FE1                     fsr2l 000FD9                     start 0000  
+          __CFG_MCLRE$ON 000000             ___param_bank 000000            __CFG_PLLDIV$1 000000  
+         __CFG_CCP2MX$ON 000000                    ?_main 0015                    _PORTB 000F81  
+                  _TRISD 000F95                    tablat 000FF5                    status 000FD8  
+        __initialization 7EC4             __end_of_main 7F86                   ??_main 001E  
+          __activetblptr 000002                   _ADCON1 000FC1           visual@papa_117 001C  
+                 _ajicon 0001                   _camote 0020                   _tiempo 0022  
+                 _visual 7F86         __end_of_retardon 7F2A             __pdataCOMRAM 0001  
+                 tblptrh 000FF7                   tblptrl 000FF6                   tblptru 000FF8  
+             __accesstop 0060  __end_of__initialization 7EEC          __CFG_PBADEN$OFF 000000  
+          ___rparam_used 000001           __pcstackCOMRAM 0015                  ?_visual 0015  
+         retardon@tiempo 0015                  __Hparam 0000                  __Lparam 0000  
+              ?_retardon 0015                  __pcinit 7EC4                  __ramtop 0800  
+                __ptext0 7F2A                  __ptext1 7F86                  __ptext2 7EF6  
+        __size_of_visual 007A     end_of_initialization 7EEC            __Lmediumconst 0000  
+             ??_retardon 0017                  postdec1 000FE5                  postinc0 000FEE  
+              _PORTEbits 000F84            __pidataCOMRAM 7EB0           __end_of_visual 8000  
+    start_initialization 7EC4                 ??_visual 001A              __pbssCOMRAM 0020  
+      __size_of_retardon 0034         __CFG_WDTPS$32768 000000                _rocotocon 000F  
+              copy_data0 7ED8                 __Hrparam 0000                 __Lrparam 0000  
+             visual@papa 001A            __size_of_main 005C                retardon@i 0018  
+               _retardon 7EF6    __CFG_CPUDIV$OSC1_PLL2 000000  
