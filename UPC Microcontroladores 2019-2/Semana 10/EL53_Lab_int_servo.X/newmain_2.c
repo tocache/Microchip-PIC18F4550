@@ -25,6 +25,7 @@ void main(void) {
     //INTCONbits.PEIE = 1;      //Por verificar si se necesita habilitar por el uso de Int1
     INTCONbits.INT0E = 1;
     INTCON3bits.INT1E = 1;
+    INTCON3bits.INT2E = 1;
     ADCON1 = 0x0F;              //Para que todos los puertos ANx sean digitales
     TRISEbits.RE0 = 0;          //Puerto RE0 como salida para manipular el servo
     TRISD = 0x00;
@@ -38,39 +39,47 @@ void main(void) {
         switch(estado){
             case 0:
                 POS_CURSOR(2,0);
-                ESCRIBE_MENSAJE("Servo a 90", 10);
-                ENVIA_CHAR(0xDF);
-                ESCRIBE_MENSAJE("     ", 15);
-                    while(estado == 0){
-                        LATEbits.LE0 = 1;
-                        __delay_us(1500);
-                        LATEbits.LE0 = 0;
-                        __delay_us(18500);
-                    }
+                ESCRIBE_MENSAJE("Servo apagado", 13);
+                while(estado == 0){
+                    LATEbits.LE0 = 0;
+                }
                 break;
             case 1:
                 POS_CURSOR(2,0);
                 ESCRIBE_MENSAJE("Servo a 0", 9);
                 ENVIA_CHAR(0xDF);
                 ESCRIBE_MENSAJE("     ", 16);                
-                    while(estado == 1){
-                        LATEbits.LE0 = 1;
-                        __delay_us(1000);
-                        LATEbits.LE0 = 0;
-                        __delay_us(19000);
-                    }
+                while(estado == 1){
+                    LATEbits.LE0 = 1;
+                    __delay_us(1000);
+                    LATEbits.LE0 = 0;
+                    __delay_us(19000);
+                }
                 break;
             case 2:
                 POS_CURSOR(2,0);
                 ESCRIBE_MENSAJE("Servo a 180", 11);
                 ENVIA_CHAR(0xDF);
                 ESCRIBE_MENSAJE("     ", 14);                 
-                    while(estado == 2){
-                        LATEbits.LE0 = 1;
-                        __delay_us(2000);
-                        LATEbits.LE0 = 0;
-                        __delay_us(18000);
-                    }
+                while(estado == 2){
+                    LATEbits.LE0 = 1;
+                    __delay_us(2000);
+                    LATEbits.LE0 = 0;
+                    __delay_us(18000);
+                }
+                break;
+            case 3:
+                POS_CURSOR(2,0);
+                ESCRIBE_MENSAJE("Servo a 90", 10);
+                ENVIA_CHAR(0xDF);
+                ESCRIBE_MENSAJE("     ", 15);
+                while(estado == 3){
+                    LATEbits.LE0 = 1;
+                    __delay_us(1500);
+                    LATEbits.LE0 = 0;
+                    __delay_us(18500);
+                }
+                break;
         }
     }
 }
@@ -83,6 +92,11 @@ void __interrupt (high_priority) Int0_Int1_ISR(void){
     else if(INTCON3bits.INT1IF==1){
         estado = 2;
     }
+    else if(INTCON3bits.INT2IF==1){
+        estado = 3;
+    }    
     INTCONbits.INT0F = 0;
-    INTCON3bits.INT1IF = 0;
+    INTCON3bits.INT1IF = 0;        
+    INTCON3bits.INT2IF = 0;
 }
+
