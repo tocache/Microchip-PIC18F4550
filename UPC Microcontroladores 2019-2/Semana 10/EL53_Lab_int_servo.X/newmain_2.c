@@ -76,12 +76,13 @@ void main(void) {
 }
 
 void __interrupt (high_priority) Int0_Int1_ISR(void){
+    __delay_ms(50);
     if(INTCONbits.INT0F==1){
         estado = 1;
-        INTCONbits.INT0F = 0;
     }
     else if(INTCON3bits.INT1IF==1){
         estado = 2;
-        INTCON3bits.INT1IF = 0;
     }
+    INTCONbits.INT0F = 0;
+    INTCON3bits.INT1IF = 0;
 }
