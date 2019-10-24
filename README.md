@@ -15,7 +15,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 - The University of Sydney - MTRX3700 Mechatronics 3 Course lectures: http://web.aeromech.usyd.edu.au/MTRX3700/Course_Material/lectures/PDF/ <br>
 - HC-SR04 Ultrasonic range meter using XC8: https://electrosome.com/hc-sr04-ultrasonic-sensor-pic/ <br>
 - Revisited HID Bootloader for PIC18F4550 using XC8: http://erricous.free.fr/Electronique/Pic/boot4550_en.html
-- Bootloader en español]: http://www.microedu.es/Electronica/AprendiendoPic18f4550/Bootloader/Bootloader.html
+- Bootloader en español: http://www.microedu.es/Electronica/AprendiendoPic18f4550/Bootloader/Bootloader.html
 <b> Changelog:</b>
 
 <b>2018-09-23:</b> Reclasificación de proyectos puestos en carpetas equivocadas y reordenamiento de documentos técnicos a carpeta Datasheet <br>
