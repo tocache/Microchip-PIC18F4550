@@ -1,2 +1,2 @@
 Comunicacion serial empleando EUSART
-<img src="com%20serial.PNG">
+<img src="sim%20serial.PNG">
