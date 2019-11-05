@@ -16,6 +16,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 - HC-SR04 Ultrasonic range meter using XC8: https://electrosome.com/hc-sr04-ultrasonic-sensor-pic/ <br>
 - Revisited HID Bootloader for PIC18F4550 using XC8: http://erricous.free.fr/Electronique/Pic/boot4550_en.html <br>
 - Bootloader en español: http://www.microedu.es/Electronica/AprendiendoPic18f4550/Bootloader/Bootloader.html <br>
+- I2C Library for XC8: https://electrosome.com/i2c-pic-microcontroller-mplab-xc8/ <br>
 
 <b> Changelog:</b>
 
