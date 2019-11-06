@@ -5650,6 +5650,7 @@ unsigned char menu4[] = {"(2) Apagas LED      "};
 unsigned char menu5[] = {"(3) Parpadeas LED   "};
 unsigned char menu6[] = {"(4) Estado del boton"};
 unsigned char menu7[] = {"(5) Autor           "};
+unsigned char menu8[] = {"(m) Visualizar menu "};
 unsigned char autor[] = {"Kalun Jose Lau Gan  "};
 unsigned char led_on[] = {"LED encendido       "};
 unsigned char led_off[] = {"LED apagado         "};
@@ -5710,29 +5711,28 @@ void show_menu(void){
     send_newline();
     send_string(menu7,20);
     send_newline();
-}
-
-void main(void){
-    uc_config();
-    while(1){
-        send_char('U');
-        send_char('P');
-        send_char('C');
-        send_newline();
-        send_string(cadena,25);
-        send_newline();
-        show_menu();
-        _delay((unsigned long)((5000)*(32000000UL/4000.0)));
-    }
+    send_string(menu8,20);
+    send_newline();
 }
 
 void parpadeo(void){
     while(PIR1bits.RC1IF == 0){
         LATEbits.LE0 = 1;
-        _delay((unsigned long)((500)*(32000000UL/4000.0)));
+        _delay((unsigned long)((200)*(32000000UL/4000.0)));
         LATEbits.LE0 = 0;
-        _delay((unsigned long)((500)*(32000000UL/4000.0)));
+        _delay((unsigned long)((200)*(32000000UL/4000.0)));
     }
+}
+
+void main(void){
+    uc_config();
+    send_char('U');
+    send_char('P');
+    send_char('C');
+    send_newline();
+    send_string(cadena,25);
+    send_newline();
+    while(1);
 }
 
 void __attribute__((picinterrupt(("")))) RCIsr(void){
@@ -5765,6 +5765,10 @@ void __attribute__((picinterrupt(("")))) RCIsr(void){
             break;
         case '5':
             send_string(autor,20);
+            send_newline();
+            break;
+        case 'm':
+            show_menu();
             send_newline();
             break;
         default:
