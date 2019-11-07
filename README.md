@@ -17,6 +17,9 @@ Repositorio de aplicaciones con los microcontroladores PIC
 - Revisited HID Bootloader for PIC18F4550 using XC8: http://erricous.free.fr/Electronique/Pic/boot4550_en.html <br>
 - Bootloader en español: http://www.microedu.es/Electronica/AprendiendoPic18f4550/Bootloader/Bootloader.html <br>
 - I2C Library for XC8: https://electrosome.com/i2c-pic-microcontroller-mplab-xc8/ <br>
+- Porque Arduino no es la herramienta correcta: http://dignal.com/porque-arduino-no-es-la-herramienta-correcta/ <br>
+- How to Program a PIC 18F2550 or 18f4550 With Arduino UNO: https://www.instructables.com/id/how-to-program-a-PIC-18F2550-or-18f4550-with-Ardui/ <br>
+- PIC18F4550 PINGÜINO: https://securityassessmentsblog.wordpress.com/2018/03/29/pic18f4550-pinguino/ <br>
 
 <b> Changelog:</b>
 
