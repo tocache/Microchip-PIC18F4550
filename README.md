@@ -27,7 +27,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 <b>2018-09-19:</b> Añadiendo repositorio de enlaces en el readme.md<br>
 <b>2018-08-17:</b> Actualizando la organización de los contenidos del 2018-2, ahora por estará clasificado por semanas <br>
 <b>2018-08-10:</b> Subiendo los ejemplos de aplicación del curso de Microcontroladores dictado en UPC ciclo 2018-01
-
-<h1>Conviértete en maestro POKEPIC!</h1><br>
+<br>
+<h1>Conviértete en maestro POKEPIC!</h1>
 Estas perdido en microcontroladores PIC? Mira todos estos videos de Wels y conviértete en maestro POKEPIC!<br>
 https://www.youtube.com/channel/UCqA4hrjl73hWTsYI3Tv-cpA/videos <br>
