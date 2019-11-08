@@ -16,6 +16,7 @@
 
 #define _XTAL_FREQ 32000000UL   //Frecuencia de trabajo actual
 #include <xc.h>
+#include "LCD.h"
 
 unsigned char cadena[] = {"Electronica - Mecatronica"};
 unsigned char menu1[] = {"Bienvenidos al menu "};
@@ -40,6 +41,14 @@ unsigned char recibido[15];
 unsigned char indice = 0;
 unsigned char estado = 0;
 
+void arrancaLCD(void){
+    TRISD = 0x00;
+    LCD_CONFIG();
+    __delay_ms(15);
+    CURSOR_ONOFF(OFF);
+    BORRAR_LCD();
+    CURSOR_HOME();
+}
 
 void send_string(const unsigned char *vector, unsigned int numero){
     for(unsigned char i=0;i<numero;i++){
@@ -76,6 +85,7 @@ void uc_config(void){
     PIE1bits.RC1IE = 1;         //Habilitamos interrupciojn de recepcion en EUSART
     ADCON1 = 0x0F;          //Para que los puertos RA y RE sean digitales
     TRISEbits.RE0 = 0;      //Salida para el LED
+    arrancaLCD();
 }
 
 void show_menu(void){
@@ -116,6 +126,7 @@ void main(void){
     send_newline();
     send_string(cadena,25);
     send_newline();
+    ESCRIBE_MENSAJE("Last UPC 2019-2 ", 16);
     while(1);
 }
 
@@ -179,9 +190,11 @@ void __interrupt () RCIsr(void){
             indice = 0;
             send_string(msg_registrado,15);
             //send_newline();
+            POS_CURSOR(2, 0);
             for (unsigned int ww=0;ww<16;ww++){
                 TXREG = recibido[ww];
                 while(TXSTAbits.TRMT == 0);
+                ENVIA_CHAR(recibido[ww]);
             }
             send_newline();            
             estado = 0;
