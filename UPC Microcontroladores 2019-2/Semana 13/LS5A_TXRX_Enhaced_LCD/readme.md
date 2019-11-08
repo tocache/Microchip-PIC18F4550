@@ -1,1 +1,1 @@
-<img src="CApture.PNG">
+<img src="Capture.PNG">
