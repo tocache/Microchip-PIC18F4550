@@ -91,7 +91,7 @@ Tmr0_ISR:
 	movwf TBLPTRL
 	TBLRD*
 	movff TABLAT, LATD	;Load decoded decena to RD	
-	movwf LATD		;Load decoded unidad to RD
+	;movwf LATD		;Load decoded unidad to RD
 	bcf LATB, 1		;Enable second display
 	call noops
 	bsf LATB, 1		;Disable second display
