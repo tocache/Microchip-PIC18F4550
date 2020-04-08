@@ -21,6 +21,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 - Porque Arduino no es la herramienta correcta: http://dignal.com/porque-arduino-no-es-la-herramienta-correcta/ <br>
 - How to Program a PIC 18F2550 or 18f4550 With Arduino UNO: https://www.instructables.com/id/how-to-program-a-PIC-18F2550-or-18f4550-with-Ardui/ <br>
 - PIC18F4550 PINGÜINO: https://securityassessmentsblog.wordpress.com/2018/03/29/pic18f4550-pinguino/ <br>
+- Control de ángulo de disparo con microcontrolador: https://youtu.be/0Z0B-D3Cc-U <br>
 
 <b> Changelog:</b>
 
