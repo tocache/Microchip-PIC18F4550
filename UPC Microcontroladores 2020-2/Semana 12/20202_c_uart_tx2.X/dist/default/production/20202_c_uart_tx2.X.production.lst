@@ -1,0 +1,873 @@
+
+
+Microchip MPLAB XC8 Assembler V2.30 build 20200825195618 
+                                                                                               Mon Nov 02 21:26:05 2020
+
+Microchip MPLAB XC8 C Compiler v2.30 (Free license) build 20200825195618 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    15                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    16                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
+    17                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    18  0000                     
+    19                           ; Version 2.20
+    20                           ; Generated 12/02/2020 GMT
+    21                           ; 
+    22                           ; Copyright © 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    23                           ; All rights reserved.
+    24                           ; 
+    25                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    26                           ; 
+    27                           ; Redistribution and use in source and binary forms, with or without modification, are
+    28                           ; permitted provided that the following conditions are met:
+    29                           ; 
+    30                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    31                           ;        conditions and the following disclaimer.
+    32                           ; 
+    33                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    34                           ;        of conditions and the following disclaimer in the documentation and/or other
+    35                           ;        materials provided with the distribution.
+    36                           ; 
+    37                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    38                           ;        software without specific prior written permission.
+    39                           ; 
+    40                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    41                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    42                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    43                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    44                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    45                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    46                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    47                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    48                           ; 
+    49                           ; 
+    50                           ; Code-generator required, PIC18F4550 Definitions
+    51                           ; 
+    52                           ; SFR Addresses
+    53  0000                     
+    54                           	psect	idataCOMRAM
+    55  007ED9                     __pidataCOMRAM:
+    56                           	callstack 0
+    57                           
+    58                           ;initializer for _b_napretado
+    59  007ED9  62                 	db	98
+    60  007EDA  6F                 	db	111
+    61  007EDB  74                 	db	116
+    62  007EDC  6F                 	db	111
+    63  007EDD  6E                 	db	110
+    64  007EDE  20                 	db	32
+    65  007EDF  6E                 	db	110
+    66  007EE0  6F                 	db	111
+    67  007EE1  20                 	db	32
+    68  007EE2  61                 	db	97
+    69  007EE3  70                 	db	112
+    70  007EE4  72                 	db	114
+    71  007EE5  65                 	db	101
+    72  007EE6  74                 	db	116
+    73  007EE7  61                 	db	97
+    74  007EE8  64                 	db	100
+    75  007EE9  6F                 	db	111
+    76  007EEA  00                 	db	0
+    77                           
+    78                           ;initializer for _b_apretado
+    79  007EEB  62                 	db	98
+    80  007EEC  6F                 	db	111
+    81  007EED  74                 	db	116
+    82  007EEE  6F                 	db	111
+    83  007EEF  6E                 	db	110
+    84  007EF0  20                 	db	32
+    85  007EF1  61                 	db	97
+    86  007EF2  70                 	db	112
+    87  007EF3  72                 	db	114
+    88  007EF4  65                 	db	101
+    89  007EF5  74                 	db	116
+    90  007EF6  61                 	db	97
+    91  007EF7  64                 	db	100
+    92  007EF8  6F                 	db	111
+    93  007EF9  00                 	db	0
+    94  0000                     _PORTBbits	set	3969
+    95  0000                     _TXREG	set	4013
+    96  0000                     _TXSTAbits	set	4012
+    97  0000                     _RCSTAbits	set	4011
+    98  0000                     _TRISCbits	set	3988
+    99  0000                     _SPBRG	set	4015
+   100  0000                     _SPBRGH	set	4016
+   101                           
+   102                           ; #config settings
+   103                           
+   104                           	psect	cinit
+   105  007F20                     __pcinit:
+   106                           	callstack 0
+   107  007F20                     start_initialization:
+   108                           	callstack 0
+   109  007F20                     __initialization:
+   110                           	callstack 0
+   111                           
+   112                           ; Initialize objects allocated to COMRAM (33 bytes)
+   113                           ; load TBLPTR registers with __pidataCOMRAM
+   114  007F20  0ED9               	movlw	low __pidataCOMRAM
+   115  007F22  6EF6               	movwf	tblptrl,c
+   116  007F24  0E7E               	movlw	high __pidataCOMRAM
+   117  007F26  6EF7               	movwf	tblptrh,c
+   118  007F28  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+   119  007F2A  6EF8               	movwf	tblptru,c
+   120  007F2C  EE00  F001         	lfsr	0,__pdataCOMRAM
+   121  007F30  EE10 F021          	lfsr	1,33
+   122  007F34                     copy_data0:
+   123  007F34  0009               	tblrd		*+
+   124  007F36  CFF5 FFEE          	movff	tablat,postinc0
+   125  007F3A  50E5               	movf	postdec1,w,c
+   126  007F3C  50E1               	movf	fsr1l,w,c
+   127  007F3E  E1FA               	bnz	copy_data0
+   128                           
+   129                           ; Clear objects allocated to COMRAM (1 bytes)
+   130  007F40  6A26               	clrf	__pbssCOMRAM& (0+255),c
+   131  007F42                     end_of_initialization:
+   132                           	callstack 0
+   133  007F42                     __end_of__initialization:
+   134                           	callstack 0
+   135  007F42  0100               	movlb	0
+   136  007F44  EFC2  F03F         	goto	_main	;jump to C main() function
+   137                           
+   138                           	psect	bssCOMRAM
+   139  000026                     __pbssCOMRAM:
+   140                           	callstack 0
+   141  000026                     _indicador:
+   142                           	callstack 0
+   143  000026                     	ds	1
+   144                           
+   145                           	psect	dataCOMRAM
+   146  000001                     __pdataCOMRAM:
+   147                           	callstack 0
+   148  000001                     _b_napretado:
+   149                           	callstack 0
+   150  000001                     	ds	18
+   151  000013                     _b_apretado:
+   152                           	callstack 0
+   153  000013                     	ds	15
+   154                           
+   155                           	psect	cstackCOMRAM
+   156  000022                     __pcstackCOMRAM:
+   157                           	callstack 0
+   158  000022                     EUSART_enviacadena@vector:
+   159                           	callstack 0
+   160                           
+   161                           ; 2 bytes @ 0x0
+   162  000022                     	ds	2
+   163  000024                     EUSART_enviacadena@pos:
+   164                           	callstack 0
+   165                           
+   166                           ; 1 bytes @ 0x2
+   167  000024                     	ds	1
+   168  000025                     EUSART_enviacadena@x:
+   169                           	callstack 0
+   170                           
+   171                           ; 1 bytes @ 0x3
+   172  000025                     	ds	1
+   173  000026                     
+   174                           ; 1 bytes @ 0x4
+   175 ;;
+   176 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   177 ;;
+   178 ;; *************** function _main *****************
+   179 ;; Defined at:
+   180 ;;		line 41 in file "maincode.c"
+   181 ;; Parameters:    Size  Location     Type
+   182 ;;		None
+   183 ;; Auto vars:     Size  Location     Type
+   184 ;;		None
+   185 ;; Return value:  Size  Location     Type
+   186 ;;                  1    wreg      void 
+   187 ;; Registers used:
+   188 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   189 ;; Tracked objects:
+   190 ;;		On entry : 0/0
+   191 ;;		On exit  : 0/0
+   192 ;;		Unchanged: 0/0
+   193 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   194 ;;      Params:         0       0       0       0       0       0       0       0       0
+   195 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   196 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   197 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   198 ;;Total ram usage:        0 bytes
+   199 ;; Hardware stack levels required when called:    1
+   200 ;; This function calls:
+   201 ;;		_EUSART_config
+   202 ;;		_EUSART_enviacadena
+   203 ;;		_EUSART_siguientelinea
+   204 ;; This function is called by:
+   205 ;;		Startup code after reset
+   206 ;; This function uses a non-reentrant model
+   207 ;;
+   208                           
+   209                           	psect	text0
+   210  007F84                     __ptext0:
+   211                           	callstack 0
+   212  007F84                     _main:
+   213                           	callstack 30
+   214  007F84                     
+   215                           ;maincode.c: 42:     EUSART_config();
+   216  007F84  EC64  F03F         	call	_EUSART_config	;wreg free
+   217  007F88                     l778:
+   218                           
+   219                           ;maincode.c: 44:         if(PORTBbits.RB6 == 1 && indicador == 0){
+   220  007F88  AC81               	btfss	129,6,c	;volatile
+   221  007F8A  EFC9  F03F         	goto	u111
+   222  007F8E  EFCB  F03F         	goto	u110
+   223  007F92                     u111:
+   224  007F92  EFE1  F03F         	goto	l47
+   225  007F96                     u110:
+   226  007F96  5026               	movf	_indicador^0,w,c
+   227  007F98  A4D8               	btfss	status,2,c
+   228  007F9A  EFD1  F03F         	goto	u121
+   229  007F9E  EFD3  F03F         	goto	u120
+   230  007FA2                     u121:
+   231  007FA2  EFE1  F03F         	goto	l47
+   232  007FA6                     u120:
+   233  007FA6                     
+   234                           ;maincode.c: 45:             EUSART_enviacadena(b_apretado,14);
+   235  007FA6  0E13               	movlw	low _b_apretado
+   236  007FA8  6E22               	movwf	EUSART_enviacadena@vector^0,c
+   237  007FAA  0E00               	movlw	high _b_apretado
+   238  007FAC  6E23               	movwf	(EUSART_enviacadena@vector+1)^0,c
+   239  007FAE  0E0E               	movlw	14
+   240  007FB0  6E24               	movwf	EUSART_enviacadena@pos^0,c
+   241  007FB2  ECA4  F03F         	call	_EUSART_enviacadena	;wreg free
+   242  007FB6                     
+   243                           ;maincode.c: 46:             EUSART_siguientelinea();
+   244  007FB6  EC7D  F03F         	call	_EUSART_siguientelinea	;wreg free
+   245  007FBA                     
+   246                           ;maincode.c: 47:             indicador = 1;
+   247  007FBA  0E01               	movlw	1
+   248  007FBC  6E26               	movwf	_indicador^0,c
+   249                           
+   250                           ;maincode.c: 48:         }
+   251  007FBE  EFC4  F03F         	goto	l778
+   252  007FC2                     l47:
+   253  007FC2  BC81               	btfsc	129,6,c	;volatile
+   254  007FC4  EFE6  F03F         	goto	u131
+   255  007FC8  EFE8  F03F         	goto	u130
+   256  007FCC                     u131:
+   257  007FCC  EFC4  F03F         	goto	l778
+   258  007FD0                     u130:
+   259  007FD0  0426               	decf	_indicador^0,w,c
+   260  007FD2  A4D8               	btfss	status,2,c
+   261  007FD4  EFEE  F03F         	goto	u141
+   262  007FD8  EFF0  F03F         	goto	u140
+   263  007FDC                     u141:
+   264  007FDC  EFC4  F03F         	goto	l778
+   265  007FE0                     u140:
+   266  007FE0                     
+   267                           ;maincode.c: 50:             EUSART_enviacadena(b_napretado,17);
+   268  007FE0  0E01               	movlw	low _b_napretado
+   269  007FE2  6E22               	movwf	EUSART_enviacadena@vector^0,c
+   270  007FE4  0E00               	movlw	high _b_napretado
+   271  007FE6  6E23               	movwf	(EUSART_enviacadena@vector+1)^0,c
+   272  007FE8  0E11               	movlw	17
+   273  007FEA  6E24               	movwf	EUSART_enviacadena@pos^0,c
+   274  007FEC  ECA4  F03F         	call	_EUSART_enviacadena	;wreg free
+   275  007FF0                     
+   276                           ;maincode.c: 51:             EUSART_siguientelinea();
+   277  007FF0  EC7D  F03F         	call	_EUSART_siguientelinea	;wreg free
+   278  007FF4                     
+   279                           ;maincode.c: 52:             indicador = 0;
+   280  007FF4  0E00               	movlw	0
+   281  007FF6  6E26               	movwf	_indicador^0,c
+   282  007FF8  EFC4  F03F         	goto	l778
+   283  007FFC  EF00  F000         	goto	start
+   284  008000                     __end_of_main:
+   285                           	callstack 0
+   286                           
+   287 ;; *************** function _EUSART_siguientelinea *****************
+   288 ;; Defined at:
+   289 ;;		line 27 in file "maincode.c"
+   290 ;; Parameters:    Size  Location     Type
+   291 ;;		None
+   292 ;; Auto vars:     Size  Location     Type
+   293 ;;		None
+   294 ;; Return value:  Size  Location     Type
+   295 ;;                  1    wreg      void 
+   296 ;; Registers used:
+   297 ;;		wreg, status,2
+   298 ;; Tracked objects:
+   299 ;;		On entry : 0/0
+   300 ;;		On exit  : 0/0
+   301 ;;		Unchanged: 0/0
+   302 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   303 ;;      Params:         0       0       0       0       0       0       0       0       0
+   304 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   305 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   306 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   307 ;;Total ram usage:        0 bytes
+   308 ;; Hardware stack levels used:    1
+   309 ;; This function calls:
+   310 ;;		Nothing
+   311 ;; This function is called by:
+   312 ;;		_main
+   313 ;; This function uses a non-reentrant model
+   314 ;;
+   315                           
+   316                           	psect	text1
+   317  007EFA                     __ptext1:
+   318                           	callstack 0
+   319  007EFA                     _EUSART_siguientelinea:
+   320                           	callstack 30
+   321  007EFA                     
+   322                           ;maincode.c: 28:     TXREG = 0x0A;
+   323  007EFA  0E0A               	movlw	10
+   324  007EFC  6EAD               	movwf	173,c	;volatile
+   325  007EFE                     l26:
+   326  007EFE  A2AC               	btfss	172,1,c	;volatile
+   327  007F00  EF84  F03F         	goto	u11
+   328  007F04  EF86  F03F         	goto	u10
+   329  007F08                     u11:
+   330  007F08  EF7F  F03F         	goto	l26
+   331  007F0C                     u10:
+   332  007F0C                     
+   333                           ;maincode.c: 30:     TXREG = 0x0D;
+   334  007F0C  0E0D               	movlw	13
+   335  007F0E  6EAD               	movwf	173,c	;volatile
+   336  007F10                     l29:
+   337  007F10  A2AC               	btfss	172,1,c	;volatile
+   338  007F12  EF8D  F03F         	goto	u21
+   339  007F16  EF8F  F03F         	goto	u20
+   340  007F1A                     u21:
+   341  007F1A  EF88  F03F         	goto	l29
+   342  007F1E                     u20:
+   343  007F1E  0012               	return		;funcret
+   344  007F20                     __end_of_EUSART_siguientelinea:
+   345                           	callstack 0
+   346                           
+   347 ;; *************** function _EUSART_enviacadena *****************
+   348 ;; Defined at:
+   349 ;;		line 34 in file "maincode.c"
+   350 ;; Parameters:    Size  Location     Type
+   351 ;;  vector          2    0[COMRAM] PTR const unsigned char 
+   352 ;;		 -> b_napretado(18), b_apretado(15), 
+   353 ;;  pos             1    2[COMRAM] unsigned char 
+   354 ;; Auto vars:     Size  Location     Type
+   355 ;;  x               1    3[COMRAM] unsigned char 
+   356 ;; Return value:  Size  Location     Type
+   357 ;;                  1    wreg      void 
+   358 ;; Registers used:
+   359 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+   360 ;; Tracked objects:
+   361 ;;		On entry : 0/0
+   362 ;;		On exit  : 0/0
+   363 ;;		Unchanged: 0/0
+   364 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   365 ;;      Params:         3       0       0       0       0       0       0       0       0
+   366 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   367 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   368 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   369 ;;Total ram usage:        4 bytes
+   370 ;; Hardware stack levels used:    1
+   371 ;; This function calls:
+   372 ;;		Nothing
+   373 ;; This function is called by:
+   374 ;;		_main
+   375 ;; This function uses a non-reentrant model
+   376 ;;
+   377                           
+   378                           	psect	text2
+   379  007F48                     __ptext2:
+   380                           	callstack 0
+   381  007F48                     _EUSART_enviacadena:
+   382                           	callstack 30
+   383  007F48                     
+   384                           ;maincode.c: 35:         for (unsigned char x=0;x<pos;x++){
+   385  007F48  0E00               	movlw	0
+   386  007F4A  6E25               	movwf	EUSART_enviacadena@x^0,c
+   387  007F4C  EFB8  F03F         	goto	l774
+   388  007F50                     l770:
+   389                           
+   390                           ;maincode.c: 36:             TXREG = vector[x];
+   391  007F50  5025               	movf	EUSART_enviacadena@x^0,w,c
+   392  007F52  2422               	addwf	EUSART_enviacadena@vector^0,w,c
+   393  007F54  6ED9               	movwf	fsr2l,c
+   394  007F56  0E00               	movlw	0
+   395  007F58  2023               	addwfc	(EUSART_enviacadena@vector+1)^0,w,c
+   396  007F5A  6EDA               	movwf	fsr2h,c
+   397  007F5C  50DF               	movf	indf2,w,c
+   398  007F5E  6EAD               	movwf	173,c	;volatile
+   399  007F60                     l37:
+   400  007F60  A2AC               	btfss	172,1,c	;volatile
+   401  007F62  EFB5  F03F         	goto	u91
+   402  007F66  EFB7  F03F         	goto	u90
+   403  007F6A                     u91:
+   404  007F6A  EFB0  F03F         	goto	l37
+   405  007F6E                     u90:
+   406  007F6E                     
+   407                           ;maincode.c: 38:         }
+   408  007F6E  2A25               	incf	EUSART_enviacadena@x^0,f,c
+   409  007F70                     l774:
+   410  007F70  5024               	movf	EUSART_enviacadena@pos^0,w,c
+   411  007F72  5C25               	subwf	EUSART_enviacadena@x^0,w,c
+   412  007F74  A0D8               	btfss	status,0,c
+   413  007F76  EFBF  F03F         	goto	u101
+   414  007F7A  EFC1  F03F         	goto	u100
+   415  007F7E                     u101:
+   416  007F7E  EFA8  F03F         	goto	l770
+   417  007F82                     u100:
+   418  007F82  0012               	return		;funcret
+   419  007F84                     __end_of_EUSART_enviacadena:
+   420                           	callstack 0
+   421                           
+   422 ;; *************** function _EUSART_config *****************
+   423 ;; Defined at:
+   424 ;;		line 19 in file "maincode.c"
+   425 ;; Parameters:    Size  Location     Type
+   426 ;;		None
+   427 ;; Auto vars:     Size  Location     Type
+   428 ;;		None
+   429 ;; Return value:  Size  Location     Type
+   430 ;;                  1    wreg      void 
+   431 ;; Registers used:
+   432 ;;		wreg, status,2
+   433 ;; Tracked objects:
+   434 ;;		On entry : 0/0
+   435 ;;		On exit  : 0/0
+   436 ;;		Unchanged: 0/0
+   437 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   438 ;;      Params:         0       0       0       0       0       0       0       0       0
+   439 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   440 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   441 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   442 ;;Total ram usage:        0 bytes
+   443 ;; Hardware stack levels used:    1
+   444 ;; This function calls:
+   445 ;;		Nothing
+   446 ;; This function is called by:
+   447 ;;		_main
+   448 ;; This function uses a non-reentrant model
+   449 ;;
+   450                           
+   451                           	psect	text3
+   452  007EC8                     __ptext3:
+   453                           	callstack 0
+   454  007EC8                     _EUSART_config:
+   455                           	callstack 30
+   456  007EC8                     
+   457                           ;maincode.c: 20:     SPBRGH = 0;
+   458  007EC8  0E00               	movlw	0
+   459  007ECA  6EB0               	movwf	176,c	;volatile
+   460                           
+   461                           ;maincode.c: 21:     SPBRG = 77;
+   462  007ECC  0E4D               	movlw	77
+   463  007ECE  6EAF               	movwf	175,c	;volatile
+   464  007ED0                     
+   465                           ;maincode.c: 22:     TRISCbits.RC6 = 0;
+   466  007ED0  9C94               	bcf	148,6,c	;volatile
+   467  007ED2                     
+   468                           ;maincode.c: 23:     RCSTAbits.SPEN = 1;
+   469  007ED2  8EAB               	bsf	171,7,c	;volatile
+   470  007ED4                     
+   471                           ;maincode.c: 24:     TXSTAbits.TXEN = 1;
+   472  007ED4  8AAC               	bsf	172,5,c	;volatile
+   473  007ED6  0012               	return		;funcret
+   474  007ED8                     __end_of_EUSART_config:
+   475                           	callstack 0
+   476  0000                     
+   477                           	psect	rparam
+   478  0000                     
+   479                           	psect	idloc
+   480                           
+   481                           ;Config register IDLOC0 @ 0x200000
+   482                           ;	unspecified, using default values
+   483  200000                     	org	2097152
+   484  200000  FF                 	db	255
+   485                           
+   486                           ;Config register IDLOC1 @ 0x200001
+   487                           ;	unspecified, using default values
+   488  200001                     	org	2097153
+   489  200001  FF                 	db	255
+   490                           
+   491                           ;Config register IDLOC2 @ 0x200002
+   492                           ;	unspecified, using default values
+   493  200002                     	org	2097154
+   494  200002  FF                 	db	255
+   495                           
+   496                           ;Config register IDLOC3 @ 0x200003
+   497                           ;	unspecified, using default values
+   498  200003                     	org	2097155
+   499  200003  FF                 	db	255
+   500                           
+   501                           ;Config register IDLOC4 @ 0x200004
+   502                           ;	unspecified, using default values
+   503  200004                     	org	2097156
+   504  200004  FF                 	db	255
+   505                           
+   506                           ;Config register IDLOC5 @ 0x200005
+   507                           ;	unspecified, using default values
+   508  200005                     	org	2097157
+   509  200005  FF                 	db	255
+   510                           
+   511                           ;Config register IDLOC6 @ 0x200006
+   512                           ;	unspecified, using default values
+   513  200006                     	org	2097158
+   514  200006  FF                 	db	255
+   515                           
+   516                           ;Config register IDLOC7 @ 0x200007
+   517                           ;	unspecified, using default values
+   518  200007                     	org	2097159
+   519  200007  FF                 	db	255
+   520                           
+   521                           	psect	config
+   522                           
+   523                           ;Config register CONFIG1L @ 0x300000
+   524                           ;	PLL Prescaler Selection bits
+   525                           ;	PLLDIV = 1, No prescale (4 MHz oscillator input drives PLL directly)
+   526                           ;	System Clock Postscaler Selection bits
+   527                           ;	CPUDIV = OSC1_PLL2, [Primary Oscillator Src: /1][96 MHz PLL Src: /2]
+   528                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+   529                           ;	USBDIV = 0x0, unprogrammed default
+   530  300000                     	org	3145728
+   531  300000  00                 	db	0
+   532                           
+   533                           ;Config register CONFIG1H @ 0x300001
+   534                           ;	Oscillator Selection bits
+   535                           ;	FOSC = XTPLL_XT, XT oscillator, PLL enabled (XTPLL)
+   536                           ;	Fail-Safe Clock Monitor Enable bit
+   537                           ;	FCMEN = 0x0, unprogrammed default
+   538                           ;	Internal/External Oscillator Switchover bit
+   539                           ;	IESO = 0x0, unprogrammed default
+   540  300001                     	org	3145729
+   541  300001  02                 	db	2
+   542                           
+   543                           ;Config register CONFIG2L @ 0x300002
+   544                           ;	Power-up Timer Enable bit
+   545                           ;	PWRT = ON, PWRT enabled
+   546                           ;	Brown-out Reset Enable bits
+   547                           ;	BOR = OFF, Brown-out Reset disabled in hardware and software
+   548                           ;	Brown-out Reset Voltage bits
+   549                           ;	BORV = 0x3, unprogrammed default
+   550                           ;	USB Voltage Regulator Enable bit
+   551                           ;	VREGEN = 0x0, unprogrammed default
+   552  300002                     	org	3145730
+   553  300002  18                 	db	24
+   554                           
+   555                           ;Config register CONFIG2H @ 0x300003
+   556                           ;	Watchdog Timer Enable bit
+   557                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+   558                           ;	Watchdog Timer Postscale Select bits
+   559                           ;	WDTPS = 0xF, unprogrammed default
+   560  300003                     	org	3145731
+   561  300003  1E                 	db	30
+   562                           
+   563                           ; Padding undefined space
+   564  300004                     	org	3145732
+   565  300004  FF                 	db	255
+   566                           
+   567                           ;Config register CONFIG3H @ 0x300005
+   568                           ;	CCP2 MUX bit
+   569                           ;	CCP2MX = ON, CCP2 input/output is multiplexed with RC1
+   570                           ;	PORTB A/D Enable bit
+   571                           ;	PBADEN = OFF, PORTB<4:0> pins are configured as digital I/O on Reset
+   572                           ;	Low-Power Timer 1 Oscillator Enable bit
+   573                           ;	LPT1OSC = 0x0, unprogrammed default
+   574                           ;	MCLR Pin Enable bit
+   575                           ;	MCLRE = ON, MCLR pin enabled; RE3 input pin disabled
+   576  300005                     	org	3145733
+   577  300005  81                 	db	129
+   578                           
+   579                           ;Config register CONFIG4L @ 0x300006
+   580                           ;	Stack Full/Underflow Reset Enable bit
+   581                           ;	STVREN = 0x1, unprogrammed default
+   582                           ;	Single-Supply ICSP Enable bit
+   583                           ;	LVP = OFF, Single-Supply ICSP disabled
+   584                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+   585                           ;	ICPRT = 0x0, unprogrammed default
+   586                           ;	Extended Instruction Set Enable bit
+   587                           ;	XINST = 0x0, unprogrammed default
+   588                           ;	Background Debugger Enable bit
+   589                           ;	DEBUG = 0x1, unprogrammed default
+   590  300006                     	org	3145734
+   591  300006  81                 	db	129
+   592                           
+   593                           ; Padding undefined space
+   594  300007                     	org	3145735
+   595  300007  FF                 	db	255
+   596                           
+   597                           ;Config register CONFIG5L @ 0x300008
+   598                           ;	unspecified, using default values
+   599                           ;	Code Protection bit
+   600                           ;	CP0 = 0x1, unprogrammed default
+   601                           ;	Code Protection bit
+   602                           ;	CP1 = 0x1, unprogrammed default
+   603                           ;	Code Protection bit
+   604                           ;	CP2 = 0x1, unprogrammed default
+   605                           ;	Code Protection bit
+   606                           ;	CP3 = 0x1, unprogrammed default
+   607  300008                     	org	3145736
+   608  300008  0F                 	db	15
+   609                           
+   610                           ;Config register CONFIG5H @ 0x300009
+   611                           ;	unspecified, using default values
+   612                           ;	Boot Block Code Protection bit
+   613                           ;	CPB = 0x1, unprogrammed default
+   614                           ;	Data EEPROM Code Protection bit
+   615                           ;	CPD = 0x1, unprogrammed default
+   616  300009                     	org	3145737
+   617  300009  C0                 	db	192
+   618                           
+   619                           ;Config register CONFIG6L @ 0x30000A
+   620                           ;	unspecified, using default values
+   621                           ;	Write Protection bit
+   622                           ;	WRT0 = 0x1, unprogrammed default
+   623                           ;	Write Protection bit
+   624                           ;	WRT1 = 0x1, unprogrammed default
+   625                           ;	Write Protection bit
+   626                           ;	WRT2 = 0x1, unprogrammed default
+   627                           ;	Write Protection bit
+   628                           ;	WRT3 = 0x1, unprogrammed default
+   629  30000A                     	org	3145738
+   630  30000A  0F                 	db	15
+   631                           
+   632                           ;Config register CONFIG6H @ 0x30000B
+   633                           ;	unspecified, using default values
+   634                           ;	Configuration Register Write Protection bit
+   635                           ;	WRTC = 0x1, unprogrammed default
+   636                           ;	Boot Block Write Protection bit
+   637                           ;	WRTB = 0x1, unprogrammed default
+   638                           ;	Data EEPROM Write Protection bit
+   639                           ;	WRTD = 0x1, unprogrammed default
+   640  30000B                     	org	3145739
+   641  30000B  E0                 	db	224
+   642                           
+   643                           ;Config register CONFIG7L @ 0x30000C
+   644                           ;	unspecified, using default values
+   645                           ;	Table Read Protection bit
+   646                           ;	EBTR0 = 0x1, unprogrammed default
+   647                           ;	Table Read Protection bit
+   648                           ;	EBTR1 = 0x1, unprogrammed default
+   649                           ;	Table Read Protection bit
+   650                           ;	EBTR2 = 0x1, unprogrammed default
+   651                           ;	Table Read Protection bit
+   652                           ;	EBTR3 = 0x1, unprogrammed default
+   653  30000C                     	org	3145740
+   654  30000C  0F                 	db	15
+   655                           
+   656                           ;Config register CONFIG7H @ 0x30000D
+   657                           ;	unspecified, using default values
+   658                           ;	Boot Block Table Read Protection bit
+   659                           ;	EBTRB = 0x1, unprogrammed default
+   660  30000D                     	org	3145741
+   661  30000D  40                 	db	64
+   662                           tosu	equ	0xFFF
+   663                           tosh	equ	0xFFE
+   664                           tosl	equ	0xFFD
+   665                           stkptr	equ	0xFFC
+   666                           pclatu	equ	0xFFB
+   667                           pclath	equ	0xFFA
+   668                           pcl	equ	0xFF9
+   669                           tblptru	equ	0xFF8
+   670                           tblptrh	equ	0xFF7
+   671                           tblptrl	equ	0xFF6
+   672                           tablat	equ	0xFF5
+   673                           prodh	equ	0xFF4
+   674                           prodl	equ	0xFF3
+   675                           indf0	equ	0xFEF
+   676                           postinc0	equ	0xFEE
+   677                           postdec0	equ	0xFED
+   678                           preinc0	equ	0xFEC
+   679                           plusw0	equ	0xFEB
+   680                           fsr0h	equ	0xFEA
+   681                           fsr0l	equ	0xFE9
+   682                           wreg	equ	0xFE8
+   683                           indf1	equ	0xFE7
+   684                           postinc1	equ	0xFE6
+   685                           postdec1	equ	0xFE5
+   686                           preinc1	equ	0xFE4
+   687                           plusw1	equ	0xFE3
+   688                           fsr1h	equ	0xFE2
+   689                           fsr1l	equ	0xFE1
+   690                           bsr	equ	0xFE0
+   691                           indf2	equ	0xFDF
+   692                           postinc2	equ	0xFDE
+   693                           postdec2	equ	0xFDD
+   694                           preinc2	equ	0xFDC
+   695                           plusw2	equ	0xFDB
+   696                           fsr2h	equ	0xFDA
+   697                           fsr2l	equ	0xFD9
+   698                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        33
+    BSS         1
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95      4      38
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    EUSART_enviacadena@vector	PTR const unsigned char  size(2) Largest target is 18
+		 -> b_napretado(COMRAM[18]), b_apretado(COMRAM[15]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_EUSART_enviacadena
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0     394
+                      _EUSART_config
+                 _EUSART_enviacadena
+              _EUSART_siguientelinea
+ ---------------------------------------------------------------------------------
+ (1) _EUSART_siguientelinea                                0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _EUSART_enviacadena                                   4     1      3     394
+                                              0 COMRAM     4     1      3
+ ---------------------------------------------------------------------------------
+ (1) _EUSART_config                                        0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _EUSART_config
+   _EUSART_enviacadena
+   _EUSART_siguientelinea
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0       0      21        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      18        0.0%
+BANK7              100      0       0      19        0.0%
+BITBANK6           100      0       0      16        0.0%
+BANK6              100      0       0      17        0.0%
+BITBANK5           100      0       0      14        0.0%
+BANK5              100      0       0      15        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F      4      26       1       40.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      26      20        0.0%
+DATA                 0      0      26       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.30 build 20200825195618 
+Symbol Table                                                                                   Mon Nov 02 21:26:05 2020
+
+        __size_of_EUSART_config 0010                              l23 7ED6                              l32 7F1E  
+                            l41 7F82                              l26 7EFE                              l37 7F60  
+                            l29 7F10                              l47 7FC2                              u10 7F0C  
+                            u11 7F08                              u20 7F1E                              u21 7F1A  
+                            u90 7F6E                              u91 7F6A                             l730 7ED0  
+                           l732 7ED2                             l734 7ED4                             l728 7EC8  
+                           l736 7EFA                             l770 7F50                             l738 7F0C  
+                           l772 7F6E                             l780 7F96                             l774 7F70  
+                           l790 7FE0                             l782 7FA6                             l768 7F48  
+                           l792 7FF0                             l784 7FB6                             l776 7F84  
+                           l794 7FF4                             l786 7FBA                             l778 7F88  
+                           l788 7FD0                             u100 7F82                             u101 7F7E  
+                           u110 7F96                             u111 7F92                             u120 7FA6  
+                           u121 7FA2                             u130 7FD0                             u131 7FCC  
+                           u140 7FE0                             u141 7FDC         ??_EUSART_siguientelinea 0022  
+                          _main 7F84                            indf2 000FDF                            fsr1l 000FE1  
+                          fsr2l 000FD9                            start 0000                    ___param_bank 000000  
+                         ?_main 0022                           _SPBRG 000FAF                           _TXREG 000FAD  
+                 _EUSART_config 7EC8                           tablat 000FF5      __end_of_EUSART_enviacadena 7F84  
+                         status 000FD8                 __initialization 7F20                    __end_of_main 8000  
+                        ??_main 0026                   __activetblptr 000000                  ?_EUSART_config 0022  
+                        _SPBRGH 000FB0                    __pdataCOMRAM 0001                          tblptrh 000FF7  
+                        tblptrl 000FF6                          tblptru 000FF8                      __accesstop 0060  
+       __end_of__initialization 7F42                   ___rparam_used 000001                  __pcstackCOMRAM 0022  
+                    _b_apretado 0013                 ??_EUSART_config 0022  __size_of_EUSART_siguientelinea 0026  
+ __end_of_EUSART_siguientelinea 7F20                         __Hparam 0000                         __Lparam 0000  
+            _EUSART_enviacadena 7F48                         __pcinit 7F20                         __ramtop 0800  
+                       __ptext0 7F84                         __ptext1 7EFA                         __ptext2 7F48  
+                       __ptext3 7EC8             ?_EUSART_enviacadena 0022            end_of_initialization 7F42  
+          ??_EUSART_enviacadena 0025                       _RCSTAbits 000FAB                         postdec1 000FE5  
+                       postinc0 000FEE                       _PORTBbits 000F81                       _TRISCbits 000F94  
+                     _TXSTAbits 000FAC                   __pidataCOMRAM 7ED9             start_initialization 7F20  
+                   _b_napretado 0001                     __pbssCOMRAM 0026           __end_of_EUSART_config 7ED8  
+         _EUSART_siguientelinea 7EFA                       _indicador 0026           EUSART_enviacadena@pos 0024  
+      EUSART_enviacadena@vector 0022                       copy_data0 7F34          ?_EUSART_siguientelinea 0022  
+   __size_of_EUSART_enviacadena 003C                        __Hrparam 0000                        __Lrparam 0000  
+                 __size_of_main 007C             EUSART_enviacadena@x 0025  
