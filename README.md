@@ -4,6 +4,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 <img src="PIC18F4550_1.gif">
 
 <b>Repositorio de enlaces:</b><br>
+- PIC18F4550 USB HID Bootloader (en español): http://www.microedu.es/Electronica/AprendiendoPic18f4550/Bootloader/Bootloader.html <br>
 - LCD HD44780 tutorial: https://www.handsonembedded.com/lcd16x2-hd44780-tutorial-1/ <br>
 - How to use the A/D module on the PIC microcontroller: https://deepbluembedded.com/analog-to-digital-converter-how-adc-work-pic/ <br>
 - DHT11 con XC8: https://www.electronicwings.com/pic/dht11-sensor-interfacing-with-pic18f4550 <br>
