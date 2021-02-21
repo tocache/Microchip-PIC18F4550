@@ -7,7 +7,7 @@ Repositorio de aplicaciones con los microcontroladores PIC
 - PIC18F4550 USB HID Bootloader (en español): http://www.microedu.es/Electronica/AprendiendoPic18f4550/Bootloader/Bootloader.html <br>
 Para usar el HID Bootloader se tiene que tener la versión Pro del XC8, una vez activado dicha versión hay que habilitar la máxima optimización de código:<br>
 <img src="xc8pro_1.PNG"><br>
-Tener en cuenta que si se va a usar el XC8 Pro v2.31 (la mas actual al momento de escribir esto) se deberá cambiar el "C standard" a "C 90" en las opciones globales del XC8 en las propiedades del proyecto<br>
+Tener en cuenta que si se va a usar el XC8 Pro v2.31 (la mas actual al momento de escribir esto) se deberá cambiar el "C standard" a "C 90" en las opciones globales del XC8 en las propiedades del proyecto (https://electronics-design.net/embedded-programming/microchip/pic18/xc8-compiler/issues-xc8-compiler/newer-xc8-version-issues)<br>
 <img src="xc8pro_0.PNG"><br><br>
 - LCD HD44780 tutorial: https://www.handsonembedded.com/lcd16x2-hd44780-tutorial-1/ <br>
 - How to use the A/D module on the PIC microcontroller: https://deepbluembedded.com/analog-to-digital-converter-how-adc-work-pic/ <br>
