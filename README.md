@@ -29,6 +29,7 @@ Tener en cuenta que si se va a usar el XC8 Pro v2.31 (la mas actual al momento d
 - PIC18F4550 PINGÜINO: https://securityassessmentsblog.wordpress.com/2018/03/29/pic18f4550-pinguino/ <br>
 - Control de ángulo de disparo con microcontrolador: https://youtu.be/0Z0B-D3Cc-U <br>
 - Imprimir mensajes en la consola UART del simulador en el MPLABX: https://microchipdeveloper.com/xc8:console-printing<br>
+- Librería Arduino para HX710B (Sensor de presión): https://github.com/andhieSetyabudi/hx710b_arduino<br>
 
 <b> Changelog:</b>
 
