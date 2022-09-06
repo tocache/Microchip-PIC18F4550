@@ -1,0 +1,1630 @@
+
+
+Microchip MPLAB XC8 Assembler V2.36 build 20220127204148 
+                                                                                               Thu Jun 16 15:30:54 2022
+
+Microchip MPLAB XC8 C Compiler v2.36 (Free license) build 20220127204148 Og1 
+     1                           	processor	18F4550
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	idataCOMRAM,global,class=CODE,delta=1,noexec
+     6                           	psect	idataBANK0,global,class=CODE,delta=1,noexec
+     7                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     9                           	psect	dataBANK0,global,class=BANK0,space=1,delta=1,lowdata,noexec
+    10                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+    11                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text3,global,reloc=2,class=CODE,delta=1,group=2
+    15                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    17                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    18                           	psect	intcode_body,global,reloc=2,class=CODE,delta=1
+    19                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    20                           	psect	text8,global,reloc=2,class=CODE,delta=1
+    21                           	psect	text9,global,reloc=2,class=CODE,delta=1
+    22                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    23                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    24                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    25                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
+    26                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    27  0000                     
+    28                           ; Version 2.40
+    29                           ; Generated 17/11/2021 GMT
+    30                           ; 
+    31                           ; Copyright © 2021, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    32                           ; All rights reserved.
+    33                           ; 
+    34                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    35                           ; 
+    36                           ; Redistribution and use in source and binary forms, with or without modification, are
+    37                           ; permitted provided that the following conditions are met:
+    38                           ; 
+    39                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    40                           ;        conditions and the following disclaimer.
+    41                           ; 
+    42                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    43                           ;        of conditions and the following disclaimer in the documentation and/or other
+    44                           ;        materials provided with the distribution. Publication is not required when
+    45                           ;        this file is used in an embedded application.
+    46                           ; 
+    47                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    48                           ;        software without specific prior written permission.
+    49                           ; 
+    50                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    51                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    52                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    53                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    54                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    55                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    56                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    57                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    58                           ; 
+    59                           ; 
+    60                           ; Code-generator required, PIC18F4550 Definitions
+    61                           ; 
+    62                           ; SFR Addresses
+    63  0000                     
+    64                           	psect	idataCOMRAM
+    65  00025E                     __pidataCOMRAM:
+    66                           	callstack 0
+    67                           
+    68                           ;initializer for _ledon
+    69  00025E  4C                 	db	76
+    70  00025F  45                 	db	69
+    71  000260  44                 	db	68
+    72  000261  20                 	db	32
+    73  000262  65                 	db	101
+    74  000263  6E                 	db	110
+    75  000264  63                 	db	99
+    76  000265  65                 	db	101
+    77  000266  6E                 	db	110
+    78  000267  64                 	db	100
+    79  000268  69                 	db	105
+    80  000269  64                 	db	100
+    81  00026A  6F                 	db	111
+    82  00026B  00                 	db	0
+    83                           
+    84                           ;initializer for _errorkey
+    85  00026C  54                 	db	84
+    86  00026D  65                 	db	101
+    87  00026E  63                 	db	99
+    88  00026F  6C                 	db	108
+    89  000270  61                 	db	97
+    90  000271  20                 	db	32
+    91  000272  65                 	db	101
+    92  000273  72                 	db	114
+    93  000274  72                 	db	114
+    94  000275  61                 	db	97
+    95  000276  64                 	db	100
+    96  000277  61                 	db	97
+    97  000278  00                 	db	0
+    98                           
+    99                           ;initializer for _ledof
+   100  000279  4C                 	db	76
+   101  00027A  45                 	db	69
+   102  00027B  44                 	db	68
+   103  00027C  20                 	db	32
+   104  00027D  61                 	db	97
+   105  00027E  70                 	db	112
+   106  00027F  61                 	db	97
+   107  000280  67                 	db	103
+   108  000281  61                 	db	97
+   109  000282  64                 	db	100
+   110  000283  6F                 	db	111
+   111  000284  00                 	db	0
+   112                           
+   113                           	psect	idataBANK0
+   114  000086                     __pidataBANK0:
+   115                           	callstack 0
+   116                           
+   117                           ;initializer for _bienvenida2
+   118  000086  50                 	db	80
+   119  000087  72                 	db	114
+   120  000088  65                 	db	101
+   121  000089  73                 	db	115
+   122  00008A  69                 	db	105
+   123  00008B  6F                 	db	111
+   124  00008C  6E                 	db	110
+   125  00008D  61                 	db	97
+   126  00008E  20                 	db	32
+   127  00008F  45                 	db	69
+   128  000090  20                 	db	32
+   129  000091  70                 	db	112
+   130  000092  61                 	db	97
+   131  000093  72                 	db	114
+   132  000094  61                 	db	97
+   133  000095  20                 	db	32
+   134  000096  65                 	db	101
+   135  000097  6E                 	db	110
+   136  000098  63                 	db	99
+   137  000099  65                 	db	101
+   138  00009A  6E                 	db	110
+   139  00009B  64                 	db	100
+   140  00009C  65                 	db	101
+   141  00009D  72                 	db	114
+   142  00009E  20                 	db	32
+   143  00009F  79                 	db	121
+   144  0000A0  20                 	db	32
+   145  0000A1  41                 	db	65
+   146  0000A2  20                 	db	32
+   147  0000A3  70                 	db	112
+   148  0000A4  61                 	db	97
+   149  0000A5  72                 	db	114
+   150  0000A6  61                 	db	97
+   151  0000A7  20                 	db	32
+   152  0000A8  61                 	db	97
+   153  0000A9  70                 	db	112
+   154  0000AA  61                 	db	97
+   155  0000AB  67                 	db	103
+   156  0000AC  61                 	db	97
+   157  0000AD  72                 	db	114
+   158  0000AE  20                 	db	32
+   159  0000AF  65                 	db	101
+   160  0000B0  6C                 	db	108
+   161  0000B1  20                 	db	32
+   162  0000B2  4C                 	db	76
+   163  0000B3  45                 	db	69
+   164  0000B4  44                 	db	68
+   165  0000B5  00                 	db	0
+   166                           
+   167                           ;initializer for _bienvenida1
+   168  0000B6  41                 	db	65
+   169  0000B7  70                 	db	112
+   170  0000B8  6C                 	db	108
+   171  0000B9  69                 	db	105
+   172  0000BA  63                 	db	99
+   173  0000BB  61                 	db	97
+   174  0000BC  63                 	db	99
+   175  0000BD  69                 	db	105
+   176  0000BE  6F                 	db	111
+   177  0000BF  6E                 	db	110
+   178  0000C0  20                 	db	32
+   179  0000C1  70                 	db	112
+   180  0000C2  61                 	db	97
+   181  0000C3  72                 	db	114
+   182  0000C4  61                 	db	97
+   183  0000C5  20                 	db	32
+   184  0000C6  63                 	db	99
+   185  0000C7  6F                 	db	111
+   186  0000C8  6E                 	db	110
+   187  0000C9  74                 	db	116
+   188  0000CA  72                 	db	114
+   189  0000CB  6F                 	db	111
+   190  0000CC  6C                 	db	108
+   191  0000CD  61                 	db	97
+   192  0000CE  72                 	db	114
+   193  0000CF  20                 	db	32
+   194  0000D0  75                 	db	117
+   195  0000D1  6E                 	db	110
+   196  0000D2  20                 	db	32
+   197  0000D3  4C                 	db	76
+   198  0000D4  45                 	db	69
+   199  0000D5  44                 	db	68
+   200  0000D6  20                 	db	32
+   201  0000D7  65                 	db	101
+   202  0000D8  6E                 	db	110
+   203  0000D9  20                 	db	32
+   204  0000DA  52                 	db	82
+   205  0000DB  44                 	db	68
+   206  0000DC  30                 	db	48
+   207  0000DD  00                 	db	0
+   208  0000                     _RCREG	set	4014
+   209  0000                     _TXREG	set	4013
+   210  0000                     _TXSTAbits	set	4012
+   211  0000                     _LATDbits	set	3980
+   212  0000                     _TRISCbits	set	3988
+   213  0000                     _TRISDbits	set	3989
+   214  0000                     _PIE1bits	set	3997
+   215  0000                     _RCSTAbits	set	4011
+   216  0000                     _SPBRG	set	4015
+   217  0000                     _INTCONbits	set	4082
+   218  0000                     _PIR1bits	set	3998
+   219                           
+   220                           ; #config settings
+   221                           
+   222                           	psect	cinit
+   223  000176                     __pcinit:
+   224                           	callstack 0
+   225  000176                     start_initialization:
+   226                           	callstack 0
+   227  000176                     __initialization:
+   228                           	callstack 0
+   229                           
+   230                           ; Initialize objects allocated to BANK0 (88 bytes)
+   231                           ; load TBLPTR registers with __pidataBANK0
+   232  000176  0E86               	movlw	low __pidataBANK0
+   233  000178  6EF6               	movwf	tblptrl,c
+   234  00017A  0E00               	movlw	high __pidataBANK0
+   235  00017C  6EF7               	movwf	tblptrh,c
+   236  00017E  0E00               	movlw	low (__pidataBANK0 shr (0+16))
+   237  000180  6EF8               	movwf	tblptru,c
+   238  000182  EE00  F060         	lfsr	0,__pdataBANK0
+   239  000186  EE10 F058          	lfsr	1,88
+   240  00018A                     copy_data0:
+   241  00018A  0009               	tblrd		*+
+   242  00018C  CFF5 FFEE          	movff	tablat,postinc0
+   243  000190  50E5               	movf	postdec1,w,c
+   244  000192  50E1               	movf	fsr1l,w,c
+   245  000194  E1FA               	bnz	copy_data0
+   246                           
+   247                           ; Initialize objects allocated to COMRAM (39 bytes)
+   248                           ; load TBLPTR registers with __pidataCOMRAM
+   249  000196  0E5E               	movlw	low __pidataCOMRAM
+   250  000198  6EF6               	movwf	tblptrl,c
+   251  00019A  0E02               	movlw	high __pidataCOMRAM
+   252  00019C  6EF7               	movwf	tblptrh,c
+   253  00019E  0E00               	movlw	low (__pidataCOMRAM shr (0+16))
+   254  0001A0  6EF8               	movwf	tblptru,c
+   255  0001A2  EE00  F001         	lfsr	0,__pdataCOMRAM
+   256  0001A6  EE10 F027          	lfsr	1,39
+   257  0001AA                     copy_data1:
+   258  0001AA  0009               	tblrd		*+
+   259  0001AC  CFF5 FFEE          	movff	tablat,postinc0
+   260  0001B0  50E5               	movf	postdec1,w,c
+   261  0001B2  50E1               	movf	fsr1l,w,c
+   262  0001B4  E1FA               	bnz	copy_data1
+   263  0001B6                     end_of_initialization:
+   264                           	callstack 0
+   265  0001B6                     __end_of__initialization:
+   266                           	callstack 0
+   267  0001B6  903A               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+   268  0001B8  923A               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   269  0001BA  0100               	movlb	0
+   270  0001BC  EF16  F001         	goto	_main	;jump to C main() function
+   271                           
+   272                           	psect	dataCOMRAM
+   273  000001                     __pdataCOMRAM:
+   274                           	callstack 0
+   275  000001                     _ledon:
+   276                           	callstack 0
+   277  000001                     	ds	14
+   278  00000F                     _errorkey:
+   279                           	callstack 0
+   280  00000F                     	ds	13
+   281  00001C                     _ledof:
+   282                           	callstack 0
+   283  00001C                     	ds	12
+   284                           
+   285                           	psect	dataBANK0
+   286  000060                     __pdataBANK0:
+   287                           	callstack 0
+   288  000060                     _bienvenida2:
+   289                           	callstack 0
+   290  000060                     	ds	48
+   291  000090                     _bienvenida1:
+   292                           	callstack 0
+   293  000090                     	ds	40
+   294                           
+   295                           	psect	cstackCOMRAM
+   296  000028                     __pcstackCOMRAM:
+   297                           	callstack 0
+   298  000028                     ?i2_strlen:
+   299                           	callstack 0
+   300  000028                     i2strlen@s:
+   301                           	callstack 0
+   302                           
+   303                           ; 2 bytes @ 0x0
+   304  000028                     	ds	2
+   305  00002A                     i2strlen@a:
+   306                           	callstack 0
+   307                           
+   308                           ; 2 bytes @ 0x2
+   309  00002A                     	ds	2
+   310  00002C                     i2SERIAL_escribemensaje@vector:
+   311                           	callstack 0
+   312                           
+   313                           ; 2 bytes @ 0x4
+   314  00002C                     	ds	2
+   315  00002E                     i2SERIAL_escribemensaje@cantidad:
+   316                           	callstack 0
+   317                           
+   318                           ; 1 bytes @ 0x6
+   319  00002E                     	ds	1
+   320  00002F                     i2SERIAL_escribemensaje@x:
+   321                           	callstack 0
+   322                           
+   323                           ; 1 bytes @ 0x7
+   324  00002F                     	ds	1
+   325  000030                     ??_EUSART_RX_ISR:
+   326                           
+   327                           ; 1 bytes @ 0x8
+   328  000030                     	ds	2
+   329  000032                     ?_strlen:
+   330                           	callstack 0
+   331  000032                     strlen@s:
+   332                           	callstack 0
+   333                           
+   334                           ; 2 bytes @ 0xA
+   335  000032                     	ds	2
+   336  000034                     strlen@a:
+   337                           	callstack 0
+   338                           
+   339                           ; 2 bytes @ 0xC
+   340  000034                     	ds	2
+   341  000036                     SERIAL_escribemensaje@vector:
+   342                           	callstack 0
+   343                           
+   344                           ; 2 bytes @ 0xE
+   345  000036                     	ds	2
+   346  000038                     SERIAL_escribemensaje@cantidad:
+   347                           	callstack 0
+   348                           
+   349                           ; 1 bytes @ 0x10
+   350  000038                     	ds	1
+   351  000039                     SERIAL_escribemensaje@x:
+   352                           	callstack 0
+   353                           
+   354                           ; 1 bytes @ 0x11
+   355  000039                     	ds	1
+   356  00003A                     
+   357                           ; 1 bytes @ 0x12
+   358 ;;
+   359 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   360 ;;
+   361 ;; *************** function _main *****************
+   362 ;; Defined at:
+   363 ;;		line 43 in file "maincode3.c"
+   364 ;; Parameters:    Size  Location     Type
+   365 ;;		None
+   366 ;; Auto vars:     Size  Location     Type
+   367 ;;		None
+   368 ;; Return value:  Size  Location     Type
+   369 ;;                  1    wreg      void 
+   370 ;; Registers used:
+   371 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   372 ;; Tracked objects:
+   373 ;;		On entry : 0/0
+   374 ;;		On exit  : 0/0
+   375 ;;		Unchanged: 0/0
+   376 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   377 ;;      Params:         0       0       0       0       0       0       0       0       0
+   378 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   379 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   380 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   381 ;;Total ram usage:        0 bytes
+   382 ;; Hardware stack levels required when called: 5
+   383 ;; This function calls:
+   384 ;;		_EUSART_config
+   385 ;;		_INT_config
+   386 ;;		_SERIAL_escribemensaje
+   387 ;;		_SERIAL_newline
+   388 ;; This function is called by:
+   389 ;;		Startup code after reset
+   390 ;; This function uses a non-reentrant model
+   391 ;;
+   392                           
+   393                           	psect	text0
+   394  00022C                     __ptext0:
+   395                           	callstack 0
+   396  00022C                     _main:
+   397                           	callstack 26
+   398  00022C                     
+   399                           ;maincode3.c: 44:     TRISDbits.RD0 = 0;
+   400  00022C  9095               	bcf	149,0,c	;volatile
+   401  00022E                     
+   402                           ;maincode3.c: 45:     EUSART_config();
+   403  00022E  EC69  F001         	call	_EUSART_config	;wreg free
+   404  000232                     
+   405                           ;maincode3.c: 46:     INT_config();
+   406  000232  EC70  F001         	call	_INT_config	;wreg free
+   407  000236                     
+   408                           ;maincode3.c: 47:     SERIAL_escribemensaje(bienvenida1);
+   409  000236  0E90               	movlw	low _bienvenida1
+   410  000238  6E36               	movwf	SERIAL_escribemensaje@vector^0,c
+   411  00023A  0E00               	movlw	high _bienvenida1
+   412  00023C  6E37               	movwf	(SERIAL_escribemensaje@vector+1)^0,c
+   413  00023E  EC6F  F000         	call	_SERIAL_escribemensaje	;wreg free
+   414  000242                     
+   415                           ;maincode3.c: 48:     SERIAL_newline();
+   416  000242  EC43  F001         	call	_SERIAL_newline	;wreg free
+   417  000246                     
+   418                           ;maincode3.c: 49:     SERIAL_escribemensaje(bienvenida2);
+   419  000246  0E60               	movlw	low _bienvenida2
+   420  000248  6E36               	movwf	SERIAL_escribemensaje@vector^0,c
+   421  00024A  0E00               	movlw	high _bienvenida2
+   422  00024C  6E37               	movwf	(SERIAL_escribemensaje@vector+1)^0,c
+   423  00024E  EC6F  F000         	call	_SERIAL_escribemensaje	;wreg free
+   424  000252                     
+   425                           ;maincode3.c: 50:     SERIAL_newline();
+   426  000252  EC43  F001         	call	_SERIAL_newline	;wreg free
+   427  000256                     l63:
+   428  000256  EF2B  F001         	goto	l63
+   429  00025A  EF07  F000         	goto	start
+   430  00025E                     __end_of_main:
+   431                           	callstack 0
+   432                           
+   433 ;; *************** function _SERIAL_newline *****************
+   434 ;; Defined at:
+   435 ;;		line 26 in file "maincode3.c"
+   436 ;; Parameters:    Size  Location     Type
+   437 ;;		None
+   438 ;; Auto vars:     Size  Location     Type
+   439 ;;		None
+   440 ;; Return value:  Size  Location     Type
+   441 ;;                  1    wreg      void 
+   442 ;; Registers used:
+   443 ;;		wreg, status,2
+   444 ;; Tracked objects:
+   445 ;;		On entry : 0/0
+   446 ;;		On exit  : 0/0
+   447 ;;		Unchanged: 0/0
+   448 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   449 ;;      Params:         0       0       0       0       0       0       0       0       0
+   450 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   451 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   452 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   453 ;;Total ram usage:        0 bytes
+   454 ;; Hardware stack levels used: 1
+   455 ;; Hardware stack levels required when called: 3
+   456 ;; This function calls:
+   457 ;;		Nothing
+   458 ;; This function is called by:
+   459 ;;		_main
+   460 ;; This function uses a non-reentrant model
+   461 ;;
+   462                           
+   463                           	psect	text1
+   464  000286                     __ptext1:
+   465                           	callstack 0
+   466  000286                     _SERIAL_newline:
+   467                           	callstack 27
+   468  000286                     
+   469                           ;maincode3.c: 27:         TXREG = 0x0A;
+   470  000286  0E0A               	movlw	10
+   471  000288  6EAD               	movwf	173,c	;volatile
+   472  00028A                     l43:
+   473  00028A  A2AC               	btfss	172,1,c	;volatile
+   474  00028C  EF4A  F001         	goto	u151
+   475  000290  EF4C  F001         	goto	u150
+   476  000294                     u151:
+   477  000294  EF45  F001         	goto	l43
+   478  000298                     u150:
+   479  000298                     
+   480                           ;maincode3.c: 29:         TXREG = 0x0D;
+   481  000298  0E0D               	movlw	13
+   482  00029A  6EAD               	movwf	173,c	;volatile
+   483  00029C                     l46:
+   484  00029C  A2AC               	btfss	172,1,c	;volatile
+   485  00029E  EF53  F001         	goto	u161
+   486  0002A2  EF55  F001         	goto	u160
+   487  0002A6                     u161:
+   488  0002A6  EF4E  F001         	goto	l46
+   489  0002AA                     u160:
+   490  0002AA  0012               	return		;funcret
+   491  0002AC                     __end_of_SERIAL_newline:
+   492                           	callstack 0
+   493                           
+   494 ;; *************** function _SERIAL_escribemensaje *****************
+   495 ;; Defined at:
+   496 ;;		line 33 in file "maincode3.c"
+   497 ;; Parameters:    Size  Location     Type
+   498 ;;  vector          2   14[COMRAM] PTR const unsigned char 
+   499 ;;		 -> errorkey(13), ledof(12), ledon(14), bienvenida2(48), 
+   500 ;;		 -> bienvenida1(40), 
+   501 ;; Auto vars:     Size  Location     Type
+   502 ;;  x               1   17[COMRAM] unsigned char 
+   503 ;;  cantidad        1   16[COMRAM] unsigned char 
+   504 ;; Return value:  Size  Location     Type
+   505 ;;                  1    wreg      void 
+   506 ;; Registers used:
+   507 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   508 ;; Tracked objects:
+   509 ;;		On entry : 0/0
+   510 ;;		On exit  : 0/0
+   511 ;;		Unchanged: 0/0
+   512 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   513 ;;      Params:         2       0       0       0       0       0       0       0       0
+   514 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   515 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   516 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   517 ;;Total ram usage:        4 bytes
+   518 ;; Hardware stack levels used: 1
+   519 ;; Hardware stack levels required when called: 4
+   520 ;; This function calls:
+   521 ;;		_strlen
+   522 ;; This function is called by:
+   523 ;;		_main
+   524 ;; This function uses a non-reentrant model
+   525 ;;
+   526                           
+   527                           	psect	text2
+   528  0000DE                     __ptext2:
+   529                           	callstack 0
+   530  0000DE                     _SERIAL_escribemensaje:
+   531                           	callstack 26
+   532  0000DE                     
+   533                           ;maincode3.c: 35:     unsigned char x;;maincode3.c: 36:     cantidad = strlen(vector);
+   534  0000DE  C036  F032         	movff	SERIAL_escribemensaje@vector,strlen@s
+   535  0000E2  C037  F033         	movff	SERIAL_escribemensaje@vector+1,strlen@s+1
+   536  0000E6  ECE0  F000         	call	_strlen	;wreg free
+   537  0000EA  5032               	movf	?_strlen^0,w,c
+   538  0000EC  6E38               	movwf	SERIAL_escribemensaje@cantidad^0,c
+   539  0000EE                     
+   540                           ;maincode3.c: 37:     for(x=0;x<cantidad;x++){
+   541  0000EE  0E00               	movlw	0
+   542  0000F0  6E39               	movwf	SERIAL_escribemensaje@x^0,c
+   543  0000F2  EF8B  F000         	goto	l903
+   544  0000F6                     l899:
+   545                           
+   546                           ;maincode3.c: 38:         TXREG = vector[x];
+   547  0000F6  5039               	movf	SERIAL_escribemensaje@x^0,w,c
+   548  0000F8  2436               	addwf	SERIAL_escribemensaje@vector^0,w,c
+   549  0000FA  6ED9               	movwf	fsr2l,c
+   550  0000FC  0E00               	movlw	0
+   551  0000FE  2037               	addwfc	(SERIAL_escribemensaje@vector+1)^0,w,c
+   552  000100  6EDA               	movwf	fsr2h,c
+   553  000102  50DF               	movf	indf2,w,c
+   554  000104  6EAD               	movwf	173,c	;volatile
+   555  000106                     l54:
+   556  000106  A2AC               	btfss	172,1,c	;volatile
+   557  000108  EF88  F000         	goto	u171
+   558  00010C  EF8A  F000         	goto	u170
+   559  000110                     u171:
+   560  000110  EF83  F000         	goto	l54
+   561  000114                     u170:
+   562  000114                     
+   563                           ;maincode3.c: 40:     }
+   564  000114  2A39               	incf	SERIAL_escribemensaje@x^0,f,c
+   565  000116                     l903:
+   566  000116  5038               	movf	SERIAL_escribemensaje@cantidad^0,w,c
+   567  000118  5C39               	subwf	SERIAL_escribemensaje@x^0,w,c
+   568  00011A  A0D8               	btfss	status,0,c
+   569  00011C  EF92  F000         	goto	u181
+   570  000120  EF94  F000         	goto	u180
+   571  000124                     u181:
+   572  000124  EF7B  F000         	goto	l899
+   573  000128                     u180:
+   574  000128  0012               	return		;funcret
+   575  00012A                     __end_of_SERIAL_escribemensaje:
+   576                           	callstack 0
+   577                           
+   578 ;; *************** function _strlen *****************
+   579 ;; Defined at:
+   580 ;;		line 5 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\strlen.c"
+   581 ;; Parameters:    Size  Location     Type
+   582 ;;  s               2   10[COMRAM] PTR const unsigned char 
+   583 ;;		 -> errorkey(13), ledof(12), ledon(14), bienvenida2(48), 
+   584 ;;		 -> bienvenida1(40), 
+   585 ;; Auto vars:     Size  Location     Type
+   586 ;;  a               2   12[COMRAM] PTR const unsigned char 
+   587 ;;		 -> errorkey(13), ledof(12), ledon(14), bienvenida2(48), 
+   588 ;;		 -> bienvenida1(40), 
+   589 ;; Return value:  Size  Location     Type
+   590 ;;                  2   10[COMRAM] unsigned int 
+   591 ;; Registers used:
+   592 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+   593 ;; Tracked objects:
+   594 ;;		On entry : 0/0
+   595 ;;		On exit  : 0/0
+   596 ;;		Unchanged: 0/0
+   597 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   598 ;;      Params:         2       0       0       0       0       0       0       0       0
+   599 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   600 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   601 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   602 ;;Total ram usage:        4 bytes
+   603 ;; Hardware stack levels used: 1
+   604 ;; Hardware stack levels required when called: 3
+   605 ;; This function calls:
+   606 ;;		Nothing
+   607 ;; This function is called by:
+   608 ;;		_SERIAL_escribemensaje
+   609 ;; This function uses a non-reentrant model
+   610 ;;
+   611                           
+   612                           	psect	text3
+   613  0001C0                     __ptext3:
+   614                           	callstack 0
+   615  0001C0                     _strlen:
+   616                           	callstack 26
+   617  0001C0  C032  F034         	movff	strlen@s,strlen@a
+   618  0001C4  C033  F035         	movff	strlen@s+1,strlen@a+1
+   619  0001C8  EFE8  F000         	goto	l861
+   620  0001CC                     l859:
+   621  0001CC  4A32               	infsnz	strlen@s^0,f,c
+   622  0001CE  2A33               	incf	(strlen@s+1)^0,f,c
+   623  0001D0                     l861:
+   624  0001D0  C032  FFD9         	movff	strlen@s,fsr2l
+   625  0001D4  C033  FFDA         	movff	strlen@s+1,fsr2h
+   626  0001D8  50DF               	movf	indf2,w,c
+   627  0001DA  A4D8               	btfss	status,2,c
+   628  0001DC  EFF2  F000         	goto	u131
+   629  0001E0  EFF4  F000         	goto	u130
+   630  0001E4                     u131:
+   631  0001E4  EFE6  F000         	goto	l859
+   632  0001E8                     u130:
+   633  0001E8  5034               	movf	strlen@a^0,w,c
+   634  0001EA  5C32               	subwf	strlen@s^0,w,c
+   635  0001EC  6E32               	movwf	?_strlen^0,c
+   636  0001EE  5035               	movf	(strlen@a+1)^0,w,c
+   637  0001F0  5833               	subwfb	(strlen@s+1)^0,w,c
+   638  0001F2  6E33               	movwf	(?_strlen+1)^0,c
+   639  0001F4  0012               	return		;funcret
+   640  0001F6                     __end_of_strlen:
+   641                           	callstack 0
+   642                           
+   643 ;; *************** function _INT_config *****************
+   644 ;; Defined at:
+   645 ;;		line 20 in file "maincode3.c"
+   646 ;; Parameters:    Size  Location     Type
+   647 ;;		None
+   648 ;; Auto vars:     Size  Location     Type
+   649 ;;		None
+   650 ;; Return value:  Size  Location     Type
+   651 ;;                  1    wreg      void 
+   652 ;; Registers used:
+   653 ;;		None
+   654 ;; Tracked objects:
+   655 ;;		On entry : 0/0
+   656 ;;		On exit  : 0/0
+   657 ;;		Unchanged: 0/0
+   658 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   659 ;;      Params:         0       0       0       0       0       0       0       0       0
+   660 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   661 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   662 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   663 ;;Total ram usage:        0 bytes
+   664 ;; Hardware stack levels used: 1
+   665 ;; Hardware stack levels required when called: 3
+   666 ;; This function calls:
+   667 ;;		Nothing
+   668 ;; This function is called by:
+   669 ;;		_main
+   670 ;; This function uses a non-reentrant model
+   671 ;;
+   672                           
+   673                           	psect	text4
+   674  0002E0                     __ptext4:
+   675                           	callstack 0
+   676  0002E0                     _INT_config:
+   677                           	callstack 27
+   678  0002E0                     
+   679                           ;maincode3.c: 21:     INTCONbits.GIE = 1;
+   680  0002E0  8EF2               	bsf	242,7,c	;volatile
+   681                           
+   682                           ;maincode3.c: 22:     INTCONbits.PEIE = 1;
+   683  0002E2  8CF2               	bsf	242,6,c	;volatile
+   684                           
+   685                           ;maincode3.c: 23:     PIE1bits.RCIE = 1;
+   686  0002E4  8A9D               	bsf	157,5,c	;volatile
+   687  0002E6  0012               	return		;funcret
+   688  0002E8                     __end_of_INT_config:
+   689                           	callstack 0
+   690                           
+   691 ;; *************** function _EUSART_config *****************
+   692 ;; Defined at:
+   693 ;;		line 12 in file "maincode3.c"
+   694 ;; Parameters:    Size  Location     Type
+   695 ;;		None
+   696 ;; Auto vars:     Size  Location     Type
+   697 ;;		None
+   698 ;; Return value:  Size  Location     Type
+   699 ;;                  1    wreg      void 
+   700 ;; Registers used:
+   701 ;;		wreg, status,2
+   702 ;; Tracked objects:
+   703 ;;		On entry : 0/0
+   704 ;;		On exit  : 0/0
+   705 ;;		Unchanged: 0/0
+   706 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   707 ;;      Params:         0       0       0       0       0       0       0       0       0
+   708 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   709 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   710 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   711 ;;Total ram usage:        0 bytes
+   712 ;; Hardware stack levels used: 1
+   713 ;; Hardware stack levels required when called: 3
+   714 ;; This function calls:
+   715 ;;		Nothing
+   716 ;; This function is called by:
+   717 ;;		_main
+   718 ;; This function uses a non-reentrant model
+   719 ;;
+   720                           
+   721                           	psect	text5
+   722  0002D2                     __ptext5:
+   723                           	callstack 0
+   724  0002D2                     _EUSART_config:
+   725                           	callstack 27
+   726  0002D2                     
+   727                           ;maincode3.c: 13:     TRISCbits.RC6 = 0;
+   728  0002D2  9C94               	bcf	148,6,c	;volatile
+   729  0002D4                     
+   730                           ;maincode3.c: 14:     SPBRG = 77;
+   731  0002D4  0E4D               	movlw	77
+   732  0002D6  6EAF               	movwf	175,c	;volatile
+   733  0002D8                     
+   734                           ;maincode3.c: 15:     RCSTAbits.SPEN = 1;
+   735  0002D8  8EAB               	bsf	171,7,c	;volatile
+   736  0002DA                     
+   737                           ;maincode3.c: 16:     RCSTAbits.CREN = 1;
+   738  0002DA  88AB               	bsf	171,4,c	;volatile
+   739  0002DC                     
+   740                           ;maincode3.c: 17:     TXSTAbits.TXEN = 1;
+   741  0002DC  8AAC               	bsf	172,5,c	;volatile
+   742  0002DE  0012               	return		;funcret
+   743  0002E0                     __end_of_EUSART_config:
+   744                           	callstack 0
+   745                           
+   746 ;; *************** function _EUSART_RX_ISR *****************
+   747 ;; Defined at:
+   748 ;;		line 55 in file "maincode3.c"
+   749 ;; Parameters:    Size  Location     Type
+   750 ;;		None
+   751 ;; Auto vars:     Size  Location     Type
+   752 ;;		None
+   753 ;; Return value:  Size  Location     Type
+   754 ;;                  1    wreg      void 
+   755 ;; Registers used:
+   756 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   757 ;; Tracked objects:
+   758 ;;		On entry : 0/0
+   759 ;;		On exit  : 0/0
+   760 ;;		Unchanged: 0/0
+   761 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   762 ;;      Params:         0       0       0       0       0       0       0       0       0
+   763 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   764 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   765 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   766 ;;Total ram usage:        2 bytes
+   767 ;; Hardware stack levels used: 1
+   768 ;; Hardware stack levels required when called: 2
+   769 ;; This function calls:
+   770 ;;		i2_SERIAL_escribemensaje
+   771 ;;		i2_SERIAL_newline
+   772 ;; This function is called by:
+   773 ;;		Interrupt level 2
+   774 ;; This function uses a non-reentrant model
+   775 ;;
+   776                           
+   777                           	psect	intcode
+   778  000008                     __pintcode:
+   779                           	callstack 0
+   780  000008                     _EUSART_RX_ISR:
+   781                           	callstack 26
+   782                           
+   783                           ;incstack = 0
+   784  000008  823A               	bsf	int$flags,1,c	;set compiler interrupt flag (level 2)
+   785  00000A  ED09  F000         	call	int_func,f	;refresh shadow registers
+   786                           
+   787                           	psect	intcode_body
+   788  000012                     __pintcode_body:
+   789                           	callstack 26
+   790  000012                     int_func:
+   791                           	callstack 26
+   792  000012  0006               	pop		; remove dummy address from shadow register refresh
+   793  000014  CFD9 F030          	movff	fsr2l,??_EUSART_RX_ISR
+   794  000018  CFDA F031          	movff	fsr2h,??_EUSART_RX_ISR+1
+   795  00001C                     
+   796                           ;maincode3.c: 56:     PIR1bits.RCIF = 0;
+   797  00001C  9A9E               	bcf	158,5,c	;volatile
+   798  00001E                     
+   799                           ;maincode3.c: 57:     if(RCREG == 'E'){
+   800  00001E  0E45               	movlw	69
+   801  000020  18AE               	xorwf	174,w,c	;volatile
+   802  000022  A4D8               	btfss	status,2,c
+   803  000024  EF16  F000         	goto	i2u21_41
+   804  000028  EF18  F000         	goto	i2u21_40
+   805  00002C                     i2u21_41:
+   806  00002C  EF23  F000         	goto	i2l941
+   807  000030                     i2u21_40:
+   808  000030                     
+   809                           ;maincode3.c: 58:         LATDbits.LD0 = 1;
+   810  000030  808C               	bsf	140,0,c	;volatile
+   811  000032                     
+   812                           ;maincode3.c: 59:         SERIAL_escribemensaje(ledon);
+   813  000032  0E01               	movlw	low _ledon
+   814  000034  6E2C               	movwf	i2SERIAL_escribemensaje@vector^0,c
+   815  000036  0E00               	movlw	high _ledon
+   816  000038  6E2D               	movwf	(i2SERIAL_escribemensaje@vector+1)^0,c
+   817  00003A  EC95  F000         	call	i2_SERIAL_escribemensaje	;wreg free
+   818  00003E                     i2l939:
+   819                           
+   820                           ;maincode3.c: 60:         SERIAL_newline();
+   821  00003E  EC56  F001         	call	i2_SERIAL_newline	;wreg free
+   822                           
+   823                           ;maincode3.c: 61:     }
+   824  000042  EF3D  F000         	goto	i2l75
+   825  000046                     i2l941:
+   826  000046  0E41               	movlw	65
+   827  000048  18AE               	xorwf	174,w,c	;volatile
+   828  00004A  A4D8               	btfss	status,2,c
+   829  00004C  EF2A  F000         	goto	i2u22_41
+   830  000050  EF2C  F000         	goto	i2u22_40
+   831  000054                     i2u22_41:
+   832  000054  EF35  F000         	goto	i2l949
+   833  000058                     i2u22_40:
+   834  000058                     
+   835                           ;maincode3.c: 63:         LATDbits.LD0 = 0;
+   836  000058  908C               	bcf	140,0,c	;volatile
+   837  00005A                     
+   838                           ;maincode3.c: 64:         SERIAL_escribemensaje(ledof);
+   839  00005A  0E1C               	movlw	low _ledof
+   840  00005C  6E2C               	movwf	i2SERIAL_escribemensaje@vector^0,c
+   841  00005E  0E00               	movlw	high _ledof
+   842  000060  6E2D               	movwf	(i2SERIAL_escribemensaje@vector+1)^0,c
+   843  000062  EC95  F000         	call	i2_SERIAL_escribemensaje	;wreg free
+   844  000066  EF1F  F000         	goto	i2l939
+   845  00006A                     i2l949:
+   846                           
+   847                           ;maincode3.c: 68:         SERIAL_escribemensaje(errorkey);
+   848  00006A  0E0F               	movlw	low _errorkey
+   849  00006C  6E2C               	movwf	i2SERIAL_escribemensaje@vector^0,c
+   850  00006E  0E00               	movlw	high _errorkey
+   851  000070  6E2D               	movwf	(i2SERIAL_escribemensaje@vector+1)^0,c
+   852  000072  EC95  F000         	call	i2_SERIAL_escribemensaje	;wreg free
+   853  000076  EF1F  F000         	goto	i2l939
+   854  00007A                     i2l75:
+   855  00007A  C031  FFDA         	movff	??_EUSART_RX_ISR+1,fsr2h
+   856  00007E  C030  FFD9         	movff	??_EUSART_RX_ISR,fsr2l
+   857  000082  923A               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   858  000084  0011               	retfie		f
+   859  000086                     __end_of_EUSART_RX_ISR:
+   860                           	callstack 0
+   861                           
+   862 ;; *************** function i2_SERIAL_newline *****************
+   863 ;; Defined at:
+   864 ;;		line 26 in file "maincode3.c"
+   865 ;; Parameters:    Size  Location     Type
+   866 ;;		None
+   867 ;; Auto vars:     Size  Location     Type
+   868 ;;		None
+   869 ;; Return value:  Size  Location     Type
+   870 ;;                  1    wreg      void 
+   871 ;; Registers used:
+   872 ;;		wreg, status,2
+   873 ;; Tracked objects:
+   874 ;;		On entry : 0/0
+   875 ;;		On exit  : 0/0
+   876 ;;		Unchanged: 0/0
+   877 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   878 ;;      Params:         0       0       0       0       0       0       0       0       0
+   879 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   880 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   881 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   882 ;;Total ram usage:        0 bytes
+   883 ;; Hardware stack levels used: 1
+   884 ;; This function calls:
+   885 ;;		Nothing
+   886 ;; This function is called by:
+   887 ;;		_EUSART_RX_ISR
+   888 ;; This function uses a non-reentrant model
+   889 ;;
+   890                           
+   891                           	psect	text7
+   892  0002AC                     __ptext7:
+   893                           	callstack 0
+   894  0002AC                     i2_SERIAL_newline:
+   895                           	callstack 27
+   896  0002AC                     
+   897                           ;maincode3.c: 27:         TXREG = 0x0A;
+   898  0002AC  0E0A               	movlw	10
+   899  0002AE  6EAD               	movwf	173,c	;volatile
+   900  0002B0                     i2l43:
+   901  0002B0  A2AC               	btfss	172,1,c	;volatile
+   902  0002B2  EF5D  F001         	goto	i2u7_41
+   903  0002B6  EF5F  F001         	goto	i2u7_40
+   904  0002BA                     i2u7_41:
+   905  0002BA  EF58  F001         	goto	i2l43
+   906  0002BE                     i2u7_40:
+   907  0002BE                     
+   908                           ;maincode3.c: 29:         TXREG = 0x0D;
+   909  0002BE  0E0D               	movlw	13
+   910  0002C0  6EAD               	movwf	173,c	;volatile
+   911  0002C2                     i2l46:
+   912  0002C2  A2AC               	btfss	172,1,c	;volatile
+   913  0002C4  EF66  F001         	goto	i2u8_41
+   914  0002C8  EF68  F001         	goto	i2u8_40
+   915  0002CC                     i2u8_41:
+   916  0002CC  EF61  F001         	goto	i2l46
+   917  0002D0                     i2u8_40:
+   918  0002D0  0012               	return		;funcret
+   919  0002D2                     __end_ofi2_SERIAL_newline:
+   920                           	callstack 0
+   921                           
+   922 ;; *************** function i2_SERIAL_escribemensaje *****************
+   923 ;; Defined at:
+   924 ;;		line 33 in file "maincode3.c"
+   925 ;; Parameters:    Size  Location     Type
+   926 ;;  vector          2    4[COMRAM] PTR const unsigned char 
+   927 ;;		 -> errorkey(13), ledof(12), ledon(14), bienvenida2(48), 
+   928 ;;		 -> bienvenida1(40), 
+   929 ;; Auto vars:     Size  Location     Type
+   930 ;;  x               1    7[COMRAM] unsigned char 
+   931 ;;  cantidad        1    6[COMRAM] unsigned char 
+   932 ;; Return value:  Size  Location     Type
+   933 ;;                  1    wreg      void 
+   934 ;; Registers used:
+   935 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   936 ;; Tracked objects:
+   937 ;;		On entry : 0/0
+   938 ;;		On exit  : 0/0
+   939 ;;		Unchanged: 0/0
+   940 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   941 ;;      Params:         2       0       0       0       0       0       0       0       0
+   942 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   943 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   944 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   945 ;;Total ram usage:        4 bytes
+   946 ;; Hardware stack levels used: 1
+   947 ;; Hardware stack levels required when called: 1
+   948 ;; This function calls:
+   949 ;;		i2_strlen
+   950 ;; This function is called by:
+   951 ;;		_EUSART_RX_ISR
+   952 ;; This function uses a non-reentrant model
+   953 ;;
+   954                           
+   955                           	psect	text8
+   956  00012A                     __ptext8:
+   957                           	callstack 0
+   958  00012A                     i2_SERIAL_escribemensaje:
+   959                           	callstack 26
+   960  00012A                     
+   961                           ;maincode3.c: 35:     unsigned char x;;maincode3.c: 36:     cantidad = strlen(vector);
+   962  00012A  C02C  F028         	movff	i2SERIAL_escribemensaje@vector,i2strlen@s
+   963  00012E  C02D  F029         	movff	i2SERIAL_escribemensaje@vector+1,i2strlen@s+1
+   964  000132  ECFB  F000         	call	i2_strlen	;wreg free
+   965  000136  5028               	movf	?i2_strlen^0,w,c
+   966  000138  6E2E               	movwf	i2SERIAL_escribemensaje@cantidad^0,c
+   967  00013A                     
+   968                           ;maincode3.c: 37:     for(x=0;x<cantidad;x++){
+   969  00013A  0E00               	movlw	0
+   970  00013C  6E2F               	movwf	i2SERIAL_escribemensaje@x^0,c
+   971  00013E  EFB1  F000         	goto	i2l915
+   972  000142                     i2l911:
+   973                           
+   974                           ;maincode3.c: 38:         TXREG = vector[x];
+   975  000142  502F               	movf	i2SERIAL_escribemensaje@x^0,w,c
+   976  000144  242C               	addwf	i2SERIAL_escribemensaje@vector^0,w,c
+   977  000146  6ED9               	movwf	fsr2l,c
+   978  000148  0E00               	movlw	0
+   979  00014A  202D               	addwfc	(i2SERIAL_escribemensaje@vector+1)^0,w,c
+   980  00014C  6EDA               	movwf	fsr2h,c
+   981  00014E  50DF               	movf	indf2,w,c
+   982  000150  6EAD               	movwf	173,c	;volatile
+   983  000152                     i2l54:
+   984  000152  A2AC               	btfss	172,1,c	;volatile
+   985  000154  EFAE  F000         	goto	i2u19_41
+   986  000158  EFB0  F000         	goto	i2u19_40
+   987  00015C                     i2u19_41:
+   988  00015C  EFA9  F000         	goto	i2l54
+   989  000160                     i2u19_40:
+   990  000160                     
+   991                           ;maincode3.c: 40:     }
+   992  000160  2A2F               	incf	i2SERIAL_escribemensaje@x^0,f,c
+   993  000162                     i2l915:
+   994  000162  502E               	movf	i2SERIAL_escribemensaje@cantidad^0,w,c
+   995  000164  5C2F               	subwf	i2SERIAL_escribemensaje@x^0,w,c
+   996  000166  A0D8               	btfss	status,0,c
+   997  000168  EFB8  F000         	goto	i2u20_41
+   998  00016C  EFBA  F000         	goto	i2u20_40
+   999  000170                     i2u20_41:
+  1000  000170  EFA1  F000         	goto	i2l911
+  1001  000174                     i2u20_40:
+  1002  000174  0012               	return		;funcret
+  1003  000176                     __end_ofi2_SERIAL_escribemensaje:
+  1004                           	callstack 0
+  1005                           
+  1006 ;; *************** function i2_strlen *****************
+  1007 ;; Defined at:
+  1008 ;;		line 5 in file "C:\Program Files\Microchip\xc8\v2.36\pic\sources\c99\common\strlen.c"
+  1009 ;; Parameters:    Size  Location     Type
+  1010 ;;  s               2    0[COMRAM] PTR const unsigned char 
+  1011 ;;		 -> errorkey(13), ledof(12), ledon(14), bienvenida2(48), 
+  1012 ;;		 -> bienvenida1(40), 
+  1013 ;; Auto vars:     Size  Location     Type
+  1014 ;;  a               2    2[COMRAM] PTR const unsigned char 
+  1015 ;;		 -> errorkey(13), ledof(12), ledon(14), bienvenida2(48), 
+  1016 ;;		 -> bienvenida1(40), 
+  1017 ;; Return value:  Size  Location     Type
+  1018 ;;                  2    0[COMRAM] unsigned int 
+  1019 ;; Registers used:
+  1020 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+  1021 ;; Tracked objects:
+  1022 ;;		On entry : 0/0
+  1023 ;;		On exit  : 0/0
+  1024 ;;		Unchanged: 0/0
+  1025 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1026 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1027 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  1028 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1029 ;;      Totals:         4       0       0       0       0       0       0       0       0
+  1030 ;;Total ram usage:        4 bytes
+  1031 ;; Hardware stack levels used: 1
+  1032 ;; This function calls:
+  1033 ;;		Nothing
+  1034 ;; This function is called by:
+  1035 ;;		i2_SERIAL_escribemensaje
+  1036 ;; This function uses a non-reentrant model
+  1037 ;;
+  1038                           
+  1039                           	psect	text9
+  1040  0001F6                     __ptext9:
+  1041                           	callstack 0
+  1042  0001F6                     i2_strlen:
+  1043                           	callstack 26
+  1044  0001F6  C028  F02A         	movff	i2strlen@s,i2strlen@a
+  1045  0001FA  C029  F02B         	movff	i2strlen@s+1,i2strlen@a+1
+  1046  0001FE  EF03  F001         	goto	i2l871
+  1047  000202                     i2l869:
+  1048  000202  4A28               	infsnz	i2strlen@s^0,f,c
+  1049  000204  2A29               	incf	(i2strlen@s+1)^0,f,c
+  1050  000206                     i2l871:
+  1051  000206  C028  FFD9         	movff	i2strlen@s,fsr2l
+  1052  00020A  C029  FFDA         	movff	i2strlen@s+1,fsr2h
+  1053  00020E  50DF               	movf	indf2,w,c
+  1054  000210  A4D8               	btfss	status,2,c
+  1055  000212  EF0D  F001         	goto	i2u14_41
+  1056  000216  EF0F  F001         	goto	i2u14_40
+  1057  00021A                     i2u14_41:
+  1058  00021A  EF01  F001         	goto	i2l869
+  1059  00021E                     i2u14_40:
+  1060  00021E  502A               	movf	i2strlen@a^0,w,c
+  1061  000220  5C28               	subwf	i2strlen@s^0,w,c
+  1062  000222  6E28               	movwf	?i2_strlen^0,c
+  1063  000224  502B               	movf	(i2strlen@a+1)^0,w,c
+  1064  000226  5829               	subwfb	(i2strlen@s+1)^0,w,c
+  1065  000228  6E29               	movwf	(?i2_strlen+1)^0,c
+  1066  00022A  0012               	return		;funcret
+  1067  00022C                     __end_ofi2_strlen:
+  1068                           	callstack 0
+  1069  0000                     
+  1070                           	psect	rparam
+  1071  0000                     
+  1072                           	psect	temp
+  1073  00003A                     btemp:
+  1074                           	callstack 0
+  1075  00003A                     	ds	1
+  1076  0000                     int$flags	set	btemp
+  1077  0000                     wtemp8	set	btemp+1
+  1078  0000                     ttemp5	set	btemp+1
+  1079  0000                     ttemp6	set	btemp+4
+  1080  0000                     ttemp7	set	btemp+8
+  1081                           
+  1082                           	psect	idloc
+  1083                           
+  1084                           ;Config register IDLOC0 @ 0x200000
+  1085                           ;	unspecified, using default values
+  1086  200000                     	org	2097152
+  1087  200000  FF                 	db	255
+  1088                           
+  1089                           ;Config register IDLOC1 @ 0x200001
+  1090                           ;	unspecified, using default values
+  1091  200001                     	org	2097153
+  1092  200001  FF                 	db	255
+  1093                           
+  1094                           ;Config register IDLOC2 @ 0x200002
+  1095                           ;	unspecified, using default values
+  1096  200002                     	org	2097154
+  1097  200002  FF                 	db	255
+  1098                           
+  1099                           ;Config register IDLOC3 @ 0x200003
+  1100                           ;	unspecified, using default values
+  1101  200003                     	org	2097155
+  1102  200003  FF                 	db	255
+  1103                           
+  1104                           ;Config register IDLOC4 @ 0x200004
+  1105                           ;	unspecified, using default values
+  1106  200004                     	org	2097156
+  1107  200004  FF                 	db	255
+  1108                           
+  1109                           ;Config register IDLOC5 @ 0x200005
+  1110                           ;	unspecified, using default values
+  1111  200005                     	org	2097157
+  1112  200005  FF                 	db	255
+  1113                           
+  1114                           ;Config register IDLOC6 @ 0x200006
+  1115                           ;	unspecified, using default values
+  1116  200006                     	org	2097158
+  1117  200006  FF                 	db	255
+  1118                           
+  1119                           ;Config register IDLOC7 @ 0x200007
+  1120                           ;	unspecified, using default values
+  1121  200007                     	org	2097159
+  1122  200007  FF                 	db	255
+  1123                           
+  1124                           	psect	config
+  1125                           
+  1126                           ;Config register CONFIG1L @ 0x300000
+  1127                           ;	PLL Prescaler Selection bits
+  1128                           ;	PLLDIV = 1, No prescale (4 MHz oscillator input drives PLL directly)
+  1129                           ;	System Clock Postscaler Selection bits
+  1130                           ;	CPUDIV = OSC1_PLL2, [Primary Oscillator Src: /1][96 MHz PLL Src: /2]
+  1131                           ;	USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1)
+  1132                           ;	USBDIV = 1, USB clock source comes directly from the primary oscillator block with no 
+      +                          postscale
+  1133  300000                     	org	3145728
+  1134  300000  00                 	db	0
+  1135                           
+  1136                           ;Config register CONFIG1H @ 0x300001
+  1137                           ;	Oscillator Selection bits
+  1138                           ;	FOSC = XTPLL_XT, XT oscillator, PLL enabled (XTPLL)
+  1139                           ;	Fail-Safe Clock Monitor Enable bit
+  1140                           ;	FCMEN = OFF, Fail-Safe Clock Monitor disabled
+  1141                           ;	Internal/External Oscillator Switchover bit
+  1142                           ;	IESO = OFF, Oscillator Switchover mode disabled
+  1143  300001                     	org	3145729
+  1144  300001  02                 	db	2
+  1145                           
+  1146                           ;Config register CONFIG2L @ 0x300002
+  1147                           ;	Power-up Timer Enable bit
+  1148                           ;	PWRT = ON, PWRT enabled
+  1149                           ;	Brown-out Reset Enable bits
+  1150                           ;	BOR = OFF, Brown-out Reset disabled in hardware and software
+  1151                           ;	Brown-out Reset Voltage bits
+  1152                           ;	BORV = 3, Minimum setting 2.05V
+  1153                           ;	USB Voltage Regulator Enable bit
+  1154                           ;	VREGEN = OFF, USB voltage regulator disabled
+  1155  300002                     	org	3145730
+  1156  300002  18                 	db	24
+  1157                           
+  1158                           ;Config register CONFIG2H @ 0x300003
+  1159                           ;	Watchdog Timer Enable bit
+  1160                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+  1161                           ;	Watchdog Timer Postscale Select bits
+  1162                           ;	WDTPS = 32768, 1:32768
+  1163  300003                     	org	3145731
+  1164  300003  1E                 	db	30
+  1165                           
+  1166                           ; Padding undefined space
+  1167  300004                     	org	3145732
+  1168  300004  FF                 	db	255
+  1169                           
+  1170                           ;Config register CONFIG3H @ 0x300005
+  1171                           ;	CCP2 MUX bit
+  1172                           ;	CCP2MX = ON, CCP2 input/output is multiplexed with RC1
+  1173                           ;	PORTB A/D Enable bit
+  1174                           ;	PBADEN = OFF, PORTB<4:0> pins are configured as digital I/O on Reset
+  1175                           ;	Low-Power Timer 1 Oscillator Enable bit
+  1176                           ;	LPT1OSC = OFF, Timer1 configured for higher power operation
+  1177                           ;	MCLR Pin Enable bit
+  1178                           ;	MCLRE = ON, MCLR pin enabled; RE3 input pin disabled
+  1179  300005                     	org	3145733
+  1180  300005  81                 	db	129
+  1181                           
+  1182                           ;Config register CONFIG4L @ 0x300006
+  1183                           ;	Stack Full/Underflow Reset Enable bit
+  1184                           ;	STVREN = ON, Stack full/underflow will cause Reset
+  1185                           ;	Single-Supply ICSP Enable bit
+  1186                           ;	LVP = OFF, Single-Supply ICSP disabled
+  1187                           ;	Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit
+  1188                           ;	ICPRT = OFF, ICPORT disabled
+  1189                           ;	Extended Instruction Set Enable bit
+  1190                           ;	XINST = OFF, Instruction set extension and Indexed Addressing mode disabled (Legacy mo
+      +                          de)
+  1191                           ;	Background Debugger Enable bit
+  1192                           ;	DEBUG = 0x1, unprogrammed default
+  1193  300006                     	org	3145734
+  1194  300006  81                 	db	129
+  1195                           
+  1196                           ; Padding undefined space
+  1197  300007                     	org	3145735
+  1198  300007  FF                 	db	255
+  1199                           
+  1200                           ;Config register CONFIG5L @ 0x300008
+  1201                           ;	Code Protection bit
+  1202                           ;	CP0 = OFF, Block 0 (000800-001FFFh) is not code-protected
+  1203                           ;	Code Protection bit
+  1204                           ;	CP1 = OFF, Block 1 (002000-003FFFh) is not code-protected
+  1205                           ;	Code Protection bit
+  1206                           ;	CP2 = OFF, Block 2 (004000-005FFFh) is not code-protected
+  1207                           ;	Code Protection bit
+  1208                           ;	CP3 = OFF, Block 3 (006000-007FFFh) is not code-protected
+  1209  300008                     	org	3145736
+  1210  300008  0F                 	db	15
+  1211                           
+  1212                           ;Config register CONFIG5H @ 0x300009
+  1213                           ;	Boot Block Code Protection bit
+  1214                           ;	CPB = OFF, Boot block (000000-0007FFh) is not code-protected
+  1215                           ;	Data EEPROM Code Protection bit
+  1216                           ;	CPD = OFF, Data EEPROM is not code-protected
+  1217  300009                     	org	3145737
+  1218  300009  C0                 	db	192
+  1219                           
+  1220                           ;Config register CONFIG6L @ 0x30000A
+  1221                           ;	Write Protection bit
+  1222                           ;	WRT0 = OFF, Block 0 (000800-001FFFh) is not write-protected
+  1223                           ;	Write Protection bit
+  1224                           ;	WRT1 = OFF, Block 1 (002000-003FFFh) is not write-protected
+  1225                           ;	Write Protection bit
+  1226                           ;	WRT2 = OFF, Block 2 (004000-005FFFh) is not write-protected
+  1227                           ;	Write Protection bit
+  1228                           ;	WRT3 = OFF, Block 3 (006000-007FFFh) is not write-protected
+  1229  30000A                     	org	3145738
+  1230  30000A  0F                 	db	15
+  1231                           
+  1232                           ;Config register CONFIG6H @ 0x30000B
+  1233                           ;	Configuration Register Write Protection bit
+  1234                           ;	WRTC = OFF, Configuration registers (300000-3000FFh) are not write-protected
+  1235                           ;	Boot Block Write Protection bit
+  1236                           ;	WRTB = OFF, Boot block (000000-0007FFh) is not write-protected
+  1237                           ;	Data EEPROM Write Protection bit
+  1238                           ;	WRTD = OFF, Data EEPROM is not write-protected
+  1239  30000B                     	org	3145739
+  1240  30000B  E0                 	db	224
+  1241                           
+  1242                           ;Config register CONFIG7L @ 0x30000C
+  1243                           ;	Table Read Protection bit
+  1244                           ;	EBTR0 = OFF, Block 0 (000800-001FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1245                           ;	Table Read Protection bit
+  1246                           ;	EBTR1 = OFF, Block 1 (002000-003FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1247                           ;	Table Read Protection bit
+  1248                           ;	EBTR2 = OFF, Block 2 (004000-005FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1249                           ;	Table Read Protection bit
+  1250                           ;	EBTR3 = OFF, Block 3 (006000-007FFFh) is not protected from table reads executed in ot
+      +                          her blocks
+  1251  30000C                     	org	3145740
+  1252  30000C  0F                 	db	15
+  1253                           
+  1254                           ;Config register CONFIG7H @ 0x30000D
+  1255                           ;	Boot Block Table Read Protection bit
+  1256                           ;	EBTRB = OFF, Boot block (000000-0007FFh) is not protected from table reads executed in
+      +                           other blocks
+  1257  30000D                     	org	3145741
+  1258  30000D  40                 	db	64
+  1259                           tosu	equ	0xFFF
+  1260                           tosh	equ	0xFFE
+  1261                           tosl	equ	0xFFD
+  1262                           stkptr	equ	0xFFC
+  1263                           pclatu	equ	0xFFB
+  1264                           pclath	equ	0xFFA
+  1265                           pcl	equ	0xFF9
+  1266                           tblptru	equ	0xFF8
+  1267                           tblptrh	equ	0xFF7
+  1268                           tblptrl	equ	0xFF6
+  1269                           tablat	equ	0xFF5
+  1270                           prodh	equ	0xFF4
+  1271                           prodl	equ	0xFF3
+  1272                           indf0	equ	0xFEF
+  1273                           postinc0	equ	0xFEE
+  1274                           postdec0	equ	0xFED
+  1275                           preinc0	equ	0xFEC
+  1276                           plusw0	equ	0xFEB
+  1277                           fsr0h	equ	0xFEA
+  1278                           fsr0l	equ	0xFE9
+  1279                           wreg	equ	0xFE8
+  1280                           indf1	equ	0xFE7
+  1281                           postinc1	equ	0xFE6
+  1282                           postdec1	equ	0xFE5
+  1283                           preinc1	equ	0xFE4
+  1284                           plusw1	equ	0xFE3
+  1285                           fsr1h	equ	0xFE2
+  1286                           fsr1l	equ	0xFE1
+  1287                           bsr	equ	0xFE0
+  1288                           indf2	equ	0xFDF
+  1289                           postinc2	equ	0xFDE
+  1290                           postdec2	equ	0xFDD
+  1291                           preinc2	equ	0xFDC
+  1292                           plusw2	equ	0xFDB
+  1293                           fsr2h	equ	0xFDA
+  1294                           fsr2l	equ	0xFD9
+  1295                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        127
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           94     18      57
+    BANK0           160      0      88
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    strlen@s	PTR const unsigned char  size(2) Largest target is 48
+		 -> errorkey(COMRAM[13]), ledof(COMRAM[12]), ledon(COMRAM[14]), bienvenida2(BANK0[48]), 
+		 -> bienvenida1(BANK0[40]), 
+
+    strlen@a	PTR const unsigned char  size(2) Largest target is 48
+		 -> errorkey(COMRAM[13]), ledof(COMRAM[12]), ledon(COMRAM[14]), bienvenida2(BANK0[48]), 
+		 -> bienvenida1(BANK0[40]), 
+
+    SERIAL_escribemensaje@vector	PTR const unsigned char  size(2) Largest target is 48
+		 -> errorkey(COMRAM[13]), ledof(COMRAM[12]), ledon(COMRAM[14]), bienvenida2(BANK0[48]), 
+		 -> bienvenida1(BANK0[40]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_SERIAL_escribemensaje
+    _SERIAL_escribemensaje->_strlen
+
+Critical Paths under _EUSART_RX_ISR in COMRAM
+
+    _EUSART_RX_ISR->i2_SERIAL_escribemensaje
+    i2_SERIAL_escribemensaje->i2_strlen
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _EUSART_RX_ISR in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0     582
+                      _EUSART_config
+                         _INT_config
+              _SERIAL_escribemensaje
+                     _SERIAL_newline
+ ---------------------------------------------------------------------------------
+ (1) _SERIAL_newline                                       0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _SERIAL_escribemensaje                                4     2      2     582
+                                             14 COMRAM     4     2      2
+                             _strlen
+ ---------------------------------------------------------------------------------
+ (2) _strlen                                               4     2      2     166
+                                             10 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ (1) _INT_config                                           0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _EUSART_config                                        0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _EUSART_RX_ISR                                        2     2      0     308
+                                              8 COMRAM     2     2      0
+            i2_SERIAL_escribemensaje
+                   i2_SERIAL_newline
+ ---------------------------------------------------------------------------------
+ (4) i2_SERIAL_newline                                     0     0      0       0
+ ---------------------------------------------------------------------------------
+ (4) i2_SERIAL_escribemensaje                              4     2      2     308
+                                              4 COMRAM     4     2      2
+                           i2_strlen
+ ---------------------------------------------------------------------------------
+ (5) i2_strlen                                             4     2      2     116
+                                              0 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 5
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _EUSART_config
+   _INT_config
+   _SERIAL_escribemensaje
+     _strlen
+   _SERIAL_newline
+
+ _EUSART_RX_ISR (ROOT)
+   i2_SERIAL_escribemensaje
+     i2_strlen
+   i2_SERIAL_newline
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0       0      27        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK3           100      0       0      11        0.0%
+BANK3              100      0       0      12        0.0%
+BITBANK2           100      0       0       9        0.0%
+BANK2              100      0       0      10        0.0%
+BITBANK1           100      0       0       7        0.0%
+BANK1              100      0       0       8        0.0%
+BITBANK0            A0      0       0       5        0.0%
+BANK0               A0      0      58       6       55.0%
+BITCOMRAM           5E      0       0       0        0.0%
+COMRAM              5E     12      39       1       60.6%
+BITBIGSFRhhl        42      0       0      22        0.0%
+BITBIGSFRll         2C      0       0      26        0.0%
+BITBIGSFRhhh         D      0       0      21        0.0%
+BITBIGSFRhllh        C      0       0      23        0.0%
+BITBIGSFRlh          7      0       0      25        0.0%
+BITBIGSFRhlll        7      0       0      24        0.0%
+BIGSFR               0      0       0     200        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      91       3        0.0%
+DATA                 0      0      91       4        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.36 build 20220127204148 
+Symbol Table                                                                                   Thu Jun 16 15:30:54 2022
+
+  SERIAL_escribemensaje@cantidad 0038  i2SERIAL_escribemensaje@cantidad 002E  
+                             l40 02E6                               l43 028A  
+                             l37 02DE                               l54 0106  
+                             l46 029C                               l63 0256  
+                             l64 0256                               l49 02AA  
+                             l58 0128           __end_of_SERIAL_newline 02AC  
+                            l901 0114                              l903 0116  
+                            l921 0232                              l755 01F4  
+                            l923 0236                              l861 01D0  
+                            l925 0242                              l917 022C  
+                            l863 01E8                              l927 0246  
+                            l919 022E                              l881 02D8  
+                            l857 01C0                              l929 0252  
+                            l883 02DA                              l859 01CC  
+                            l891 0298                              l885 02DC  
+                            l877 02D2                              l893 00DE  
+                            l879 02D4                              l887 02E0  
+                            l895 00DE                              l897 00EE  
+                            l889 0286                              l899 00F6  
+                            u130 01E8                              u131 01E4  
+                            u150 0298                              u151 0294  
+                            u160 02AA                              u161 02A6  
+                            u170 0114                              u171 0110  
+                            u180 0128                              u181 0124  
+       __end_ofi2_SERIAL_newline 02D2                             i2l43 02B0  
+                           i2l54 0152                             i2l46 02C2  
+                           i2l49 02D0                             i2l58 0174  
+                           i2l75 007A                             _main 022C  
+                           fsr2h 000FDA                             indf2 000FDF  
+                           fsr1l 000FE1                             fsr2l 000FD9  
+                           btemp 003A                             start 000E  
+                   ___param_bank 000000                      ?_INT_config 0028  
+                ?_SERIAL_newline 0028                    _EUSART_RX_ISR 0008  
+                          ?_main 0028                            i2l805 02AC  
+                          i2l911 0142                            i2l807 02BE  
+                          i2l913 0160                            i2l905 012A  
+                          i2l755 022A                            i2l915 0162  
+                          i2l907 012A                            i2l931 001C  
+                          i2l909 013A                            i2l941 0046  
+                          i2l933 001E                            i2l871 0206  
+                          i2l943 0058                            i2l935 0030  
+                          i2l873 021E                            i2l945 005A  
+                          i2l937 0032                            i2l867 01F6  
+                          i2l939 003E                            i2l869 0202  
+                          i2l949 006A                            _RCREG 000FAE  
+                          _SPBRG 000FAF                            _TXREG 000FAD  
+                  _EUSART_config 02D2                            _ledof 001C  
+                          _ledon 0001                            tablat 000FF5  
+                          ttemp5 003B                            ttemp6 003E  
+                          ttemp7 0042                            status 000FD8  
+                          wtemp8 003B                 __end_ofi2_strlen 022C  
+                __initialization 0176    __end_of_SERIAL_escribemensaje 012A  
+                   __end_of_main 025E                   ?_EUSART_RX_ISR 0028  
+                         ??_main 003A                    __activetblptr 000000  
+                 ?_EUSART_config 0028         ?i2_SERIAL_escribemensaje 002C  
+                         i2u7_40 02BE           SERIAL_escribemensaje@x 0039  
+                         i2u7_41 02BA                           i2u8_40 02D0  
+                         i2u8_41 02CC                           isa$std 000001  
+                         _strlen 01C0                     __pdataCOMRAM 0001  
+                         tblptrh 000FF7                           tblptrl 000FF6  
+                         tblptru 000FF8                       __accesstop 0060  
+        __end_of__initialization 01B6                    ___rparam_used 000001  
+                 __pcstackCOMRAM 0028                     __pidataBANK0 0086  
+                ??_EUSART_RX_ISR 0030                  ??_EUSART_config 0032  
+              ?i2_SERIAL_newline 0028  __end_ofi2_SERIAL_escribemensaje 0176  
+                      ?i2_strlen 0028               ??i2_SERIAL_newline 0028  
+    SERIAL_escribemensaje@vector 0036                 ??_SERIAL_newline 0032  
+                   ??_INT_config 0032                          ?_strlen 0032  
+                        i2u20_40 0174                          i2u20_41 0170  
+                        i2u21_40 0030                          i2u21_41 002C  
+                        i2u14_40 021E                          i2u22_40 0058  
+                        i2u14_41 021A                          i2u22_41 0054  
+                        i2u19_40 0160                          i2u19_41 015C  
+                     ??i2_strlen 002A               __end_of_INT_config 02E8  
+                        __Hparam 0000                          __Lparam 0000  
+                        __pcinit 0176                          __ramtop 0800  
+                        __ptext0 022C                          __ptext1 0286  
+                        __ptext2 00DE                          __ptext3 01C0  
+                        __ptext4 02E0                          __ptext5 02D2  
+                        __ptext7 02AC                          __ptext8 012A  
+                        __ptext9 01F6                   __pintcode_body 0012  
+           end_of_initialization 01B6                          int_func 0012  
+                      _RCSTAbits 000FAB                          postdec1 000FE5  
+                        postinc0 000FEE            _SERIAL_escribemensaje 00DE  
+                        strlen@a 0034                          strlen@s 0032  
+                      _TRISCbits 000F94                        _TRISDbits 000F95  
+                      _TXSTAbits 000FAC                    __pidataCOMRAM 025E  
+                 __end_of_strlen 01F6              start_initialization 0176  
+       i2SERIAL_escribemensaje@x 002F                        i2strlen@a 002A  
+                      i2strlen@s 0028           ?_SERIAL_escribemensaje 0036  
+                    __pdataBANK0 0060            __end_of_EUSART_RX_ISR 0086  
+                       ??_strlen 0034            __end_of_EUSART_config 02E0  
+                    _bienvenida1 0090                      _bienvenida2 0060  
+                      __pintcode 0008          i2_SERIAL_escribemensaje 012A  
+                       _LATDbits 000F8C                         _PIE1bits 000F9D  
+                       _PIR1bits 000F9E    i2SERIAL_escribemensaje@vector 002C  
+                       i2_strlen 01F6                        copy_data0 018A  
+                      copy_data1 01AA                 i2_SERIAL_newline 02AC  
+      ??i2_SERIAL_escribemensaje 002E                         __Hrparam 0000  
+                       __Lrparam 0000                         _errorkey 000F  
+        ??_SERIAL_escribemensaje 0038                         isa$xinst 000000  
+                       int$flags 003A                       _INTCONbits 000FF2  
+                       intlevel2 0000                       _INT_config 02E0  
+                 _SERIAL_newline 0286  
