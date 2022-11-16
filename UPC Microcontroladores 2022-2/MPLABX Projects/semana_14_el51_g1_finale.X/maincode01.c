@@ -51,12 +51,12 @@ unsigned char DHT11_ReadData()  {
   for(i=0;i<8;i++)
     {
         while(!(PORTBbits.RB3 & 1));
-        __delay_us(30);         
+        //__delay_us(30);         
         if(PORTBbits.RB3 & 1){
             data = ((data << 1) | 1); 
         }
-        else{
-            data = (data << 1);  
+        //else{
+        //    data = (data << 1);  
         }
         while(PORTBbits.RB3 & 1);
     }
