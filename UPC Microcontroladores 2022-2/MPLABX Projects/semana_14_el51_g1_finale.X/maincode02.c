@@ -132,20 +132,20 @@ void main(void) {
         //vis_DHT11();
         switch(estado)
         {
-            case DISPARO:
+            //case DISPARO:
                 LATEbits.LE0=1;
                 __delay_us(10);
                 LATEbits.LE0=0;
                 estado=ESPERA_FLANCO_SUB;
                 break;
-            case CALCULAR:
+            //case CALCULAR:
                 tiempo=(float)distancia;
                 tiempo=tiempo*8*0.0833;
                 tiempo=tiempo*0.017;
                 distancia = (int)tiempo;
                 estado = MOSTRAR_DISTANCIA;
                 break;
-            case MOSTRAR_DISTANCIA:
+            //case MOSTRAR_DISTANCIA:
                 POS_CURSOR(2,0);
                 ESCRIBE_MENSAJE("Dist: ",6);
                 ENVIA_CHAR(distancia/100+'0');
